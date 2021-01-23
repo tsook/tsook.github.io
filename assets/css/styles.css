@@ -6,3 +6,12 @@
 .contact {
   display: inline-block
 }
+
+section {
+  padding-bottom: 20px;
+}
+
+footer {
+  position: relative;
+  bottom: 0px;
+}
