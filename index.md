@@ -13,7 +13,7 @@ I'm interested in building interactive systems to support diverse collaborative 
 #### Conference Papers
 
 [Winder: Linking Speech and Visual Objects to Support Communication in Asynchronous Collaboration](https://winder.kixlab.org/papers/CHI2021___Winder___CameraReady.pdf){:target="_blank"}  
-_**Tae Soo Kim**, Seungsu Kim, Yoonseo Choi, Juho Kim_
+_**Tae Soo Kim**, Seungsu Kim, Yoonseo Choi, Juho Kim_  
 CHI 2021 (to appear) | [Website](https://winder.kixlab.org){:target="_blank"}
 
 [Design for Collaborative Information-Seeking: Understanding User Challenges and Deploying Collaborative Dynamic Queries](https://kixlab.github.io/website-files/2019/cscw2019-ComeTogether-paper.pdf){:target="_blank"}  
