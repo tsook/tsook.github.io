@@ -12,9 +12,13 @@ I'm interested in building interactive systems to support diverse collaborative 
 
 #### Conference Papers
 
-[Winder: Linking Speech and Visual Objects to Support Communication in Asynchronous Collaboration](https://winder.kixlab.org/papers/CHI2021___Winder___CameraReady.pdf){:target="_blank"}  
+[Winder: Linking Speech and Visual Objects to Support Communication in Asynchronous Collaboration](https://kixlab.github.io/website-files/2021/chi2021-Winder-paper.pdf){:target="_blank"}  
 _**Tae Soo Kim**, Seungsu Kim, Yoonseo Choi, Juho Kim_  
 CHI 2021 (to appear) | [Website](https://winder.kixlab.org){:target="_blank"}
+
+[Supporting Collaborative Sequencing for Small Groups through Visual Awareness](https://kixlab.github.io/website-files/2021/cscw2021-CoSeq-paper.pdf){:target="_blank"}  
+_**Tae Soo Kim**, Nitesh Goyal, Jeongyeon Kim, Juho Kim, Sungsoo (Ray) Hong_  
+CSCW 2021 (to appear) | [Website](https://coseq.kixlab.org/){:target="_blank"}
 
 [Design for Collaborative Information-Seeking: Understanding User Challenges and Deploying Collaborative Dynamic Queries](https://kixlab.github.io/website-files/2019/cscw2019-ComeTogether-paper.pdf){:target="_blank"}  
 _Sungsoo (Ray) Hong, Minhyang (Mia) Suh, **Tae Soo Kim**, Irina Smoke, Sangwha Sien, Janet Ng, Mark Zachry, Juho Kim_  
@@ -35,4 +39,4 @@ CHI 2020 Extended Abstract | [acm dl](https://dl.acm.org/doi/10.1145/3334480.338
 M.S. in School of Computing, KAIST  
 <sup>Mar. 2020 - present</sup>  
 B.S. in School of Computing, KAIST  
-<sup>Sep. 2015 - Feb. 2020, Magna Cum Laude</sup>
+<sup>Sep. 2015 - Feb. 2020</sup>
