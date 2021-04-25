@@ -18,7 +18,7 @@ CHI 2021 (to appear) | [Website](https://winder.kixlab.org){:target="_blank"}
 
 [Supporting Collaborative Sequencing for Small Groups through Visual Awareness](https://kixlab.github.io/website-files/2021/cscw2021-CoSeq-paper.pdf){:target="_blank"}  
 _**Tae Soo Kim**, Nitesh Goyal, Jeongyeon Kim, Juho Kim, Sungsoo (Ray) Hong_  
-CSCW 2021 (to appear) | [Website](https://coseq.kixlab.org/){:target="_blank"}
+CSCW 2021 (to appear) | [Website](https://coseq.kixlab.org/){:target="_blank"} | [acm dl](https://dl.acm.org/doi/10.1145/3449250){:target="_blank"}
 
 [Design for Collaborative Information-Seeking: Understanding User Challenges and Deploying Collaborative Dynamic Queries](https://kixlab.github.io/website-files/2019/cscw2019-ComeTogether-paper.pdf){:target="_blank"}  
 _Sungsoo (Ray) Hong, Minhyang (Mia) Suh, **Tae Soo Kim**, Irina Smoke, Sangwha Sien, Janet Ng, Mark Zachry, Juho Kim_  
