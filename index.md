@@ -12,13 +12,21 @@ I'm interested in building interactive systems to support diverse collaborative 
 
 #### Conference Papers
 
+Stylette: Styling the Web with Natural Language
+_**Tae Soo Kim**, DaEun Choi, Yoonseo Choi, Juho Kim_  
+CHI 2022 (to appear)
+
+Promptiverse: Scalable Generation of Scaffolding Prompts Through Human-AI Hybrid Knowledge Graph Annotation
+_Yoonjoo Lee, John Joon Young Chung, **Tae Soo Kim**, Jean Y Song, Juho Kim_
+CHI 2022 (to appear)
+
 [Winder: Linking Speech and Visual Objects to Support Communication in Asynchronous Collaboration](https://kixlab.github.io/website-files/2021/chi2021-Winder-paper.pdf){:target="_blank"}  
 _**Tae Soo Kim**, Seungsu Kim, Yoonseo Choi, Juho Kim_  
-CHI 2021 (to appear) | [Website](https://winder.kixlab.org){:target="_blank"}
+CHI 2021 | [Website](https://winder.kixlab.org){:target="_blank"} | [acm dl](https://dl.acm.org/doi/10.1145/3411764.3445686){:target="_blank"}
 
 [Supporting Collaborative Sequencing for Small Groups through Visual Awareness](https://kixlab.github.io/website-files/2021/cscw2021-CoSeq-paper.pdf){:target="_blank"}  
 _**Tae Soo Kim**, Nitesh Goyal, Jeongyeon Kim, Juho Kim, Sungsoo (Ray) Hong_  
-CSCW 2021 (to appear) | [Website](https://coseq.kixlab.org/){:target="_blank"} | [acm dl](https://dl.acm.org/doi/10.1145/3449250){:target="_blank"}
+CSCW 2021 | [Website](https://coseq.kixlab.org/){:target="_blank"} | [acm dl](https://dl.acm.org/doi/10.1145/3449250){:target="_blank"}
 
 [Design for Collaborative Information-Seeking: Understanding User Challenges and Deploying Collaborative Dynamic Queries](https://kixlab.github.io/website-files/2019/cscw2019-ComeTogether-paper.pdf){:target="_blank"}  
 _Sungsoo (Ray) Hong, Minhyang (Mia) Suh, **Tae Soo Kim**, Irina Smoke, Sangwha Sien, Janet Ng, Mark Zachry, Juho Kim_  
@@ -32,7 +40,7 @@ CHI 2020 Extended Abstract | [acm dl](https://dl.acm.org/doi/10.1145/3334480.338
 
 ## Services
 
-**Reviewer:** CSCW2020
+**Reviewer:** CHI 2022, CHI 2021 LBW, CSCW2020
 
 ## Education
 
