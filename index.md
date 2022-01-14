@@ -4,7 +4,7 @@ layout: default
 
 ## About
 
-I am a Master's student in the [School of Computing](https://cs.kaist.ac.kr/){:target="_blank"} at [KAIST](https://www.kaist.ac.kr/){:target="_blank"}. I work with [Juho Kim](https://juhokim.com/){:target="_blank"} as a member of [KIXLAB](https://www.kixlab.org/){:target="_blank"}.
+I am an incoming PhD student in the [School of Computing](https://cs.kaist.ac.kr/){:target="_blank"} at [KAIST](https://www.kaist.ac.kr/){:target="_blank"}. I work with [Juho Kim](https://juhokim.com/){:target="_blank"} as a member of [KIXLAB](https://www.kixlab.org/){:target="_blank"}.
 
 I'm interested in building interactive systems to support diverse collaborative tasks (from travel planning to UI design). In particular, I aim to introduce various types of support (e.g., AI, visualizations, or multi-modal input) to enhance communication within collaboration teams.
 
@@ -12,12 +12,12 @@ I'm interested in building interactive systems to support diverse collaborative 
 
 #### Conference Papers
 
-Stylette: Styling the Web with Natural Language
-_**Tae Soo Kim**, DaEun Choi, Yoonseo Choi, Juho Kim_  
+Stylette: Styling the Web with Natural Language<br/>
+_**Tae Soo Kim**, DaEun Choi, Yoonseo Choi, Juho Kim_ <br/>
 CHI 2022 (to appear)
 
-Promptiverse: Scalable Generation of Scaffolding Prompts Through Human-AI Hybrid Knowledge Graph Annotation
-_Yoonjoo Lee, John Joon Young Chung, **Tae Soo Kim**, Jean Y Song, Juho Kim_
+Promptiverse: Scalable Generation of Scaffolding Prompts Through Human-AI Hybrid Knowledge Graph Annotation<br/>
+_Yoonjoo Lee, John Joon Young Chung, **Tae Soo Kim**, Jean Y Song, Juho Kim_<br/>
 CHI 2022 (to appear)
 
 [Winder: Linking Speech and Visual Objects to Support Communication in Asynchronous Collaboration](https://kixlab.github.io/website-files/2021/chi2021-Winder-paper.pdf){:target="_blank"}  
@@ -40,11 +40,15 @@ CHI 2020 Extended Abstract | [acm dl](https://dl.acm.org/doi/10.1145/3334480.338
 
 ## Services
 
+**Student Volunteer:** UIST 2021
+
 **Reviewer:** CHI 2022, CHI 2021 LBW, CSCW2020
 
 ## Education
 
+Ph.D. in School of Computing, KAIST  
+<sup>(expected) Feb. 2022 - </sup>  
 M.S. in School of Computing, KAIST  
-<sup>Mar. 2020 - present</sup>  
+<sup>Mar. 2020 - Feb. 2022</sup>  
 B.S. in School of Computing, KAIST  
 <sup>Sep. 2015 - Feb. 2020</sup>
