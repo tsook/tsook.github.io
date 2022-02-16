@@ -12,11 +12,11 @@ I'm interested in building interactive systems to support diverse collaborative 
 
 #### Conference Papers
 
-Stylette: Styling the Web with Natural Language<br/>
+[Stylette: Styling the Web with Natural Language](https://kixlab.github.io/website-files/2022/chi2022-stylette-paper.pdf){:target="_blank"}<br/>
 _**Tae Soo Kim**, DaEun Choi, Yoonseo Choi, Juho Kim_ <br/>
 CHI 2022 (to appear)
 
-Promptiverse: Scalable Generation of Scaffolding Prompts Through Human-AI Hybrid Knowledge Graph Annotation<br/>
+[Promptiverse: Scalable Generation of Scaffolding Prompts Through Human-AI Hybrid Knowledge Graph Annotation](https://kixlab.github.io/website-files/2022/chi2022-promptiverse-paper.pdf){:target="_blank"}<br/>
 _Yoonjoo Lee, John Joon Young Chung, **Tae Soo Kim**, Jean Y Song, Juho Kim_<br/>
 CHI 2022 (to appear)
 
