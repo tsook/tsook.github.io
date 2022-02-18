@@ -12,7 +12,7 @@ I'm interested in building interactive systems to support diverse collaborative 
 
 #### Conference Papers
 
-[Stylette: Styling the Web with Natural Language](https://kixlab.github.io/website-files/2022/chi2022-stylette-paper.pdf){:target="_blank"}<br/>
+[Stylette: Styling the Web with Natural Language](https://taesookim.com/assets/papers/chi2022-stylette-paper.pdf){:target="_blank"}<br/>
 _**Tae Soo Kim**, DaEun Choi, Yoonseo Choi, Juho Kim_ <br/>
 CHI 2022 (to appear)
 
