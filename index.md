@@ -4,9 +4,9 @@ layout: default
 
 ## About
 
-I am an incoming PhD student in the [School of Computing](https://cs.kaist.ac.kr/){:target="_blank"} at [KAIST](https://www.kaist.ac.kr/){:target="_blank"}. I work with [Juho Kim](https://juhokim.com/){:target="_blank"} as a member of [KIXLAB](https://www.kixlab.org/){:target="_blank"}.
+I am an first year PhD student in the [School of Computing](https://cs.kaist.ac.kr/){:target="_blank"} at [KAIST](https://www.kaist.ac.kr/){:target="_blank"}. I work with [Juho Kim](https://juhokim.com/){:target="_blank"} as a member of [KIXLAB](https://www.kixlab.org/){:target="_blank"}.
 
-I'm interested in building interactive systems to support diverse collaborative tasks (from travel planning to UI design). In particular, I aim to introduce various types of support (e.g., AI, visualizations, or multi-modal input) to enhance communication within collaboration teams.
+I'm interested in intersection of human-computer interaction (HCI) and natural language processing (NLP). Specifically, I design techniques to enable users to perform tasks by expressing intentions through natural language.
 
 ## Publications
 
@@ -47,7 +47,7 @@ CHI 2020 Extended Abstract | [acm dl](https://dl.acm.org/doi/10.1145/3334480.338
 ## Education
 
 Ph.D. in School of Computing, KAIST  
-<sup>(expected) Feb. 2022 - </sup>  
+<sup>Feb. 2022 - Present</sup>  
 M.S. in School of Computing, KAIST  
 <sup>Mar. 2020 - Feb. 2022</sup>  
 B.S. in School of Computing, KAIST  
