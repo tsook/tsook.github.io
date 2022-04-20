@@ -1,0 +1,78 @@
+- title: "Stylette: Styling the Web with Natural Language"
+  url: https://kixlab.github.io/website-files/2022/chi2022-stylette-paper.pdf
+  conference: CHI 2022
+  authors:
+    - name: Tae Soo Kim
+    - name: DaEun Choi
+      url: https://cheddarchoi.github.io/
+    - name: Yoonseo Choi
+      url: https://yoonseochoi.com/
+    - name: Juho Kim
+      url: https://juhokim.com/
+  toappear: true
+  award: Honorable Mention Award
+  website: https://stylette.kixlab.org
+  img: /assets/img/stylette.png
+- title: "Promptiverse: Scalable Generation of Scaffolding Prompts Through Human-AI Hybrid Knowledge Graph Annotation"
+  url: https://kixlab.github.io/website-files/2022/chi2022-promptiverse-paper.pdf
+  conference: CHI 2022
+  authors:
+    - name: Yoonjoo Lee
+      url: https://yoonjoolee.com/
+    - name: John Joon Young Chung
+      url: https://johnr0.github.io/
+    - name: Tae Soo Kim
+    - name: Jean Y Song
+      url: https://jyskwon.github.io/
+    - name: Juho Kim
+      url: https://juhokim.com/
+  toappear: true
+  img: /assets/img/promptiverse.png
+- title: "Winder: Linking Speech and Visual Objects to Support Communication in Asynchronous Collaboration"
+  url: https://kixlab.github.io/website-files/2021/chi2021-Winder-paper.pdf
+  conference: CHI 2021
+  authors: 
+    - name: Tae Soo Kim
+    - name: Seungsu Kim
+    - name: Yoonseo Choi
+      url: https://yoonseochoi.com/
+    - name: Juho Kim
+      url: https://juhokim.com/
+  website: https://winder.kixlab.org
+  video: https://www.youtube.com/watch?v=_Y0d_uyA6XA
+  acmdl: https://dl.acm.org/doi/10.1145/3411764.3445686
+  img: /assets/img/winder.png
+- title: "Supporting Collaborative Sequencing for Small Groups through Visual Awareness"
+  url: https://kixlab.github.io/website-files/2021/cscw2021-CoSeq-paper.pdf
+  conference: CSCW 2021
+  authors:
+    - name: Tae Soo Kim
+    - name: Nitesh Goyal
+      url: http://www.teshgoyal.info/
+    - name: Jeongyeon Kim
+      url: https://www.jeongyeon.kim/
+    - name: Juho Kim
+      url: https://juhokim.com
+    - name: Sungsoo (Ray) Hong
+      url: http://www.rayhong.net/
+  website: https://coseq.kixlab.org/
+  video: https://www.youtube.com/watch?v=Lh805dyTnA0&t=357s
+  acmdl: https://dl.acm.org/doi/10.1145/3449250
+  img: /assets/img/coseq.png
+- title: "Design for Collaborative Information-Seeking: Understanding User Challenges and Deploying Collaborative Dynamic Queries"
+  url: https://kixlab.github.io/website-files/2019/cscw2019-ComeTogether-paper.pdf
+  conference: CSCW 2019
+  authors:
+    - name: Sungsoo (Ray) Hong
+      url: http://www.rayhong.net/
+    - name: Minhyang (Mia) Suh
+      url: http://miasuh.info/
+    - name: Tae Soo Kim
+    - name: Irina Smoke
+    - name: Sangwha Sien
+    - name: Janet Ng
+    - name: Mark Zachry
+    - name: Juho Kim
+      url: https://juhokim.com
+  acmdl: https://dl.acm.org/doi/10.1145/3359208
+  img: /assets/img/cometogether.png
