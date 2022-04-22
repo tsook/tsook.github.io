@@ -12,6 +12,7 @@
   toappear: true
   award: Honorable Mention Award
   website: https://stylette.kixlab.org
+  video: https://youtu.be/7ZJZpIW9FHc
   img: /assets/img/stylette.png
 - title: "Promptiverse: Scalable Generation of Scaffolding Prompts Through Human-AI Hybrid Knowledge Graph Annotation"
   url: https://kixlab.github.io/website-files/2022/chi2022-promptiverse-paper.pdf
