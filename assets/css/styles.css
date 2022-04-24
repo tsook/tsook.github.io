@@ -135,7 +135,7 @@ strong {
   }
 }
 
-@media print, screen and (max-width: 820px) {
+@media print, screen and (max-width: 836px) {
   .name-header {
     display: block;
   }
