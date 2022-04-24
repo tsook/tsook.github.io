@@ -1,3 +1,24 @@
+- title: "Interactive Children’s Story Rewriting Through Parent-Children Interaction"
+  url: https://kixlab.github.io/website-files/2022/acl2022-workshop-childrenstory-paper.pdf
+  conference: ACL 2022 Workshop on Intelligent and Interactive Writing Assistants
+  authors:
+    - name: Yoonjoo Lee
+      url: https://yoonjoolee.com/
+    - name: Tae Soo Kim
+    - name: Minsuk Chang
+      url: https://minsukchang.com/
+    - name: Juho Kim
+      url: https://juhokim.com/
+- title: "Improving Video Interfaces by Presenting Informational Units of Videos"
+  url: https://kixlab.github.io/website-files/2022/chi2022-workshop-StarLab-paper.pdf
+  conference: CHI 2022 Workshop on Computational Approaches for Understanding, Generating, and Adapting User Interfaces
+  authors:
+    - name: Saelyne Yang
+      url: https://saelyne.com
+    - name: Sangkyung Kwak
+    - name: Tae Soo Kim
+    - name: Juho Kim
+      url: https://juhokim.com
 - title: "Consensus Building in Collaborative Sequencing with Visual Awareness"
   url: https://kixlab.github.io/website-files/2020/chi2020-lbw-CoSeq-paper.pdf
   conference: CHI 2020 Extended Abstract
