@@ -29,6 +29,8 @@
       url: https://juhokim.com/
   toappear: true
   img: /assets/img/promptiverse.png
+  website: https://promptiverse.kixlab.org/
+  video: https://youtu.be/jvtsD73-Hqw
 - title: "Winder: Linking Speech and Visual Objects to Support Communication in Asynchronous Collaboration"
   url: https://kixlab.github.io/website-files/2021/chi2021-Winder-paper.pdf
   conference: CHI 2021
