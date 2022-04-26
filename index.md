@@ -1,7 +1,7 @@
 ---
 layout: default
 description: |
-    I am an first year PhD student in the [School of Computing](https://cs.kaist.ac.kr/){:target="_blank"} at [KAIST](https://www.kaist.ac.kr/){:target="_blank"}. I work with [Juho Kim](https://juhokim.com/){:target="_blank"} as a member of [KIXLAB](https://www.kixlab.org/){:target="_blank"}.
+    I am a first year PhD student in the [School of Computing](https://cs.kaist.ac.kr/){:target="_blank"} at [KAIST](https://www.kaist.ac.kr/){:target="_blank"}. I work with [Juho Kim](https://juhokim.com/){:target="_blank"} as a member of [KIXLAB](https://www.kixlab.org/){:target="_blank"}.
 
     I'm interested in the intersection of human-computer interaction (HCI) and natural language processing (NLP). I design interaction techniques that are driven by NLP models to enable users to perform tasks by (1) expressing themselves through natural language and (2) manipulating natural language artifacts.
 ---
