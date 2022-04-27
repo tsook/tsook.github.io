@@ -17,6 +17,11 @@ body {
   display: inline-block
 }
 
+b {
+  font-weight: 500;
+  color: #333;
+}
+ 
 a {
   color: #333;
   font-weight: 500;
