@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;300;400;700&family=Lato:wght@100;300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/styles.css">
     <link rel="shortcut icon" href="">
+    
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
@@ -32,15 +33,19 @@
                 <div><h1 style="margin: 0">🇰🇷&nbsp;🇸🇻</h1></div>
               </div>
               <div class="contact">
-                <a href="mailto:taesoo.kim@kaist.ac.kr" target="_blank"><i class="fa-solid fa-square-envelope fa-2x"></i></a>
-                <a href="https://github.com/tsook/" target="_blank"><i class="fab fa-github-square fa-2x" style="margin-left: 4px"></i></a>
-                <a href="https://scholar.google.com/citations?user=CsBoGvMAAAAJ&hl=en" target="_blank"><i class="ai ai-google-scholar-square fa-2x" style="margin-left: 4px"></i></a>
-                <a href="https://taesookim.com/assets/pdf/TaeSooKim_CV.pdf" target="_blank"><i class="ai ai-cv-square fa-2x" style="margin-left: 4px"></i></a>
+                <div class="icon-container">
+                  <a class="icon" href="mailto:taesoo.kim@kaist.ac.kr" target="_blank"><i class="fa-solid fa-envelope fa-2x"></i></a>
+                  <a class="icon" href="https://twitter.com/tae_skim" target="_blank"><i class="fab fa-twitter fa-2x"></i></a>
+                  <a class="icon" href="https://scholar.google.com/citations?user=CsBoGvMAAAAJ&hl=en" target="_blank"><i class="ai ai-google-scholar fa-2x"></i></a>
+                  <a class="icon" href="https://www.semanticscholar.org/author/1410132100" target="_blank"><i class="ai ai-semantic-scholar fa-2x"></i></a>
+                  <a class="icon" href="https://taesookim.com/assets/pdf/TaeSooKim_CV.pdf" target="_blank"><i class="ai ai-cv fa-2x"></i></a>
+                  <a class="icon"><i id="mode-toggle" class="fa-solid fa-moon fa-2x" onclick=toggleMode()></i></a>
+                </div>
               </div>
             </div>
-            <p>I am an first year PhD student in the <a href="https://cs.kaist.ac.kr/" target="_blank">School of Computing</a> at <a href="https://www.kaist.ac.kr/" target="_blank">KAIST</a>. I work with <a href="https://juhokim.com/" target="_blank">Juho Kim</a> as a member of <a href="https://www.kixlab.org/" target="_blank">KIXLAB</a>.</p>
+            <p>I am a second year PhD student in the <a href="https://cs.kaist.ac.kr/" target="_blank">School of Computing</a> at <a href="https://www.kaist.ac.kr/" target="_blank">KAIST</a>. I work with <a href="https://juhokim.com/" target="_blank">Juho Kim</a> as a member of <a href="https://www.kixlab.org/" target="_blank">KIXLAB</a>.</p>
 
-<p>I’m interested in the intersection of human-computer interaction (HCI) and natural language processing (NLP). I design interaction techniques that are driven by NLP models to enable users to perform tasks by (1) expressing themselves through natural language and (2) manipulating natural language artifacts.</p>
+<p>My work falls in the intersection of human-computer interaction (<b>HCI</b>) and artificial intelligence (<b>AI</b>). I design interaction techniques powered by machine learning (ML) models that enable and facilitate <b>intent-driven creation</b> (e.g., design, writing). Recently, I have been interested in investigating how to <b>modularize</b> ML models or pipelines to enable users to interact with these modules to manipulate these pipelines.</p>
 
           </div>
         </div>
@@ -53,6 +58,51 @@
 <h4 id="conference-papers">Conference Papers</h4>
 
 <div>
+
+    <div class="paper-cont">
+        <div class="paper-img-cont" style="background-image:url(/assets/img/dapie.png)"></div>
+        <div style="flex:1">
+            <div class="paper-line"><a href="https://kixlab.github.io/website-files/2022/chi2023-childQA-paper.pdf" target="_blank">DAPIE: Interactive Step-by-Step Explanatory Dialogues to Answer Children’s Why and How Questions</a></div>
+            <div class="paper-line">
+                
+                    
+                        
+                            <a href="https://yoonjoolee.com/" target="_blank">Yoonjoo Lee</a>, 
+                        
+                    
+                
+                    
+                        <strong>Tae Soo Kim</strong>, 
+                    
+                
+                    
+                        
+                            <a href="https://scholar.google.com/citations?user=xKrSnDoAAAAJ" target="_blank">Sungdong Kim</a>, 
+                        
+                    
+                
+                    
+                        
+                            Yohan Yun, 
+                        
+                    
+                
+                    
+                        
+                            <a href="https://juhokim.com/" target="_blank">Juho Kim</a>
+                        
+                    
+                
+            </div>
+            <div class="paper-line">
+                <span class="paper-deets">CHI 2023 (to appear) </span>
+                
+                
+                
+            </div>
+            
+        </div>
+    </div>
 
     <div class="paper-cont">
         <div class="paper-img-cont" style="background-image:url(/assets/img/stylette.png)"></div>
@@ -84,10 +134,10 @@
                 
             </div>
             <div class="paper-line">
-                <span class="paper-deets">CHI 2022 (to appear) </span>
+                <span class="paper-deets">CHI 2022 </span>
                 <span class="paper-deets"><a href="https://stylette.kixlab.org" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i>Website</a></span>
-                
-                
+                <span class="paper-deets"><a href="https://youtu.be/7ZJZpIW9FHc" target="_blank"><i class="fa-brands fa-youtube"></i>Video</a></span>
+                <span class="paper-deets"><a href="https://dl.acm.org/doi/10.1145/3491102.3501931" target="_blank"><i class="ai ai-acmdl"></i>ACM DL</a></span>
             </div>
             
             <div class="paper-line">
@@ -133,10 +183,10 @@
                 
             </div>
             <div class="paper-line">
-                <span class="paper-deets">CHI 2022 (to appear) </span>
-                
-                
-                
+                <span class="paper-deets">CHI 2022 </span>
+                <span class="paper-deets"><a href="https://promptiverse.kixlab.org/" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i>Website</a></span>
+                <span class="paper-deets"><a href="https://youtu.be/jvtsD73-Hqw" target="_blank"><i class="fa-brands fa-youtube"></i>Video</a></span>
+                <span class="paper-deets"><a href="https://dl.acm.org/doi/10.1145/3491102.3502087" target="_blank"><i class="ai ai-acmdl"></i>ACM DL</a></span>
             </div>
             
         </div>
@@ -296,6 +346,120 @@
 <div>
 
     <div class="poster-cont">
+        <div class="paper-line"><a href="https://kixlab.github.io/website-files/2023/chi2023-workshop-lmcanvas-paper.pdf" target="_blank">LMCanvas: Object-Oriented Interaction to Personalize Large Language Model-Powered Writing Environments</a></div>
+        <div class="paper-line">
+            
+                
+                    <strong>Tae Soo Kim</strong>, 
+                
+            
+                
+                    
+                        Arghya Sarkar, 
+                    
+                
+            
+                
+                    
+                        <a href="https://yoonjoolee.com/" target="_blank">Yoonjoo Lee</a>, 
+                    
+                
+            
+                
+                    
+                        <a href="https://minsukchang.com/" target="_blank">Minsuk Chang</a>, 
+                    
+                
+            
+                
+                    
+                        <a href="https://juhokim.com/" target="_blank">Juho Kim</a>
+                    
+                
+            
+        </div>
+        <div class="paper-line">
+            <span class="paper-deets">CHI 2023 Workshop on Generative AI and HCI </span>
+            
+            
+            
+        </div>
+        
+    </div>
+
+    <div class="poster-cont">
+        <div class="paper-line"><a href="https://kixlab.github.io/website-files/2022/acl2022-workshop-childrenstory-paper.pdf" target="_blank">Interactive Children’s Story Rewriting Through Parent-Children Interaction</a></div>
+        <div class="paper-line">
+            
+                
+                    
+                        <a href="https://yoonjoolee.com/" target="_blank">Yoonjoo Lee</a>, 
+                    
+                
+            
+                
+                    <strong>Tae Soo Kim</strong>, 
+                
+            
+                
+                    
+                        <a href="https://minsukchang.com/" target="_blank">Minsuk Chang</a>, 
+                    
+                
+            
+                
+                    
+                        <a href="https://juhokim.com/" target="_blank">Juho Kim</a>
+                    
+                
+            
+        </div>
+        <div class="paper-line">
+            <span class="paper-deets">ACL 2022 Workshop on Intelligent and Interactive Writing Assistants </span>
+            
+            
+            
+        </div>
+        
+    </div>
+
+    <div class="poster-cont">
+        <div class="paper-line"><a href="https://kixlab.github.io/website-files/2022/chi2022-workshop-StarLab-paper.pdf" target="_blank">Improving Video Interfaces by Presenting Informational Units of Videos</a></div>
+        <div class="paper-line">
+            
+                
+                    
+                        <a href="https://saelyne.com" target="_blank">Saelyne Yang</a>, 
+                    
+                
+            
+                
+                    
+                        Sangkyung Kwak, 
+                    
+                
+            
+                
+                    <strong>Tae Soo Kim</strong>, 
+                
+            
+                
+                    
+                        <a href="https://juhokim.com" target="_blank">Juho Kim</a>
+                    
+                
+            
+        </div>
+        <div class="paper-line">
+            <span class="paper-deets">CHI 2022 Workshop on Computational Approaches for Understanding, Generating, and Adapting User Interfaces </span>
+            
+            
+            
+        </div>
+        
+    </div>
+
+    <div class="poster-cont">
         <div class="paper-line"><a href="https://kixlab.github.io/website-files/2020/chi2020-lbw-CoSeq-paper.pdf" target="_blank">Consensus Building in Collaborative Sequencing with Visual Awareness</a></div>
         <div class="paper-line">
             
@@ -339,21 +503,15 @@
 
 </div>
 
-<h2 id="services">Services</h2>
-
-<p><b>Student Volunteer:</b> UIST 2021</p>
-
-<p><b>Reviewer:</b> CHI 2022, CHI 2021 LBW, CSCW2020</p>
-
 
       </section>
       <footer style="width: inherit; position: relative; bottom: 0px;">
         <div>
-          <p style="display: inline-block; float: right;"> <small>Last updated: Apr 20, 2022</small> </p>
+          <p style="display: inline-block; float: right;"> <small>Last updated: Apr 09, 2023</small> </p>
         </div>
       </footer>
     </div>
     <script src="/assets/js/scale.fix.js"></script>
-    
+    <script src="/assets/js/darkmode.js"></script>
   </body>
 </html>

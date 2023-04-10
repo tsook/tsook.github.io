@@ -1,3 +1,17 @@
+- title: "DAPIE: Interactive Step-by-Step Explanatory Dialogues to Answer Children’s Why and How Questions"
+  url: https://kixlab.github.io/website-files/2022/chi2023-childQA-paper.pdf
+  conference: CHI 2023
+  authors:
+    - name: Yoonjoo Lee
+      url: https://yoonjoolee.com/
+    - name: Tae Soo Kim
+    - name: Sungdong Kim
+      url: https://scholar.google.com/citations?user=xKrSnDoAAAAJ
+    - name: Yohan Yun
+    - name: Juho Kim
+      url: https://juhokim.com/
+  toappear: true
+  img: /assets/img/dapie.png
 - title: "Stylette: Styling the Web with Natural Language"
   url: https://kixlab.github.io/website-files/2022/chi2022-stylette-paper.pdf
   conference: CHI 2022
@@ -9,10 +23,10 @@
       url: https://yoonseochoi.com/
     - name: Juho Kim
       url: https://juhokim.com/
-  toappear: true
   award: Honorable Mention Award
   website: https://stylette.kixlab.org
   video: https://youtu.be/7ZJZpIW9FHc
+  acmdl: https://dl.acm.org/doi/10.1145/3491102.3501931
   img: /assets/img/stylette.png
 - title: "Promptiverse: Scalable Generation of Scaffolding Prompts Through Human-AI Hybrid Knowledge Graph Annotation"
   url: https://kixlab.github.io/website-files/2022/chi2022-promptiverse-paper.pdf
@@ -27,10 +41,10 @@
       url: https://jyskwon.github.io/
     - name: Juho Kim
       url: https://juhokim.com/
-  toappear: true
-  img: /assets/img/promptiverse.png
   website: https://promptiverse.kixlab.org/
   video: https://youtu.be/jvtsD73-Hqw
+  acmdl: https://dl.acm.org/doi/10.1145/3491102.3502087
+  img: /assets/img/promptiverse.png
 - title: "Winder: Linking Speech and Visual Objects to Support Communication in Asynchronous Collaboration"
   url: https://kixlab.github.io/website-files/2021/chi2021-Winder-paper.pdf
   conference: CHI 2021

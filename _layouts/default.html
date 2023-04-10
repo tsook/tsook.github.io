@@ -35,11 +35,14 @@
                 <div><h1 style="margin: 0">🇰🇷&nbsp;🇸🇻</h1></div>
               </div>
               <div class="contact">
-                <a href="mailto:taesoo.kim@kaist.ac.kr" target="_blank"><i class="fa-solid fa-square-envelope fa-2x"></i></a>
-                <a href="https://twitter.com/tae_skim" target="_blank"><i class="fab fa-twitter-square fa-2x" style="margin-left: 4px"></i></a>
-                <a href="https://scholar.google.com/citations?user=CsBoGvMAAAAJ&hl=en" target="_blank"><i class="ai ai-google-scholar-square fa-2x" style="margin-left: 4px"></i></a>
-                <a href="https://www.semanticscholar.org/author/1410132100" target="_blank"><i class="ai ai-semantic-scholar-square fa-2x" style="margin-left: 4px"></i></a>
-                <a href="https://taesookim.com/assets/pdf/TaeSooKim_CV.pdf" target="_blank"><i class="ai ai-cv-square fa-2x" style="margin-left: 4px"></i></a>
+                <div class="icon-container">
+                  <a class="icon" href="mailto:taesoo.kim@kaist.ac.kr" target="_blank"><i class="fa-solid fa-envelope fa-2x"></i></a>
+                  <a class="icon" href="https://twitter.com/tae_skim" target="_blank"><i class="fab fa-twitter fa-2x"></i></a>
+                  <a class="icon" href="https://scholar.google.com/citations?user=CsBoGvMAAAAJ&hl=en" target="_blank"><i class="ai ai-google-scholar fa-2x"></i></a>
+                  <a class="icon" href="https://www.semanticscholar.org/author/1410132100" target="_blank"><i class="ai ai-semantic-scholar fa-2x"></i></a>
+                  <a class="icon" href="https://taesookim.com/assets/pdf/TaeSooKim_CV.pdf" target="_blank"><i class="ai ai-cv fa-2x"></i></a>
+                  <a class="icon"><i id="mode-toggle" class="fa-solid fa-moon fa-2x" onclick=toggleMode()></i></a>
+                </div>
               </div>
             </div>
             {{ page.description | markdownify }}
@@ -59,5 +62,6 @@
       </footer>
     </div>
     <script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
+    <script src="{{ "/assets/js/darkmode.js" | relative_url }}"></script>
   </body>
 </html>

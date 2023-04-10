@@ -6,6 +6,13 @@ body {
   font-weight: 300;
   color: #666;
   padding: 50px;
+  background-color: #fbfbfb;
+  transition: 0.3s;
+}
+
+.body-dark {
+  color: #bbb;
+  background-color: #202124;
 }
 
 .wrapper {
@@ -20,6 +27,11 @@ body {
 b {
   font-weight: 500;
   color: #333;
+  transition: 0.3s;
+}
+
+.b-dark {
+  color: #ddd
 }
  
 a {
@@ -32,6 +44,14 @@ a {
 a:hover {
   color: #aaa;
   text-decoration: underline dotted;
+}
+
+.a-dark {
+  color: #ddd
+}
+
+.a-dark:hover {
+  color: #777;
 }
 
 .name-header {
@@ -81,6 +101,12 @@ strong {
   display: inline-block;
   border-radius: 4px;
   padding: 0 2px;
+  transition: 0.3s;
+}
+
+.strong-dark {
+  color: #ddd;
+  background-color: #555;
 }
 
 .paper-line {
@@ -114,6 +140,12 @@ strong {
   border-radius: 4px;
   font-weight: 500;
   background-color: #f0f0f0;
+  transition: 0.3s;
+}
+
+.award-dark {
+  color: #ddd;
+  background-color: #555;
 }
 
 .paper-deets {
@@ -128,6 +160,42 @@ strong {
   margin: 20px 0;
 }
 
+.icon {
+  color: #fbfbfb;
+  background-color: #333;
+  height: 32px;
+  width: 32px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px !important;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.icon:hover {
+  text-decoration: none;
+  background-color: #aaa;
+  color: #fbfbfb;
+}
+
+.icon-dark {
+  background-color: #aaa;
+  color: #202124;
+}
+
+.icon-dark:hover {
+  background-color: #777;
+  color: #202124;
+}
+
+.icon-container {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}
+
 @media print, screen and (max-width: 960px) {
   div.wrapper {
     width:auto;
@@ -140,7 +208,7 @@ strong {
   }
 }
 
-@media print, screen and (max-width: 836px) {
+@media print, screen and (max-width: 900px) {
   .name-header {
     display: block;
   }
@@ -150,7 +218,7 @@ strong {
   }
 }
 
-@media print, screen and (max-width: 662px) {
+@media print, screen and (max-width: 678px) {
   .name-container {
     display: block;
   }
@@ -160,7 +228,7 @@ strong {
 }
 
 
-@media print, screen and (max-width: 540px) {
+@media print, screen and (max-width: 575px) {
   body {
     padding:15px;
   }

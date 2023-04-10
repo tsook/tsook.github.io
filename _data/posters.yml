@@ -1,3 +1,15 @@
+- title: "LMCanvas: Object-Oriented Interaction to Personalize Large Language Model-Powered Writing Environments"
+  url: https://kixlab.github.io/website-files/2023/chi2023-workshop-lmcanvas-paper.pdf
+  conference: CHI 2023 Workshop on Generative AI and HCI
+  authors:
+    - name: Tae Soo Kim
+    - name: Arghya Sarkar
+    - name: Yoonjoo Lee
+      url: https://yoonjoolee.com/
+    - name: Minsuk Chang
+      url: https://minsukchang.com/
+    - name: Juho Kim
+      url: https://juhokim.com/
 - title: "Interactive Children’s Story Rewriting Through Parent-Children Interaction"
   url: https://kixlab.github.io/website-files/2022/acl2022-workshop-childrenstory-paper.pdf
   conference: ACL 2022 Workshop on Intelligent and Interactive Writing Assistants

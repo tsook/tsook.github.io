@@ -1,9 +1,9 @@
 ---
 layout: default
 description: |
-    I am a first year PhD student in the [School of Computing](https://cs.kaist.ac.kr/){:target="_blank"} at [KAIST](https://www.kaist.ac.kr/){:target="_blank"}. I work with [Juho Kim](https://juhokim.com/){:target="_blank"} as a member of [KIXLAB](https://www.kixlab.org/){:target="_blank"}.
+    I am a second year PhD student in the [School of Computing](https://cs.kaist.ac.kr/){:target="_blank"} at [KAIST](https://www.kaist.ac.kr/){:target="_blank"}. I work with [Juho Kim](https://juhokim.com/){:target="_blank"} as a member of [KIXLAB](https://www.kixlab.org/){:target="_blank"}.
 
-    I'm interested in the intersection of human-computer interaction (<b>HCI</b>) and artificial intelligence (<b>AI</b>). I design interaction techniques powered by machine learning models that enable and facilitate <b>intent-driven creation</b> (e.g., designing, writing).
+    My work falls in the intersection of human-computer interaction (<b>HCI</b>) and artificial intelligence (<b>AI</b>). I design interaction techniques powered by machine learning (ML) models that enable and facilitate <b>intent-driven creation</b> (e.g., design, writing). Recently, I have been interested in investigating how to <b>modularize</b> ML models or pipelines to enable users to interact with these modules to manipulate these pipelines.
 ---
 
 ## Publications
@@ -78,9 +78,3 @@ description: |
     </div>
 {% endfor %}
 </div>
-
-## Services
-
-<b>Student Volunteer:</b> UIST 2021
-
-<b>Reviewer:</b> CHI 2022, CHI 2021 LBW, CSCW2020
