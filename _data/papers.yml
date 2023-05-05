@@ -10,7 +10,9 @@
     - name: Yohan Yun
     - name: Juho Kim
       url: https://juhokim.com/
-  toappear: true
+  website: https://dapie.kixlab.org
+  video: https://youtu.be/nBdIhI66_vY
+  acmdl: https://dl.acm.org/doi/10.1145/3544548.3581369
   img: /assets/img/dapie.png
 - title: "Stylette: Styling the Web with Natural Language"
   url: https://kixlab.github.io/website-files/2022/chi2022-stylette-paper.pdf
