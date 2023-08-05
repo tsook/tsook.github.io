@@ -1,3 +1,28 @@
+- title: "Cells, Generators, and Lenses: Design Framework for Object-Oriented Interaction with Large Language Models"
+  url: https://kixlab.github.io/website-files/2023/uist2023-llmobjects-paper.pdf
+  conference: UIST 2023
+  authors:
+    - name: Tae Soo Kim
+    - name: Yoonjoo Lee
+      url: https://yoonjoolee.com/
+    - name: Minsuk Chang
+      url: https://minsukchang.com/
+    - name: Juho Kim
+      url: https://juhokim.com/
+  img: /assets/img/llm-objects.png
+- title: "Papeos: Augmenting Research Papers with Talk Videos"
+  conference: UIST 2023
+  authors:
+    - name: Tae Soo Kim
+    - name: Matt Latzke
+      url: http://www.mlatzke.com/
+    - name: Jonathan Bragg
+      url: https://www.jonathanbragg.com/
+    - name: Amy X. Zhang
+      url: https://homes.cs.washington.edu/~axz/
+    - name: Joseph Chee Chang
+      url: https://joe.cat/
+  img: /assets/img/papeo.png
 - title: "DAPIE: Interactive Step-by-Step Explanatory Dialogues to Answer Children’s Why and How Questions"
   url: https://kixlab.github.io/website-files/2022/chi2023-childQA-paper.pdf
   conference: CHI 2023
