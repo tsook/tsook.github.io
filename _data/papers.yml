@@ -9,6 +9,8 @@
       url: https://minsukchang.com/
     - name: Juho Kim
       url: https://juhokim.com/
+  website: https://llm-objects.kixlab.org
+  video: https://youtu.be/nfthwh0fH54
   img: /assets/img/llm-objects.png
 - title: "Papeos: Augmenting Research Papers with Talk Videos"
   conference: UIST 2023 (to appear)
