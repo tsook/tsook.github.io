@@ -21,9 +21,10 @@ function toggleMode() {
     for (var i = 0; i < elements.length; i++) {
         elements[i].classList.toggle("icon-mode");
     }
-    var element = document.getElementById('mode-toggle');
-    element.classList.toggle("fa-moon");
-    element.classList.toggle("fa-sun");
+    var moon = document.getElementById('mode-toggle-moon');
+    moon.hidden = !moon.hidden;
+    var sun = document.getElementById('mode-toggle-sun');
+    sun.hidden = !sun.hidden;
 }
 
 // if check prefered scheme
