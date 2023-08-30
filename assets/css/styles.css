@@ -211,6 +211,10 @@ strong {
   gap: 4px;
 }
 
+.fa-2x {
+  font-size: 2em;
+}
+
 #load-overlay {
   position: fixed;
   top: 0;
