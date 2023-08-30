@@ -32,8 +32,10 @@ description: |
             <div class="paper-line">
                 <span class="paper-deets">{{paper.conference}} {% if paper.toappear %}(to appear) {% endif %}</span>
                 {% if paper.website %}<span class="paper-deets"><a href="{{paper.website}}" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i>Website</a></span>{% endif %}
+                {% if paper.demo %}<span class="paper-deets"><a href="{{paper.demo}}" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i>Demo</a></span>{% endif %}
                 {% if paper.video %}<span class="paper-deets"><a href="{{paper.video}}" target="_blank"><i class="fa-brands fa-youtube"></i>Video</a></span>{% endif %}
                 {% if paper.acmdl %}<span class="paper-deets"><a href="{{paper.acmdl}}" target="_blank"><i class="ai ai-acmdl"></i>ACM DL</a></span>{% endif %}
+                {% if paper.arxiv %}<span class="paper-deets"><a href="{{paper.arxiv}}" target="_blank"><i class="ai ai-arxiv"></i>arXiv</a></span>{% endif %}
             </div>
             {% if paper.award %}
             <div class="paper-line">
