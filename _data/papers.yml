@@ -13,6 +13,7 @@
   video: https://youtu.be/nfthwh0fH54
   img: /assets/img/llm-objects.png
 - title: "Papeos: Augmenting Research Papers with Talk Videos"
+  url: https://arxiv.org/pdf/2308.15224.pdf
   conference: UIST 2023 (to appear)
   authors:
     - name: Tae Soo Kim
@@ -24,6 +25,8 @@
       url: https://homes.cs.washington.edu/~axz/
     - name: Joseph Chee Chang
       url: https://joe.cat/
+  arxiv: https://arxiv.org/abs/2308.15224
+  demo: https://papeo.app
   img: /assets/img/papeos.png
 - title: "DAPIE: Interactive Step-by-Step Explanatory Dialogues to Answer Children’s Why and How Questions"
   url: https://kixlab.github.io/website-files/2022/chi2023-childQA-paper.pdf
