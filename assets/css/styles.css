@@ -159,6 +159,13 @@ strong {
 
 .paper-deets svg {
   margin-right: 4px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.paper-deets span {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .poster-cont {
