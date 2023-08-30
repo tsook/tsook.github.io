@@ -38,19 +38,23 @@ a {
   font-weight: 500;
   text-decoration: none;
   transition: 0.3s;
+  fill: #333;
 }
 
 a:hover {
   color: #aaa;
+  fill: #aaa;
   text-decoration: underline dotted;
 }
 
 .a-mode {
-  color: #ddd
+  color: #ddd;
+  fill: #ddd;
 }
 
 .a-mode:hover {
   color: #777;
+  fill: #777;
 }
 
 .name-header {
@@ -150,6 +154,10 @@ strong {
 }
 
 .paper-deets i {
+  margin-right: 4px;
+}
+
+.paper-deets svg {
   margin-right: 4px;
 }
 
@@ -275,15 +283,19 @@ strong {
   }
   a {
     color: #ddd;
+    fill: #ddd;
   }
   .a-mode {
     color: #333;
+    fill: #333;
   }
   a:hover {
     color: #777;
+    fill: #777;
   }
   .a-mode:hover {
     color: #aaa;
+    fill: #aaa;
   }
   strong {
     color: #ddd;
