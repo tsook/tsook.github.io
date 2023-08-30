@@ -22,14 +22,17 @@ function toggleMode() {
         elements[i].classList.toggle("icon-mode");
     }
     var moon = document.getElementById('mode-toggle-moon');
-    moon.hidden = !moon.hidden;
+    var moonDisplay = getComputedStyle(moon).display;
+    moon.style.display = moonDisplay == "none" ? "inherit" : "none";
     var sun = document.getElementById('mode-toggle-sun');
-    sun.hidden = !sun.hidden;
+    var sunDisplay = getComputedStyle(sun).display;
+    sun.style.display = sunDisplay == "none" ? "inherit" : "none";
 }
 
 // if check prefered scheme
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    var element = document.getElementById('mode-toggle');
-    element.classList.toggle("fa-moon");
-    element.classList.toggle("fa-sun");
+    var moon = document.getElementById('mode-toggle-moon');
+    moon.style.display = "inherit";
+    var sun = document.getElementById('mode-toggle-sun');
+    sun.style.display = "none";
 }
