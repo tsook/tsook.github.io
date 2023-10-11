@@ -38,19 +38,23 @@ a {
   font-weight: 500;
   text-decoration: none;
   transition: 0.3s;
+  fill: #333;
 }
 
 a:hover {
   color: #aaa;
+  fill: #aaa;
   text-decoration: underline dotted;
 }
 
 .a-mode {
-  color: #ddd
+  color: #ddd;
+  fill: #ddd;
 }
 
 .a-mode:hover {
   color: #777;
+  fill: #777;
 }
 
 .name-header {
@@ -153,12 +157,24 @@ strong {
   margin-right: 4px;
 }
 
+.paper-deets svg {
+  margin-right: 4px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.paper-deets span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .poster-cont {
   margin: 20px 0;
 }
 
 .icon {
   color: #fbfbfb;
+  fill: #fbfbfb;
   background-color: #333;
   height: 32px;
   width: 32px;
@@ -174,22 +190,29 @@ strong {
   text-decoration: none;
   background-color: #aaa;
   color: #fbfbfb;
+  fill: #fbfbfb;
 }
 
 .icon-mode {
   background-color: #aaa;
   color: #202124;
+  fill: #202124;
 }
 
 .icon-mode:hover {
   background-color: #777;
   color: #202124;
+  fill: #202124;
 }
 
 .icon-container {
   display: flex;
   flex-direction: row;
   gap: 4px;
+}
+
+.fa-2x {
+  font-size: 2em;
 }
 
 #load-overlay {
@@ -275,15 +298,19 @@ strong {
   }
   a {
     color: #ddd;
+    fill: #ddd;
   }
   .a-mode {
     color: #333;
+    fill: #333;
   }
   a:hover {
     color: #777;
+    fill: #777;
   }
   .a-mode:hover {
     color: #aaa;
+    fill: #aaa;
   }
   strong {
     color: #ddd;
@@ -303,18 +330,22 @@ strong {
   }
   .icon {
     color: #202124;
+    fill: #202124;
     background-color: #aaa;
   }
   .icon-mode {
     color: #fbfbfb;
+    fill: #fbfbfb;
     background-color: #333;
   }
   .icon:hover {
     background-color: #777;
     color: #202124;
+    fill: #202124;
   }
   .icon-mode:hover {
     background-color: #aaa;
     color: #fbfbfb;
+    fill: #fbfbfb;
   }
 }
