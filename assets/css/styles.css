@@ -100,7 +100,7 @@ p {
 strong {
   font-weight: 500;
   color: #333;
-  background-color: #f0f0f0;
+  background-color: #dfdfdf;
   display: inline-block;
   border-radius: 4px;
   padding: 0 2px;
@@ -141,11 +141,14 @@ strong {
   padding: 0 8px;
   border-radius: 4px;
   font-weight: 500;
-  background-color: #f0f0f0;
+  background-color: #dfdfdf;
+  color: #333;
+  fill: #333;
 }
 
 .award-mode {
   color: #ddd;
+  fill: #ddd;
   background-color: #555;
 }
 
@@ -318,15 +321,17 @@ strong {
   }
   .strong-mode {
     color: #333;
-    background-color: #f0f0f0;
+    background-color: #dfdfdf;
   }
   .award {
     color: #ddd;
+    fill: #ddd;
     background-color: #555;
   }
   .award-mode {
     color: #333;
-    background-color: #f0f0f0;
+    fill: #333;
+    background-color: #dfdfdf;
   }
   .icon {
     color: #202124;
