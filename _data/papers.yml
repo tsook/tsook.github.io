@@ -1,6 +1,50 @@
+- title: "EvalLM: Interactive Evaluation of Large Language Model Prompts on User-Defined Criteria"
+  url: https://arxiv.org/pdf/2309.13633.pdf
+  conference: CHI 2024 (to appear)
+  authors:
+    - name: Tae Soo Kim
+    - name: Yoonjoo Lee
+      url: https://yoonjoolee.com/
+    - name: Jamin Shin
+      url: https://www.jayshin.xyz/
+    - name: Young-Ho Kim
+      url: http://younghokim.net/
+    - name: Juho Kim
+      url: https://juhokim.com/
+  website: https://evallm.kixlab.org/
+  video: https://youtu.be/7hvTnhiCO7Y
+  arxiv: https://arxiv.org/abs/2309.13633
+  img: /assets/img/evallm.gif
+- title: "GenQuery: Supporting Expressive Visual Search with Generative Models"
+  url: https://arxiv.org/pdf/2310.01287.pdf
+  conference: CHI 2024 (to appear)
+  authors:
+    - name: Kihoon Son
+      url: https://kihoonson.com/
+    - name: DaEun Choi
+      url: https://daeunchoi.com/
+    - name: Tae Soo Kim
+    - name: Young-Ho Kim
+      url: http://younghokim.net/
+    - name: Juho Kim
+      url: https://juhokim.com/
+  website: https://genquery.kixlab.org/
+  arxiv: https://arxiv.org/abs/2310.01287
+  img: /assets/img/genquery.png
+- title: "Demystifying Tacit Knowledge in Graphic Design: Characteristics, Instances, Approaches, and Guidelines"
+  conference: CHI 2024 (to appear)
+  authors:
+    - name: Kihoon Son
+      url: https://kihoonson.com/
+    - name: DaEun Choi
+      url: https://daeunchoi.com/
+    - name: Tae Soo Kim
+    - name: Juho Kim
+      url: https://juhokim.com/
+  img: /assets/img/demystifying.png
 - title: "Cells, Generators, and Lenses: Design Framework for Object-Oriented Interaction with Large Language Models"
   url: https://kixlab.github.io/website-files/2023/uist2023-llmobjects-paper.pdf
-  conference: UIST 2023 (to appear)
+  conference: UIST 2023
   authors:
     - name: Tae Soo Kim
     - name: Yoonjoo Lee
@@ -10,11 +54,12 @@
     - name: Juho Kim
       url: https://juhokim.com/
   website: https://llm-objects.kixlab.org
-  video: https://youtu.be/nfthwh0fH54
+  library: https://github.com/kixlab/llm-ui-objects
+  acmdl: https://dl.acm.org/doi/10.1145/3586183.3606833
   img: /assets/img/llm-objects.png
 - title: "Papeos: Augmenting Research Papers with Talk Videos"
   url: https://arxiv.org/pdf/2308.15224.pdf
-  conference: UIST 2023 (to appear)
+  conference: UIST 2023
   authors:
     - name: Tae Soo Kim
     - name: Matt Latzke
@@ -26,6 +71,7 @@
     - name: Joseph Chee Chang
       url: https://joe.cat/
   arxiv: https://arxiv.org/abs/2308.15224
+  acmdl: https://dl.acm.org/doi/10.1145/3586183.3606770
   demo: https://papeo.app
   img: /assets/img/papeos.png
 - title: "DAPIE: Interactive Step-by-Step Explanatory Dialogues to Answer Children’s Why and How Questions"
@@ -50,7 +96,7 @@
   authors:
     - name: Tae Soo Kim
     - name: DaEun Choi
-      url: https://cheddarchoi.github.io/
+      url: https://daeunchoi.com/
     - name: Yoonseo Choi
       url: https://yoonseochoi.com/
     - name: Juho Kim

@@ -15,7 +15,11 @@ description: |
     <div class="paper-cont">
         <div class="paper-img-cont" style="background-image:url({{paper.img | relative_url}})"></div>
         <div style="flex:1">
+            {% if paper.url %}
             <div class="paper-line"><a href="{{paper.url}}" target="_blank">{{paper.title}}</a></div>
+            {% else %}
+            <div class="paper-line">{{paper.title}}</div>
+            {% endif %}
             <div class="paper-line">
                 {% for author in paper.authors %}
                     {% if author.name == "Tae Soo Kim" %}
@@ -85,6 +89,8 @@ description: |
 {% endfor %}
 </div>
 
+
+{% if site.data.preprints.size > 0 %}
 #### Preprints
 
 <div>
@@ -161,6 +167,7 @@ description: |
     </div>
 {% endfor %}
 </div>
+{% endif %}
 
 #### Posters, Demos, Workshop Papers
 
