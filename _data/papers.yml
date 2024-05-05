@@ -1,3 +1,19 @@
+- title: "One vs. Many: Comprehending Accurate Information from Multiple Erroneous and Inconsistent AI Generations"
+  conference: FAccT 2024 (to appear)
+  authors:
+    - name: Yoonjoo Lee
+      url: https://yoonjoolee.com/
+    - name: Kihoon Son
+      url: https://kihoonson.com/
+    - name: Tae Soo Kim
+    - name: Jisu Kim
+    - name: John Joon Young Chung
+      url: https://johnr0.github.io/
+    - name: Eytan Adar
+      url: http://www.cond.org/
+    - name: Juho Kim
+      url: https://juhokim.com/
+  img: /assets/img/onevsmany.png
 - title: "EvalLM: Interactive Evaluation of Large Language Model Prompts on User-Defined Criteria"
   url: https://arxiv.org/pdf/2309.13633.pdf
   conference: CHI 2024 (to appear)
@@ -41,6 +57,7 @@
     - name: Tae Soo Kim
     - name: Juho Kim
       url: https://juhokim.com/
+  award: Honorable Mention Award
   img: /assets/img/demystifying.png
 - title: "Cells, Generators, and Lenses: Design Framework for Object-Oriented Interaction with Large Language Models"
   url: https://kixlab.github.io/website-files/2023/uist2023-llmobjects-paper.pdf

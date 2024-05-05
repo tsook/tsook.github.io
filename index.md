@@ -1,9 +1,9 @@
 ---
 layout: default
 description: |
-    I am a second year PhD student in the [School of Computing](https://cs.kaist.ac.kr/){:target="_blank"} at [KAIST](https://www.kaist.ac.kr/){:target="_blank"}. I work with [Juho Kim](https://juhokim.com/){:target="_blank"} as a member of [KIXLAB](https://www.kixlab.org/){:target="_blank"}.
+    I am a third year PhD student in the [School of Computing](https://cs.kaist.ac.kr/){:target="_blank"} at [KAIST](https://www.kaist.ac.kr/){:target="_blank"}. I work with [Juho Kim](https://juhokim.com/){:target="_blank"} as a member of [KIXLAB](https://www.kixlab.org/){:target="_blank"}.
 
-    My work falls in the intersection of human-computer interaction (<b>HCI</b>) and artificial intelligence (<b>AI</b>). I design tools that enable users to <b>design</b>, <b>develop</b>, and <b>test</b> novel <b>applications powered by machine learning models</b>. Recently, I have been interested in investigating how to embed human and personal <b>values</b> into ML models.
+    My work falls in the intersection of human-computer interaction (<b>HCI</b>) and artificial intelligence (<b>AI</b>). I explore <b>interaction and AI techniques</b> that can enable users to <b>create or adapt</b> software <b>tools</b> that are tailored to their own <b>needs and challenges</b>. Specifically, I design <b>interactive modules</b> that users can compose into bespoke tools.
 ---
 
 ## Publications
