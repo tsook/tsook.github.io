@@ -1,3 +1,28 @@
+- title: "How to Reflect Diverse People’s Perspectives in Large-Scale LLM-based Evaluations?"
+  url: https://heal-workshop.github.io/papers/34_how_to_reflect_diverse_people_.pdf
+  conference: CHI 2024 Workshop on Human-centered Evaluation and Auditing of Language Models (HEAL)
+  authors:
+    - name: Yoonjoo Lee
+      url: https://yoonjoolee.com/
+    - name: Tae Soo Kim
+    - name: Juho Kim
+      url: https://juhokim.com/
+- title: "Unveiling Disparities in Web Task Handling Between Human and Web Agent"
+  url: https://arxiv.org/pdf/2405.04497
+  conference: CHI 2024 Workshop on Computational Methodologies for Understanding, Automating, and Evaluating User Interfaces
+  authors:
+    - name: Kihoon Son
+      url: https://kihoonson.com/
+    - name: Jinhyeon Kwon
+    - name: DaEun Choi
+      url: https://daeunchoi.com/
+    - name: Tae Soo Kim
+    - name: Young-Ho Kim
+      url: http://younghokim.net/
+    - name: Sangdoo Yun
+      url: https://sangdooyun.github.io/
+    - name: Juho Kim
+      url: https://juhokim.com/
 - title: "LMCanvas: Object-Oriented Interaction to Personalize Large Language Model-Powered Writing Environments"
   url: https://kixlab.github.io/website-files/2023/chi2023-workshop-lmcanvas-paper.pdf
   conference: CHI 2023 Workshop on Generative AI and HCI

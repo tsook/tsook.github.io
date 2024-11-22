@@ -1,5 +1,6 @@
 - title: "One vs. Many: Comprehending Accurate Information from Multiple Erroneous and Inconsistent AI Generations"
-  conference: FAccT 2024 (to appear)
+  url: https://arxiv.org/pdf/2405.05581
+  conference: FAccT 2024
   authors:
     - name: Yoonjoo Lee
       url: https://yoonjoolee.com/
@@ -13,10 +14,12 @@
       url: http://www.cond.org/
     - name: Juho Kim
       url: https://juhokim.com/
+  arxiv: https://arxiv.org/abs/2405.05581
+  acmdl: https://dl.acm.org/doi/10.1145/3630106.3662681
   img: /assets/img/onevsmany.png
 - title: "EvalLM: Interactive Evaluation of Large Language Model Prompts on User-Defined Criteria"
   url: https://arxiv.org/pdf/2309.13633.pdf
-  conference: CHI 2024 (to appear)
+  conference: CHI 2024
   authors:
     - name: Tae Soo Kim
     - name: Yoonjoo Lee
@@ -29,11 +32,12 @@
       url: https://juhokim.com/
   website: https://evallm.kixlab.org/
   video: https://youtu.be/7hvTnhiCO7Y
+  acmdl: https://dl.acm.org/doi/10.1145/3613904.3642216
   arxiv: https://arxiv.org/abs/2309.13633
   img: /assets/img/evallm.gif
 - title: "GenQuery: Supporting Expressive Visual Search with Generative Models"
   url: https://arxiv.org/pdf/2310.01287.pdf
-  conference: CHI 2024 (to appear)
+  conference: CHI 2024
   authors:
     - name: Kihoon Son
       url: https://kihoonson.com/
@@ -45,10 +49,12 @@
     - name: Juho Kim
       url: https://juhokim.com/
   website: https://genquery.kixlab.org/
+  acmdl: https://dl.acm.org/doi/10.1145/3613904.3642847
   arxiv: https://arxiv.org/abs/2310.01287
   img: /assets/img/genquery.png
 - title: "Demystifying Tacit Knowledge in Graphic Design: Characteristics, Instances, Approaches, and Guidelines"
-  conference: CHI 2024 (to appear)
+  conference: CHI 2024
+  url: https://arxiv.org/pdf/2403.06252
   authors:
     - name: Kihoon Son
       url: https://kihoonson.com/
@@ -57,6 +63,8 @@
     - name: Tae Soo Kim
     - name: Juho Kim
       url: https://juhokim.com/
+  arxiv: https://arxiv.org/abs/2403.06252
+  acmdl: https://dl.acm.org/doi/10.1145/3613904.3642886
   award: Honorable Mention Award
   img: /assets/img/demystifying.png
 - title: "Cells, Generators, and Lenses: Design Framework for Object-Oriented Interaction with Large Language Models"
