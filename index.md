@@ -1,9 +1,9 @@
 ---
 layout: default
 description: |
-    I am a third year PhD student in the [School of Computing](https://cs.kaist.ac.kr/){:target="_blank"} at [KAIST](https://www.kaist.ac.kr/){:target="_blank"}. I work with [Juho Kim](https://juhokim.com/){:target="_blank"} as a member of [KIXLAB](https://www.kixlab.org/){:target="_blank"}.
+    I am a fourth year PhD student in the [School of Computing](https://cs.kaist.ac.kr/){:target="_blank"} at [KAIST](https://www.kaist.ac.kr/){:target="_blank"}. I work with [Juho Kim](https://juhokim.com/){:target="_blank"} as a member of [KIXLAB](https://www.kixlab.org/){:target="_blank"}.
 
-    My work falls in the intersection of human-computer interaction (<b>HCI</b>) and artificial intelligence (<b>AI</b>). I explore <b>interaction and AI techniques</b> that can enable users to <b>create or adapt</b> software <b>tools</b> that are tailored to their own <b>needs and challenges</b>. Specifically, I design <b>interactive modules</b> that users can compose into bespoke tools.
+    My work falls in the intersection of human-computer interaction (<b>HCI</b>) and artificial intelligence (<b>AI</b>), focusing on **interactive alignment**. Specifically, I explore how to <b>disentangle</b> user inputs and AI outputs into <b>interactive components</b> that empower users to (1) <b>iterate</b> on their intents to guide the AI model, and (2) <b>audit</b> that the model's behavior aligns with their intents.
 ---
 
 ## Publications
@@ -13,12 +13,19 @@ description: |
 <div>
 {% for paper in site.data.papers %}
     <div class="paper-cont">
-        <div class="paper-img-cont" style="background-image:url({{paper.img | relative_url}})"></div>
+        {% if paper.placeholder != true %}
+            <div class="paper-img-cont" style="background-image:url({{paper.img | relative_url}})"></div>
+        {% endif %}
         <div style="flex:1">
             {% if paper.url %}
             <div class="paper-line"><a href="{{paper.url}}" target="_blank">{{paper.title}}</a></div>
             {% else %}
-            <div class="paper-line">{{paper.title}}</div>
+            <div class="paper-line">
+                {% if paper.placeholder %}
+                <i style="font-weight: 100">(Placeholder Title)</i>&nbsp;
+                {% endif %}
+                {{paper.title}}
+            </div>
             {% endif %}
             <div class="paper-line">
                 {% for author in paper.authors %}

@@ -1,3 +1,12 @@
+- title: "Evaligner: Automatic Prompt and Criteria Refinement from User Feedback"
+  url: https://heechanlee.com/assets/HEAL_CHI_Evaligner.pdf
+  conference: CHI 2025 Workshop on Human-centered Evaluation and Auditing of Language Models (HEAL)
+  authors:
+    - name: Heechan Lee
+      url: https://heechanlee.com/
+    - name: Tae Soo Kim
+    - name: Juho Kim
+      url: https://juhokim.com/
 - title: "How to Reflect Diverse People’s Perspectives in Large-Scale LLM-based Evaluations?"
   url: https://heal-workshop.github.io/papers/34_how_to_reflect_diverse_people_.pdf
   conference: CHI 2024 Workshop on Human-centered Evaluation and Auditing of Language Models (HEAL)

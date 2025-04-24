@@ -1,3 +1,15 @@
+- title: "Interactive System for Exploring and Evaluating LLM Outputs at Scale"
+  conference: Under Review
+  authors:
+    - name: Tae Soo Kim
+    - name: et al.
+  placeholder: True
+- title: "Benchmarking Model Ability to Predict Preferences from Interactions"
+  conference: Under Review
+  authors:
+    - name: Tae Soo Kim
+    - name: et al.
+  placeholder: True
 - title: "One vs. Many: Comprehending Accurate Information from Multiple Erroneous and Inconsistent AI Generations"
   url: https://arxiv.org/pdf/2405.05581
   conference: FAccT 2024
