@@ -1,15 +1,21 @@
-- title: "Interactive System for Exploring and Evaluating LLM Outputs at Scale"
-  conference: Under Review
+- title: "CUPID: Evaluating Personalized and Contextualized Alignment of LLMs from Interactions"
+  conference: COLM 2025
   authors:
     - name: Tae Soo Kim
-    - name: et al.
-  placeholder: True
-- title: "Benchmarking Model Ability to Predict Preferences from Interactions"
-  conference: Under Review
-  authors:
-    - name: Tae Soo Kim
-    - name: et al.
-  placeholder: True
+    - name: Yoonjoo Lee
+      url: https://yoonjoolee.com/
+    - name: Yoonah Park
+      url: https://www.linkedin.com/in/yoonah-park-50ba57249/
+    - name: Jiho Kim
+      url: https://jihokim.dev/
+    - name: Young-Ho Kim
+      url: http://younghokim.net/
+    - name: Juho Kim
+      url: https://juhokim.com/
+  website: https://cupid.kixlab.org/
+  arxiv: https://arxiv.org/abs/2508.01674
+  code: https://github.com/kixlab/cupid
+  img: /assets/img/cupid.png
 - title: "One vs. Many: Comprehending Accurate Information from Multiple Erroneous and Inconsistent AI Generations"
   url: https://arxiv.org/pdf/2405.05581
   conference: FAccT 2024
@@ -46,6 +52,7 @@
   video: https://youtu.be/7hvTnhiCO7Y
   acmdl: https://dl.acm.org/doi/10.1145/3613904.3642216
   arxiv: https://arxiv.org/abs/2309.13633
+  code: https://github.com/kixlab/EvalLM
   img: /assets/img/evallm.gif
 - title: "GenQuery: Supporting Expressive Visual Search with Generative Models"
   url: https://arxiv.org/pdf/2310.01287.pdf

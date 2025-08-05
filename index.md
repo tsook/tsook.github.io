@@ -58,6 +58,14 @@ description: |
                         </a>
                     </span>
                 {% endif %}
+                {% if paper.code %}
+                    <span class="paper-deets">
+                        <a href="{{paper.code}}" target="_blank">
+                            <i class="ai ai-github"></i>
+                            <span>Code</span>
+                        </a>
+                    </span>
+                {% endif %}
                 {% if paper.video %}
                     <span class="paper-deets">
                         <a href="{{paper.video}}" target="_blank">
