@@ -1,3 +1,8 @@
+- title: "Interacting with AI by Manipulating Intents"
+  url: https://taesookim.com/assets/pdf/TaeSooKim_CHI2025_DC.pdf
+  conference: CHI 2025 Doctoral Consortium
+  authors:
+    - name: Tae Soo Kim
 - title: "Evaligner: Automatic Prompt and Criteria Refinement from User Feedback"
   url: https://heechanlee.com/assets/HEAL_CHI_Evaligner.pdf
   conference: CHI 2025 Workshop on Human-centered Evaluation and Auditing of Language Models (HEAL)
