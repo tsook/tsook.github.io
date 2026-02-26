@@ -318,12 +318,55 @@ class Fragment {
     }
   }
 
-  bounceInBounds(w, h) {
-    const m = 10;
-    if (this.x < m) { this.x = m; this.vx = Math.abs(this.vx) * 0.5; }
-    if (this.x > w - m) { this.x = w - m; this.vx = -Math.abs(this.vx) * 0.5; }
-    if (this.y < m) { this.y = m; this.vy = Math.abs(this.vy) * 0.5; }
-    if (this.y > h - m) { this.y = h - m; this.vy = -Math.abs(this.vy) * 0.5; }
+  applyOrganicBounds(w, h, leftOffset = 0) {
+    const padding = 60; // Soft cushion zone width
+    const softLeftBound = leftOffset + padding;
+
+    if (this.x < softLeftBound) {
+      const depth = softLeftBound - this.x;
+      // Exponential repulsion force pushing right (weaker so they can drift out)
+      this.vx += (depth * depth) * 0.0001;
+      // Fade out as it goes deeper into the padding zone
+      this.edgeFade = Math.max(0, 1 - (depth / padding));
+    } else {
+      this.edgeFade = 1;
+    }
+
+    // Return true if fragment has drifted completely out of bounds and should be deleted/recycled
+    return (this.x < leftOffset || this.x > w + 100 || this.y < -100 || this.y > h + 100);
+  }
+
+  recycle(system) {
+    // Pick a new home on the right
+    const cols = system.gridCols;
+    const rows = system.gridRows;
+    const leftCol = system.leftGridCol || Math.floor(cols * 0.4);
+    const rightCols = Math.max(1, cols - leftCol);
+
+    // Spawn somewhere in the right area
+    const col = Math.max(1, leftCol - 1) + Math.floor(Math.random() * Math.max(1, rightCols));
+    const row = Math.floor(Math.random() * rows);
+
+    this.setHome(col, row);
+
+    // Instantly move there
+    this.x = this.homeX + random(-6, 6);
+    this.y = this.homeY + random(-4, 4);
+    this.vx = 0;
+    this.vy = 0;
+
+    // Reset visuals
+    this.opacity = 0;
+    this.edgeFade = 1;
+    this.startDelay = random(0.5, 2.0); // Wait a bit before fading in
+    this.setText(system.mergeEngine.randomWord());
+    this.isMerged = false;
+    this.mergedTimer = 0;
+    this.shaking = false;
+
+    this.resolveGlitch();
+    this.flashTimer = 0;
+    this.cursorInfluence = 0;
   }
 
   // ── Glitch effects ──
@@ -396,11 +439,10 @@ class Fragment {
     return text.split('').map(() => randomChar(NOISE_CHARS + GLITCH_CHARS)).join('');
   }
 
-  // ── Render ──
-
   render(ctx) {
     if (!this.active || (!this.visible && this.opacity < 0.01)) return;
-    let alpha = this.opacity, scale = 1;
+    let alpha = this.opacity;
+    let scale = 1;
     if (this.flashTimer > 0) {
       const f = this.flashTimer / CONFIG.flashDuration;
       alpha = Math.min(1, alpha + f * 0.5);
@@ -413,6 +455,11 @@ class Fragment {
     if (this.cursorInfluence > 0.01) {
       scale *= 1 + this.cursorInfluence * CONFIG.cursorScaleBoost;
       alpha = Math.min(1, alpha + this.cursorInfluence * CONFIG.cursorOpacityBoost);
+    }
+
+    // Apply organic edge fade LAST so hovering doesn't reveal the hidden boundary
+    if (this.edgeFade !== undefined) {
+      alpha *= this.edgeFade;
     }
     const variant = FONT_VARIANTS[this.displayFont] || FONT_VARIANTS[0];
     ctx.save();
@@ -807,13 +854,6 @@ function bayerThreshold(xi, yi) {
 function renderCloudDitherBackground(ctx, w, h, time, clearZone) {
   const cd = CONFIG.cloudDither;
 
-  const hasCZ = clearZone && clearZone.opacity > 0.5;
-  let czL, czR, czT, czB;
-  if (hasCZ) {
-    czL = clearZone.x; czR = clearZone.x + clearZone.width;
-    czT = clearZone.y; czB = clearZone.y + clearZone.height;
-  }
-
   ctx.fillStyle = CONFIG.inkColor;
 
   const step = cd.step;
@@ -885,7 +925,6 @@ function renderCloudDitherBackground(ctx, w, h, time, clearZone) {
 
   for (let gx = 0; gx < w; gx += step) {
     for (let gy = 0; gy < h; gy += step) {
-      if (hasCZ && gx >= czL && gx <= czR && gy >= czT && gy <= czB) continue;
 
       const cxGrid = gx / coarseStep;
       const cyGrid = gy / coarseStep;
@@ -999,7 +1038,8 @@ class NeighborMergeEvent {
     for (let i = 1; i < this.fragments.length; i++) {
       const f = this.fragments[i];
       f.setText(this.system.mergeEngine.randomWord());
-      f.setHome(randomInt(0, this.system.gridCols - 1), randomInt(0, this.system.gridRows - 1));
+      const lc2 = this.system.leftGridCol || 0;
+      f.setHome(randomInt(lc2, this.system.gridCols - 1), randomInt(0, this.system.gridRows - 1));
       f.x = f.homeX;
       f.y = f.homeY;
       f.opacity = 0;
@@ -1570,6 +1610,7 @@ class FragmentSystem {
     this.bounds = { width: 0, height: 0 };
     this.gridCols = 0;
     this.gridRows = 0;
+    this.leftOffset = 0; // x-pixel boundary where fragments can live (right of left panel)
 
     // Clear zone (for paper detail integration)
     this.clearZone = null;
@@ -1635,6 +1676,16 @@ class FragmentSystem {
     this.bounds = { width: rect.width, height: rect.height };
     this.gridCols = Math.max(1, Math.floor(rect.width / CONFIG.gridCellW));
     this.gridRows = Math.max(1, Math.floor(rect.height / CONFIG.gridCellH));
+    // Compute left offset: fragments live only in the right-side area
+    const leftPanel = document.querySelector('.left-panel');
+    if (leftPanel) {
+      const lpRect = leftPanel.getBoundingClientRect();
+      const canvasRect = this.canvas.getBoundingClientRect();
+      this.leftOffset = Math.max(0, lpRect.right - canvasRect.left + 16);
+    } else {
+      this.leftOffset = 0;
+    }
+    this.leftGridCol = Math.ceil(this.leftOffset / CONFIG.gridCellW);
   }
 
   // ── Clear Zone ──
@@ -1725,17 +1776,26 @@ class FragmentSystem {
 
     const cols = this.gridCols;
     const rows = this.gridRows;
-    const centerX = Math.floor(cols / 2) + 4; // Shift right to avoid left panel
+    // leftGridCol = first column that falls in the right-panel area
+    const leftCol = this.leftGridCol || Math.floor(cols * 0.4);
+    const rightCols = Math.max(1, cols - leftCol);
+
+    // Center of the right-side area for initial word cluster
+    const centerX = leftCol + Math.floor(rightCols / 2);
     const centerY = Math.floor(rows / 2);
+
+    // Helper: pick a random col in the right area (allow slight bleed into soft left boundary)
+    const rightCol = () => Math.max(1, leftCol - 1) + randomInt(0, rightCols);
 
     let createdCount = 0;
 
-    // 1. Place starting words in the center — always visible
+    // 1. Place starting words spread across the right area — always visible
     for (const word of startWords) {
       if (createdCount >= CONFIG.fragmentCount) break;
 
-      const col = centerX + randomInt(-4, 4);
-      const row = centerY + randomInt(-2, 2);
+      // Spread randomly across right area, with mild center bias. Allow slight bleed left.
+      const col = Math.max(1, leftCol - 1 + randomInt(-Math.floor(rightCols * 0.4), Math.floor(rightCols * 0.6)));
+      const row = centerY + randomInt(-Math.floor(rows * 0.35), Math.floor(rows * 0.35));
 
       // Starting words use medium or large tiers for clarity
       const tier = Math.random() < 0.4 ? 'large' : 'medium';
@@ -1756,9 +1816,9 @@ class FragmentSystem {
       createdCount++;
     }
 
-    // 2. Fill the rest of the pool with inactive fragments
+    // 2. Fill the rest of the pool with inactive fragments, all in right area
     while (createdCount < CONFIG.fragmentCount) {
-      const col = randomInt(0, cols - 1);
+      const col = rightCol();
       const row = randomInt(0, rows - 1);
       const tier = pickTier();
       const fs = random(CONFIG.tiers[tier].fontSize[0], CONFIG.tiers[tier].fontSize[1]);
@@ -1771,12 +1831,6 @@ class FragmentSystem {
       // Random jitter
       frag.x += random(-15, 15);
       frag.y += random(-10, 10);
-      // Not active yet, so delay doesn't matter much unless we activate them later
-      // But if we want them to "stream in" as ambient noise, we could activate them?
-      // The original code has these as inactive.
-      // If the user wants "starting sentences" to gradually appear, that's covered above.
-      // If "gradually added at the start" means *more* words appearing, we might need to enable some?
-      // For now, let's stick to the active ones.
 
       this.fragments.push(frag);
       createdCount++;
@@ -1990,7 +2044,8 @@ class FragmentSystem {
     // b gets reassigned — new word, new home
     b.setText(this.mergeEngine.randomWord());
     b.triggerScrambleEffect(0.6);
-    b.setHome(randomInt(0, this.gridCols - 1), randomInt(0, this.gridRows - 1));
+    const lc = this.leftGridCol || 0;
+    b.setHome(randomInt(lc, this.gridCols - 1), randomInt(0, this.gridRows - 1));
     b.targetOpacity = b.baseOpacity;
     b.springHome = true;
   }
@@ -2094,7 +2149,11 @@ class FragmentSystem {
 
     for (const f of this.fragments) {
       f.update(dt, this.time);
-      f.bounceInBounds(this.bounds.width, this.bounds.height);
+      if (!f.paperMode) {
+        if (f.applyOrganicBounds(this.bounds.width, this.bounds.height, this.leftOffset)) {
+          f.recycle(this);
+        }
+      }
     }
 
     // Clear zone repulsion — push non-paper fragments out of the zone

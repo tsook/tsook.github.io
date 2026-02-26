@@ -29,8 +29,6 @@ export function initPanelManager() {
   const detailOverlay = document.getElementById('detail-overlay');
   const detailBody = document.getElementById('detail-body');
   const detailBack = document.getElementById('detail-back');
-  const cvPopup = document.getElementById('cv-popup');
-  const cvClose = document.getElementById('cv-close');
   const cardGrid = document.getElementById('research-grid');
 
   if (!detailOverlay || !detailBody) return;
@@ -130,6 +128,11 @@ export function initPanelManager() {
     detailOverlay.classList.add('visible');
     detailBody.scrollTop = 0;
 
+    // Lock background scrolling on mobile
+    if (window.innerWidth <= 768) {
+      document.body.classList.add('detail-open');
+    }
+
     const fs = getFragmentSystem();
     if (fs) {
       requestAnimationFrame(() => {
@@ -162,6 +165,7 @@ export function initPanelManager() {
 
   function hidePaperDetail() {
     detailOverlay.classList.remove('visible', 'pinned');
+    document.body.classList.remove('detail-open');
     cancelScrambles();
     currentPaperId = null;
     pinnedId = null;
@@ -174,15 +178,7 @@ export function initPanelManager() {
     if (fs) fs.morphToAmbient();
   }
 
-  // ── CV ──
 
-  function showCV() {
-    if (cvPopup) cvPopup.classList.add('visible');
-  }
-
-  function hideCV() {
-    if (cvPopup) cvPopup.classList.remove('visible');
-  }
 
   // ── Helpers ──
 
@@ -194,7 +190,7 @@ export function initPanelManager() {
   // ── Hover ──
 
   function handleHoverIn(paperId) {
-    if (pinnedId || isTouch) return;
+    if (pinnedId || isTouch || window.innerWidth <= 768) return;
     clearTimeout(hoverDebounce);
     hoverDebounce = setTimeout(() => {
       showPaperDetail(paperId);
@@ -203,7 +199,7 @@ export function initPanelManager() {
 
   function handleHoverOut() {
     clearTimeout(hoverDebounce);
-    if (pinnedId || isTouch) return;
+    if (pinnedId || isTouch || window.innerWidth <= 768) return;
     hoverDebounce = setTimeout(() => {
       if (!pinnedId) hidePaperDetail();
     }, 150);
@@ -287,14 +283,11 @@ export function initPanelManager() {
 
   // ── Misc ──
 
-  if (cvPopup) cvPopup.addEventListener('click', (e) => { if (e.target === cvPopup) hideCV(); });
   if (detailBack) detailBack.addEventListener('click', hidePaperDetail);
-  if (cvClose) cvClose.addEventListener('click', hideCV);
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       if (pinnedId) hidePaperDetail();
-      hideCV();
     }
   });
 

@@ -49,24 +49,6 @@ const allPubs = publications.publications;
     </div>
   </div>
 
-  <!-- CV tab popup -->
-  <div class="cv-popup" id="cv-popup">
-    <div class="cv-popup-inner">
-      <div class="cv-popup-header">
-        <h2>Curriculum Vitae</h2>
-        <div class="cv-popup-actions">
-          <a href="/pdf/TaeSooKim_CV.pdf" target="_blank" class="btn-outline">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-            Download
-          </a>
-          <button class="btn-pill" id="cv-close" aria-label="Close CV">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-          </button>
-        </div>
-      </div>
-      <iframe src="/pdf/TaeSooKim_CV.pdf" class="cv-iframe" title="CV"></iframe>
-    </div>
-  </div>
 
   <!-- Reduced motion fallback -->
   <div class="fragment-static-fallback" id="fragment-fallback"></div>
@@ -78,7 +60,7 @@ const allPubs = publications.publications;
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     overflow: hidden;
     z-index: 1;
   }
@@ -122,6 +104,7 @@ const allPubs = publications.publications;
     z-index: 5;
     display: flex;
     flex-direction: column;
+    /* Transparent background — dithering waves freely visible behind it */
     background: transparent;
     opacity: 0;
     transform: translateY(12px);
@@ -212,74 +195,13 @@ const allPubs = publications.publications;
     min-height: 0;
     overflow-y: auto;
     padding: 72px 48px 48px;
+    overscroll-behavior: contain;
     scrollbar-width: thin;
     scrollbar-color: var(--sand) transparent;
   }
   .detail-scroll::-webkit-scrollbar { width: 5px; }
   .detail-scroll::-webkit-scrollbar-thumb { background: var(--sand); border-radius: 3px; }
 
-  /* ── CV Tab Popup ── */
-  .cv-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.95);
-    width: min(900px, 85vw);
-    height: min(700px, 80vh);
-    z-index: 50;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-
-  .cv-popup.visible {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-    pointer-events: auto;
-  }
-
-  .cv-popup-inner {
-    width: 100%;
-    height: 100%;
-    background: var(--bg);
-    border: 1px solid var(--card-border);
-    border-radius: var(--radius-lg);
-    box-shadow: 0 24px 80px rgba(0,0,0,0.15), 0 8px 24px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
-  .cv-popup-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 24px;
-    border-bottom: 1px solid var(--card-border);
-  }
-
-  .cv-popup-header h2 {
-    font-family: var(--font-heading);
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text);
-    margin: 0;
-  }
-
-  .cv-popup-actions {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-
-  .cv-iframe {
-    flex: 1;
-    width: 100%;
-    border: none;
-    background: var(--bg-surface);
-  }
 
   /* ── Paper Detail Styles ── */
   :global(.paper-detail) {
@@ -369,10 +291,12 @@ const allPubs = publications.publications;
     }
 
     .detail-overlay {
-      /* Full width + semi-transparent bg on mobile for readability */
+      /* Full width + frosted frosted bg on mobile for readability */
       right: 0;
-      width: auto;
-      background: rgba(242, 244, 246, 0.92);
+      width: 100%;
+      background: rgba(242, 244, 246, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
     /* Mobile: show everything at once, skip scramble effect */
@@ -380,12 +304,18 @@ const allPubs = publications.publications;
       opacity: 1 !important;
       animation: none !important;
     }
+    
+    .detail-overlay.visible :global(.paper-detail) {
+      margin: 0 auto;
+      width: 100%;
+    }
 
     .detail-scroll {
       padding: 64px 24px 32px;
       max-width: 100%;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
     }
     .detail-back-btn { top: 16px; left: 16px; }
-    .cv-popup { width: 95vw; height: 85vh; }
   }
 </style>
