@@ -1,0 +1,391 @@
+---
+import publications from '../data/publications.json';
+import PaperDetail from './PaperDetail.astro';
+
+// Load all per-paper markdown files at build time
+const paperModules = import.meta.glob('../data/papers/*.md', { eager: true });
+
+// Build a map of paperId -> { html, demoId }
+const paperContentMap = new Map();
+for (const [, mod] of Object.entries(paperModules)) {
+  const file = mod as any;
+  const id = file.frontmatter?.id;
+  if (id) {
+    paperContentMap.set(id, {
+      html: typeof file.compiledContent === 'function' ? file.compiledContent() : '',
+      demoId: file.frontmatter.demoId || null,
+    });
+  }
+}
+
+const allPubs = publications.publications;
+---
+
+<div class="canvas-panel" id="canvas-panel">
+  <!-- Full-viewport fragment animation canvas -->
+  <canvas class="fragment-canvas" id="fragment-canvas"></canvas>
+
+  <!-- Detail overlay — gradient-backed paper detail over the canvas -->
+  <div class="detail-overlay" id="detail-overlay">
+    <button class="btn-pill detail-back-btn" id="detail-back" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+      <span>Back</span>
+    </button>
+    <div class="detail-scroll" id="detail-body">
+      {allPubs.map(pub => {
+        const content = paperContentMap.get(pub.id);
+        return (
+          <div class="paper-detail-wrap" data-detail-id={pub.id} style="display:none;">
+            <PaperDetail
+              paper={pub}
+              detailContent={content?.html || pub.description}
+              demoId={content?.demoId}
+            />
+          </div>
+        );
+      })}
+    </div>
+  </div>
+
+  <!-- CV tab popup -->
+  <div class="cv-popup" id="cv-popup">
+    <div class="cv-popup-inner">
+      <div class="cv-popup-header">
+        <h2>Curriculum Vitae</h2>
+        <div class="cv-popup-actions">
+          <a href="/pdf/TaeSooKim_CV.pdf" target="_blank" class="btn-outline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            Download
+          </a>
+          <button class="btn-pill" id="cv-close" aria-label="Close CV">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+      <iframe src="/pdf/TaeSooKim_CV.pdf" class="cv-iframe" title="CV"></iframe>
+    </div>
+  </div>
+
+  <!-- Reduced motion fallback -->
+  <div class="fragment-static-fallback" id="fragment-fallback"></div>
+</div>
+
+<style>
+  .canvas-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .fragment-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+    z-index: 1;
+    transition: filter 0.6s ease;
+  }
+  .fragment-canvas.canvas-blur {
+    filter: blur(3px);
+  }
+
+  .fragment-static-fallback {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: var(--bg);
+    z-index: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fragment-canvas { display: none; }
+    .fragment-static-fallback { display: block; }
+  }
+
+  /* ── Detail Overlay ── */
+  .detail-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    width: fit-content;
+    max-width: 100vw;
+
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+    opacity: 0;
+    transform: translateY(12px);
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .detail-overlay.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* ── Materialization animations ── */
+
+  /* Pure fade — no translateY. Motion lives in the canvas (phantom flight), not the DOM. */
+  @keyframes materialize {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* Text elements: scramble.js owns appearance — invisible until phantom lands.
+     opacity: 1 here only matters if JS fails (SSR / no-canvas fallback). */
+  .detail-overlay.visible :global(.paper-detail-title),
+  .detail-overlay.visible :global(.paper-detail-meta),
+  .detail-overlay.visible :global(.paper-detail-authors),
+  .detail-overlay.visible :global(.paper-detail-description) {
+    opacity: 1;
+  }
+
+  /* Non-text elements: CSS fade-in with stagger */
+  .detail-overlay.visible :global(.paper-detail-links) {
+    opacity: 0;
+    animation: materialize 0.4s ease forwards;
+    animation-delay: 0.5s;
+  }
+
+  .detail-overlay.visible :global(.paper-detail-teaser-wrap) {
+    opacity: 0;
+    animation: materialize 0.5s ease forwards;
+    animation-delay: 0.7s;
+  }
+
+  /* Text readability — subtle halo matching canvas background */
+  :global(.paper-detail-title),
+  :global(.paper-detail-venue),
+  :global(.paper-detail-award),
+  :global(.paper-detail-authors),
+  :global(.paper-detail-description) {
+    text-shadow:
+      0 0 6px rgba(242, 244, 246, 0.95),
+      0 0 12px rgba(242, 244, 246, 0.8);
+  }
+
+  /* Reduced motion — show everything immediately */
+  @media (prefers-reduced-motion: reduce) {
+    .detail-overlay.visible :global(.paper-detail > *) {
+      animation: none !important;
+      opacity: 1 !important;
+    }
+  }
+
+  /* Desktop: offset to accommodate left panel */
+  @media (min-width: 769px) {
+    .detail-overlay {
+      left: clamp(var(--left-panel-min), var(--left-panel-w), var(--left-panel-max));
+    }
+  }
+
+  /* Back button only visible when pinned (clicked) */
+  .detail-back-btn {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    z-index: 6;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .detail-overlay.pinned .detail-back-btn {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .detail-scroll {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 72px 48px 48px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--sand) transparent;
+  }
+  .detail-scroll::-webkit-scrollbar { width: 5px; }
+  .detail-scroll::-webkit-scrollbar-thumb { background: var(--sand); border-radius: 3px; }
+
+  /* ── CV Tab Popup ── */
+  .cv-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    width: min(900px, 85vw);
+    height: min(700px, 80vh);
+    z-index: 50;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .cv-popup.visible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: auto;
+  }
+
+  .cv-popup-inner {
+    width: 100%;
+    height: 100%;
+    background: var(--bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.15), 0 8px 24px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .cv-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .cv-popup-header h2 {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .cv-popup-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .cv-iframe {
+    flex: 1;
+    width: 100%;
+    border: none;
+    background: var(--bg-surface);
+  }
+
+  /* ── Paper Detail Styles ── */
+  :global(.paper-detail) {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 520px;
+  }
+  :global(.paper-detail-title) {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--text);
+  }
+  :global(.paper-detail-meta) {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  :global(.paper-detail-meta-text) {
+    display: flex;
+    gap: 12px;
+  }
+  :global(.paper-detail-venue) {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  :global(.paper-detail-award) {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--award-gold);
+  }
+  :global(.paper-detail-teaser-wrap) {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+    background: var(--bg-surface);
+  }
+  :global(.paper-detail-teaser) {
+    width: 100%;
+    display: block;
+    filter: contrast(1.02) brightness(1);
+  }
+  :global(img.paper-detail-teaser[src$=".gif"]) {
+    padding: 24px;
+    box-sizing: border-box;
+  }
+  :global(lottie-player.lottie-teaser) {
+    padding: 24px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+  }
+  :global(.paper-detail-authors) {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+  :global(.paper-detail-description) {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text);
+  }
+  :global(.paper-detail-description p) { margin-bottom: 12px; }
+  :global(.paper-detail-description p:last-child) { margin-bottom: 0; }
+  :global(.paper-detail-description strong) {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  :global(.paper-detail-links) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  @media (max-width: 768px) {
+    /* No canvas on mobile — hide the animation */
+    .fragment-canvas { display: none; }
+    .fragment-static-fallback { display: none; }
+
+    /* Raise canvas-panel above left-panel when detail overlay is visible */
+    .canvas-panel:has(.detail-overlay.visible) {
+      z-index: 20;
+    }
+
+    .detail-overlay {
+      /* Full width + semi-transparent bg on mobile for readability */
+      right: 0;
+      width: auto;
+      background: rgba(242, 244, 246, 0.92);
+    }
+
+    /* Mobile: show everything at once, skip scramble effect */
+    .detail-overlay.visible :global(.paper-detail > *) {
+      opacity: 1 !important;
+      animation: none !important;
+    }
+
+    .detail-scroll {
+      padding: 64px 24px 32px;
+      max-width: 100%;
+    }
+    .detail-back-btn { top: 16px; left: 16px; }
+    .cv-popup { width: 95vw; height: 85vh; }
+  }
+</style>

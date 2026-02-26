@@ -1,0 +1,345 @@
+---
+interface Props {
+  papers: any[];
+}
+
+const { papers } = Astro.props;
+
+// Hardcoded map of paper IDs to grid positions
+// 1-indexed for CSS Grid: row / column
+const gridMap = {
+  'cells-generators-lenses': { row: 2, col: 2, group: ['dis-hci', 'dis-execution'], emoji: '🧱' }, // HCI / Execution
+  'evallm': { row: 2, col: 3, group: ['dis-hci', 'dis-evaluation'], emoji: '⚗️' },                 // HCI / Evaluation
+  'stylette': { row: 3, col: 2, group: ['dis-hci', 'dis-execution'], emoji: '🎨' },                // HCI / Execution
+  'evalet': { row: 3, col: 3, group: ['dis-hci', 'dis-evaluation'], emoji: '🔬' },                 // HCI / Evaluation
+  'discoverllm': { row: 4, col: 2, group: ['dis-nlp', 'dis-execution'], emoji: '🔭' },              // AI / Execution
+  'cupid': { row: 4, col: 3, group: ['dis-nlp', 'dis-evaluation'], emoji: '🏹' },                   // AI / Evaluation
+};
+
+const positionedPapers = [];
+if (papers && Array.isArray(papers)) { // Safety check
+  for (const p of papers) {
+    if (gridMap[p.id]) {
+      const mapping = gridMap[p.id];
+      const titleParts = p.title.split(': ');
+      positionedPapers.push({
+        id: p.id,
+        title: p.title,
+        mainTitle: titleParts[0],
+        subTitle: titleParts.slice(1).join(': ') || null,
+        venue: p.venue,
+        shortName: p.shortName,
+        year: p.year,
+        award: p.award,
+        emoji: mapping.emoji,
+        pos: mapping,
+        groups: mapping.group.join(' ')
+      });
+    }
+  }
+}
+---
+
+<div class="research-grid" id="research-grid">
+  <!-- Grid Lines (Absolute for draw animation) -->
+  <div class="grid-line horizontal h-top" style="top: 20px;"></div>
+  <div class="grid-line horizontal h-mid1" style="top: 140px;"></div>
+  <div class="grid-line horizontal h-mid2" style="top: 260px;"></div>
+  <div class="grid-line horizontal h-bot" style="bottom: 0;"></div>
+
+  <div class="grid-line vertical v-left" style="left: 28px;"></div>
+  <div class="grid-line vertical v-mid" style="left: calc(50%+28px);"></div>
+  <div class="grid-line vertical v-right" style="right: 0;"></div>
+
+  <!-- Axis Labels -->
+  <div class="axis-label x-axis" style="grid-column: 2;">EXECUTION</div>
+  <div class="axis-label x-axis" style="grid-column: 3;">EVALUATION</div>
+
+  <div class="axis-label y-axis" style="grid-row: 2;">HCI</div>
+  <div class="axis-label y-axis" style="grid-row: 4;">NLP</div>
+
+  <!-- Paper Tiles -->
+  {positionedPapers.map(paper => (
+    <button
+      class={`grid-tile ${paper.groups}`}
+      data-paper-id={paper.id}
+      style={`grid-row: ${paper.pos.row}; grid-column: ${paper.pos.col};`}
+    >
+      <div class="tile-content">
+        <div class="tile-header">
+          <div class="tile-meta">
+            <span class="tile-venue">{paper.venue}</span>
+            <span class="tile-year">'{String(paper.year).slice(2)}</span>
+          </div>
+          <span class="tile-emoji">{paper.emoji}</span>
+        </div>
+        <div class="tile-body">
+          <span class="tile-name" title={paper.title}>{paper.mainTitle}</span>
+          {paper.subTitle && <span class="tile-subtitle">{paper.subTitle}</span>}
+        </div>
+        {paper.award && (
+          <div class="tile-award" title={paper.award}>
+            <svg width="1em" height="1em" viewBox="0 0 512 512" fill="currentColor">
+              <path d="M4.1 38.2C1.4 34.2 0 29.4 0 24.6C0 11 11 0 24.6 0H133.9c11.2 0 21.7 5.9 27.4 15.5l68.5 114.1c-48.2 6.1-91.3 28.6-123.4 61.9L4.1 38.2zm503.7 0L405.6 191.5c-32.1-33.3-75.2-55.8-123.4-61.9L350.7 15.5C356.5 5.9 366.9 0 378.1 0H487.4C501 0 512 11 512 24.6c0 4.8-1.4 9.6-4.1 13.6zM80 336a176 176 0 1 1 352 0A176 176 0 1 1 80 336zm184.4-94.9c-3.4-7-13.3-7-16.8 0l-22.4 45.4c-1.4 2.8-4 4.7-7 5.1L168 298.9c-7.7 1.1-10.7 10.5-5.2 16l36.3 35.4c2.2 2.2 3.2 5.2 2.7 8.3l-8.6 49.9c-1.3 7.6 6.7 13.5 13.6 9.9l44.8-23.6c2.7-1.4 6-1.4 8.7 0l44.8 23.6c6.9 3.6 14.9-2.2 13.6-9.9l-8.6-49.9c-.5-3 .5-6.1 2.7-8.3l36.3-35.4c5.6-5.4 2.5-14.8-5.2-16l-50.1-7.3c-3-.4-5.7-2.4-7-5.1l-22.4-45.4z"/>
+            </svg>
+          </div>
+        )}
+      </div>
+      <div class="tile-glow"></div>
+    </button>
+  ))}
+</div>
+
+<style>
+  .research-grid {
+    display: grid;
+    /* Col 1: Vertical Labels, Col 2: Execution, Col 3: Evaluation */
+    grid-template-columns: 16px 1fr 1fr;
+    /* Row 1: Headers, Rows 2-4: 120px fixed */
+    grid-template-rows: 20px 120px 120px 120px;
+    gap: 0; /* REMOVED gap for perfect alignment */
+    position: relative;
+    padding: 0 4px; /* Slight gutter */
+    height: 380px; /* Matches calculations: 20 + 120*3 */
+  }
+
+  /* ── Grid Lines ── */
+  .grid-line {
+    position: absolute;
+    background: var(--card-border);
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+    transition: background-color 0.3s;
+  }
+  .grid-line.horizontal.h-top { top: 20px; }
+  .grid-line.horizontal.h-mid1 { top: 140px; } /* 20 + 120 */
+  .grid-line.horizontal.h-mid2 { top: 260px; } /* 140 + 120 */
+  .grid-line.horizontal.h-bot { bottom: 0; }
+
+  /* Grid columns: 28px + 1fr + 1fr with 4px padding on sides */
+  .grid-line.vertical.v-left { left: 32px; } /* 4px padding + 28px col */
+  .grid-line.vertical.v-mid { left: calc(50% + 14px); } /* 32px + (100% - 36px)/2 = 50% + 14px */
+  .grid-line.vertical.v-right { right: 4px; } /* 4px padding */
+
+  .grid-line.horizontal {
+    left: 28px; right: 0; height: 1px;
+    transform-origin: left;
+    transform: scaleX(0); /* Hidden initially */
+  }
+  .grid-line.vertical {
+    top: 20px; bottom: 0; width: 1px;
+    transform-origin: top;
+    transform: scaleY(0); /* Hidden initially */
+  }
+
+  /* Published state for animation */
+  .research-grid.lines-visible .grid-line {
+    transform: scale(1);
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* ── Axis Labels ── */
+  .axis-label {
+    font-family: var(--font-heading);
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    opacity: 0; /* Hidden initially */
+    z-index: 1;
+    transition: color 0.3s;
+  }
+  .research-grid.labels-visible .axis-label {
+    opacity: 0.7;
+    transition: opacity 0.4s ease, color 0.3s;
+  }
+
+  .x-axis {
+    text-align: center;
+    align-self: end;
+    padding-bottom: 8px;
+  }
+  
+  .y-axis {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-align: center;
+    align-self: center;
+    justify-self: center;
+  }
+
+  /* ── Tiles ── */
+  .grid-tile {
+    position: relative;
+    appearance: none;
+    background: linear-gradient(135deg, #FFFFFF 0%, #F2F4F6 100%);
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    padding: 8px 10px;
+    margin: 4px; /* Visualize separation since gap is 0 */
+    text-align: left;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* Ease Out Expo: Snappy frame, soft landing */
+    z-index: 2;
+    overflow: hidden;
+
+    /* Hidden initially */
+    opacity: 0;
+    transform: scale(0.95) translateY(4px); /* Slight drop effect */
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Paper texture overlay */
+  .grid-tile::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+
+  /* Revealed state */
+  .grid-tile.revealed {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  .grid-tile:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .grid-tile.active {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, #FFFFFF 0%, rgba(0, 51, 204, 0.05) 100%);
+    box-shadow: 0 0 0 2px rgba(0, 51, 204, 0.2);
+  }
+
+  .tile-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 4px;
+  }
+
+  .tile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .tile-meta {
+    display: flex;
+    gap: 5px;
+    align-items: baseline;
+  }
+
+  .tile-venue {
+    font-family: var(--font-heading);
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .tile-year {
+    font-family: var(--font-heading);
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    opacity: 0.8;
+  }
+
+  .tile-emoji {
+    font-size: 1.6rem;
+    line-height: 1;
+    flex-shrink: 0;
+    filter: grayscale(0.2);
+  }
+
+  .tile-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    overflow: hidden;
+  }
+
+  .tile-name {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    line-height: 1.2;
+    color: var(--text);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .tile-subtitle {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 0.62rem;
+    line-height: 1.3;
+    color: var(--text-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .tile-award {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    color: var(--award-gold);
+    font-size: 0.9rem;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+  }
+
+  .tile-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, var(--accent), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .grid-tile:hover .tile-glow {
+    opacity: 0.1;
+  }
+
+  /* ── Interactive Highlights ── */
+  
+  /* Highlight State on Grid Container */
+  .research-grid.highlight-active .grid-tile {
+    opacity: 0.3; /* Dim non-highlighted */
+    filter: grayscale(0.8);
+    transition: opacity 0.3s, filter 0.3s, transform 0.3s;
+  }
+  
+  /* The Highlighted Tiles */
+  .research-grid.highlight-active .grid-tile.highlighted {
+    opacity: 1;
+    filter: grayscale(0);
+    transform: scale(1.02);
+    border-color: var(--accent);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* Highlight Labels */
+  .research-grid.highlight-hci .y-axis:first-of-type { color: var(--accent); opacity: 1; font-weight: 700; }
+  .research-grid.highlight-ai .y-axis:last-of-type { color: var(--accent); opacity: 1; font-weight: 700; }
+  .research-grid.highlight-execution .x-axis:first-of-type { color: var(--accent); opacity: 1; font-weight: 700; }
+  .research-grid.highlight-evaluation .x-axis:last-of-type { color: var(--accent); opacity: 1; font-weight: 700; }
+
+</style>

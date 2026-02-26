@@ -1,0 +1,61 @@
+---
+interface Props {
+  paper: any;
+  detailContent: string;
+}
+
+const { paper, detailContent } = Astro.props;
+
+const authorHtml = paper.authors.map((a: any) => {
+  if (a.name === 'Tae Soo Kim') return `<strong>${a.name}</strong>`;
+  if (a.url) return `<a href="${a.url}" target="_blank">${a.name}</a>`;
+  return a.name;
+}).join(', ');
+
+const LINK_LABELS: Record<string, string> = {
+  pdf: 'PDF',
+  website: 'Website',
+  code: 'Code',
+  video: 'Video',
+  acmdl: 'ACM DL',
+  arxiv: 'arXiv',
+  demo: 'Demo',
+};
+---
+
+<div class="paper-detail" id={`detail-${paper.id}`} data-paper-id={paper.id}>
+  <h1 class="paper-detail-title">{paper.title}</h1>
+  <div class="paper-detail-meta">
+    <div class="paper-detail-meta-text">
+      <span class="paper-detail-venue">{paper.venue} {paper.year}</span>
+      {paper.award && <span class="paper-detail-award">{paper.award}</span>}
+    </div>
+    {paper.links && Object.keys(paper.links).length > 0 && (
+      <div class="paper-detail-links">
+        {Object.entries(paper.links).map(([key, url]) => url && (
+          <a href={url as string} target="_blank" class="btn-outline">{LINK_LABELS[key] || key}</a>
+        ))}
+      </div>
+    )}
+  </div>
+  {paper.teaserImage && paper.teaserImage.endsWith('.json') && (
+    <div class="paper-detail-teaser-wrap">
+      <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+      <lottie-player
+        src={paper.teaserImage}
+        class="paper-detail-teaser lottie-teaser"
+        background="transparent"
+        speed="1"
+        loop
+        autoplay
+      ></lottie-player>
+    </div>
+  )}
+  {paper.teaserImage && !paper.teaserImage.endsWith('.json') && (
+    <div class="paper-detail-teaser-wrap">
+      <img class="paper-detail-teaser" src={paper.teaserImage} alt={`${paper.shortName} teaser`} />
+    </div>
+  )}
+  <div class="paper-detail-authors" set:html={authorHtml} />
+  <div class="paper-detail-description" set:html={detailContent} />
+</div>

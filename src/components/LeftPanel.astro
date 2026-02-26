@@ -1,0 +1,218 @@
+---
+import ResearchGrid from './ResearchGridFinal.astro';
+import PublicationList from './PublicationList.astro';
+import publications from '../data/publications.json';
+import profile from '../data/profile.json';
+
+const selectedPubs = publications.selected
+  .map(id => publications.publications.find(p => p.id === id))
+  .filter(Boolean);
+
+// Strip HTML tags for the typing animation
+const bioKeywordsText = profile.bioKeywords.replace(/<[^>]*>/g, '');
+---
+
+<aside class="left-panel">
+  <!-- Header / Bio -->
+  <header class="bio">
+    <div class="bio-top">
+      <div class="profile-photo-wrap">
+        <img src={profile.photo} alt={profile.name} class="profile-photo" />
+      </div>
+      <div>
+        <h1>{profile.name}</h1>
+        <p class="affiliation">{profile.degree}, {profile.school.name}</p>
+        <p class="affiliation"><a href={profile.lab.url} target="_blank">{profile.lab.name}</a> · {profile.focus}</p>
+      </div>
+    </div>
+    <p class="bio-text">
+      <Fragment set:html={profile.bio} />
+    </p>
+
+    <!-- Disentangle trigger: typed out, then scattered to reveal cards -->
+    <div class="disentangle-trigger" data-text={bioKeywordsText}>
+      <span class="dt-static"><Fragment set:html={profile.bioKeywords} /></span>
+    </div>
+
+    <nav class="links-row">
+      {profile.links.map((link, i) => (
+        <>
+          {i > 0 && <span class="link-dot">·</span>}
+          <a
+            href={link.url}
+            target={link.url.startsWith('mailto:') ? undefined : '_blank'}
+          >{link.label}</a>
+        </>
+      ))}
+    </nav>
+  </header>
+
+  <!-- Research Grid — hidden until disentangle animation completes -->
+  <section class="section-cards" id="card-hand-section">
+    <div class="grid-header" id="grid-header">
+      <h2>Selected Publications</h2>
+      <button class="btn-pill disentangle-more" id="disentangle-more">Show all →</button>
+    </div>
+    <ResearchGrid papers={selectedPubs} />
+  </section>
+
+  <!-- Removed old button from here -->
+
+  <!-- Scrollable area -->
+  <div class="left-panel-scroll" id="left-scroll">
+    <!-- All Publications List (hidden by default) -->
+    <section class="section-pubs hidden" id="pub-list-section">
+      <div class="pub-list-header">
+        <h2>All Publications</h2>
+        <button class="btn-pill" id="back-to-cards">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Back to selected
+        </button>
+      </div>
+      <PublicationList
+        publications={publications.publications}
+        selectedIds={publications.selected}
+      />
+    </section>
+
+    <footer class="site-footer">
+      <small>&copy; {profile.copyright}</small>
+    </footer>
+  </div>
+</aside>
+
+<style>
+  .bio { margin-bottom: 20px; }
+  .bio-top {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 12px; /* Reduced from 16 */
+  }
+  .profile-photo-wrap {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  .profile-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%) contrast(1.05);
+  }
+  .affiliation {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  .bio-text {
+    font-size: 0.85rem; /* Reduced from 0.9 */
+    line-height: 1.6;
+    color: var(--text);
+    margin-bottom: 6px; /* Reduced from 8 */
+  }
+
+  .grid-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px; /* Reduced from 6 */
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  .grid-header.visible { opacity: 1; }
+  
+  .grid-header h2 {
+    font-size: 0.8rem;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  /* ── Disentangle trigger ── */
+  .disentangle-trigger {
+    font-family: inherit;
+    font-size: 0.85rem; /* Match bio-text */
+    line-height: 1.6;
+    color: var(--text);
+    margin-bottom: 16px; /* Reduced from 8 */
+    cursor: default;
+    min-height: 1.4em;
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* ... shimmer ... */
+
+  .disentangle-trigger .dt-static {
+    transition: color 0.2s;
+  }
+  
+  /* ── Bio Keyword Styles ── */
+  :global(.bio-keyword) {
+    cursor: pointer;
+    border-bottom: 1px dashed var(--text-muted);
+    transition: all 0.2s ease;
+    color: var(--text);
+  }
+  :global(.bio-keyword:hover) {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    background: rgba(91, 138, 154, 0.1);
+    border-radius: 2px;
+  }
+
+  .links-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+    font-family: var(--font-heading);
+    font-size: 0.75rem; /* Reduced from 0.8 */
+  }
+  .link-dot { color: var(--sand); }
+  
+  .section-cards {
+    margin-bottom: 4px;
+    overflow: visible;
+    overflow-y: auto;
+  }
+
+  .section-pubs { margin-bottom: 12px; }
+  .hidden { display: none !important; }
+
+  .pub-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .pub-list-header h2 { margin-bottom: 0; }
+
+  /* ── "Disentangle more" toggle ── */
+  .disentangle-more {
+    display: flex; /* match btn-pill flex */
+    opacity: 0;
+    pointer-events: none;
+    font-size: 0.75rem;
+    transition: all 0.2s, opacity 0.5s ease;
+  }
+  .disentangle-more.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .site-footer {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 768px) {
+    .bio-top { flex-direction: column; align-items: center; text-align: center; }
+  }
+</style>

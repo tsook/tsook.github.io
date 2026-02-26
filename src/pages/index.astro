@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LeftPanel from '../components/LeftPanel.astro';
+import CanvasPanel from '../components/CanvasPanel.astro';
+import profile from '../data/profile.json';
+---
+
+<Layout title={profile.name}>
+  <LeftPanel />
+  <CanvasPanel />
+</Layout>
+
+<script>
+  import { initFragmentAnimation } from '../scripts/fragments.js';
+  import { initPanelManager } from '../scripts/panel.js';
+  import { initDisentangle } from '../scripts/disentangle.js';
+  import fragmentData from '../data/fragments.json';
+  import profile from '../data/profile.json';
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let fragmentSystem = null;
+
+  if (!prefersReducedMotion) {
+    const canvas = document.getElementById('fragment-canvas');
+    if (canvas) {
+      fragmentSystem = await initFragmentAnimation(canvas, fragmentData, profile);
+
+      // Expose fragment system for panel.js to trigger paper transitions
+      window.__fragmentSystem = fragmentSystem;
+    }
+  }
+
+  initPanelManager();
+  initDisentangle();
+</script>

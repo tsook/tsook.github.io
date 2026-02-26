@@ -1,0 +1,151 @@
+---
+interface Props {
+  publications: any[];
+  selectedIds: string[];
+}
+const { publications, selectedIds } = Astro.props;
+---
+
+<div class="pub-list">
+  {publications.map((pub: any) => {
+    const isSelected = selectedIds.includes(pub.id);
+    const authorStr = pub.authors
+      .map((a: any) => a.name === 'Tae Soo Kim' ? `<strong>${a.name}</strong>` : a.name)
+      .join(', ');
+    return (
+      <button
+        class={`pub-item ${isSelected ? 'pub-selected' : ''}`}
+        data-paper-id={pub.id}
+      >
+        <div class="pub-title-row">
+          {isSelected && <span class="pub-star">★</span>}
+          <span class="pub-title">{pub.title}</span>
+        </div>
+        <div class="pub-meta">
+          <span class="pub-venue">{pub.venue} {pub.year}</span>
+          <span class="pub-authors" set:html={authorStr} />
+        </div>
+        {pub.award && (
+          <span class="pub-award">{pub.award}</span>
+        )}
+        {pub.links && Object.keys(pub.links).length > 0 && (
+          <div class="pub-links">
+            {pub.links.pdf && <a href={pub.links.pdf} target="_blank" class="pub-link-btn">PDF</a>}
+            {pub.links.website && <a href={pub.links.website} target="_blank" class="pub-link-btn">Website</a>}
+            {pub.links.arxiv && <a href={pub.links.arxiv} target="_blank" class="pub-link-btn">arXiv</a>}
+            {pub.links.code && <a href={pub.links.code} target="_blank" class="pub-link-btn">Code</a>}
+            {pub.links.video && <a href={pub.links.video} target="_blank" class="pub-link-btn">Video</a>}
+            {pub.links.demo && <a href={pub.links.demo} target="_blank" class="pub-link-btn">Demo</a>}
+          </div>
+        )}
+      </button>
+    );
+  })}
+</div>
+
+<style>
+  .pub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .pub-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: var(--font-body);
+  }
+  .pub-item:hover {
+    background: rgba(0, 51, 204, 0.05);
+    border-color: var(--card-border);
+  }
+  .pub-item.active {
+    background: rgba(0, 51, 204, 0.08);
+    border-color: var(--accent);
+  }
+
+  .pub-title-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .pub-star {
+    color: var(--accent);
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    line-height: 1.4;
+  }
+  .pub-title {
+    font-size: 0.82rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--text);
+  }
+  .pub-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    margin-top: 2px;
+  }
+  .pub-venue {
+    font-family: var(--font-heading);
+    font-size: 0.68rem;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .pub-authors {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  .pub-award {
+    display: inline-block;
+    margin-top: 3px;
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    color: var(--award-gold);
+    font-weight: 700;
+  }
+  .pub-selected .pub-title {
+    font-weight: 600;
+  }
+
+  /* Mobile-only paper links */
+  .pub-links {
+    display: none;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 6px;
+  }
+
+  .pub-link-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    background: rgba(0, 51, 204, 0.06);
+    border: 1px solid rgba(0, 51, 204, 0.15);
+    border-radius: 4px;
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .pub-link-btn:hover {
+    background: rgba(0, 51, 204, 0.12);
+    text-decoration: none;
+    color: var(--accent-hover);
+  }
+
+  @media (max-width: 768px) {
+    .pub-links { display: flex; }
+  }
+</style>

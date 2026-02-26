@@ -1,0 +1,248 @@
+---
+import profile from '../data/profile.json';
+
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={profile.metaDescription} />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet" />
+    <title>{title}</title>
+    <style>
+      @font-face { font-family: 'GeistPixelSquare'; src: url('/fonts/GeistPixel-Square.woff2') format('woff2'); font-display: swap; }
+      @font-face { font-family: 'GeistPixelGrid'; src: url('/fonts/GeistPixel-Grid.woff2') format('woff2'); font-display: swap; }
+      @font-face { font-family: 'GeistPixelCircle'; src: url('/fonts/GeistPixel-Circle.woff2') format('woff2'); font-display: swap; }
+      @font-face { font-family: 'GeistPixelTriangle'; src: url('/fonts/GeistPixel-Triangle.woff2') format('woff2'); font-display: swap; }
+      @font-face { font-family: 'GeistPixelLine'; src: url('/fonts/GeistPixel-Line.woff2') format('woff2'); font-display: swap; }
+    </style>
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <slot />
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  /* ── Reset ── */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* ── CSS Variables ── */
+  :root {
+    /* Industrial Canvas Theme */
+    --bg: #F2F4F6; /* Cool Pale Grey */
+    --bg-panel: #FFFFFF; /* White */
+    --bg-surface: #E5E7EB; /* Light Grey Surface */
+    --text: #1F2933; /* Dark Graphite */
+    --text-muted: #52606D; /* Slate */
+    --accent: #0033CC; /* Cobalt Blue */
+    --accent-hover: #002299; /* Deep Cobalt */
+    --sand: #D1D5DB; /* Cool Grey for borders */
+    --card-bg: #FFFFFF;
+    --card-border: #E2E8F0;
+    --card-shadow: rgba(0, 0, 0, 0.05); /* Softer shadow for clean look */
+    --award-gold: #b8860b;
+    --glow: rgba(0, 51, 204, 0.08); /* Blue tint glow */
+    --font-heading: 'Noto Sans', sans-serif;
+    --font-body: 'Noto Sans', sans-serif;
+    --font-pixel: 'GeistPixelSquare', monospace;
+    --radius: 6px;
+    --radius-lg: 12px;
+    --left-panel-w: 45%;
+    --left-panel-min: 360px;
+    --left-panel-max: 560px;
+  }
+
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  a:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+  }
+
+  /* ── Site Wrapper ── */
+  .site-wrapper {
+    display: block; /* Changed from flex */
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ── Left Panel ── Floats on top with gradient fade */
+  .left-panel {
+    width: var(--left-panel-w);
+    min-width: var(--left-panel-min);
+    max-width: var(--left-panel-max);
+    height: 100vh;
+    overflow: visible;
+    padding: 32px 40px 32px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 10;
+    /* Gradient background: solid on left, fades to transparent on right */
+    background: linear-gradient(to right, var(--bg) 0%, var(--bg) 80%, rgba(244, 239, 230, 0) 100%);
+  }
+
+  /* Inner scroll wrapper — clips vertically but lets card-hand overflow horizontally */
+  .left-panel-scroll {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: visible;
+    display: flex;
+    flex-direction: column;
+    scrollbar-width: thin;
+    scrollbar-color: var(--sand) transparent;
+  }
+  .left-panel-scroll::-webkit-scrollbar { width: 6px; }
+  .left-panel-scroll::-webkit-scrollbar-track { background: transparent; }
+  .left-panel-scroll::-webkit-scrollbar-thumb { background: var(--sand); border-radius: 3px; }
+
+  /* ── Canvas Panel ── Full-screen background layer */
+  .canvas-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 1; /* Behind left panel */
+  }
+
+
+  /* ── Full-bleed background canvas ── */
+  .bg-canvas-wrap {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  /* ── Typography ── */
+  h1 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  /* ── Shared Button Styles ── */
+  .btn-reset {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    transition: all 0.15s;
+  }
+
+  /* Text-only link-style button (if needed, but mainly we use outlines now) */
+  .btn-text {
+    background: none;
+    border: none;
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    color: var(--accent);
+    cursor: pointer;
+    padding: 2px 0;
+    transition: color 0.15s;
+  }
+  .btn-text:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+  }
+
+  /* Unified Button Style - Light by default, Dark on Hover */
+  .btn-outline, .btn-pill, .btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    
+    /* Light / Neutral Default */
+    background: rgba(255, 255, 255, 0.4); 
+    border: 1px solid transparent; 
+    border-radius: var(--radius); /* Rectangle-y 6px */
+    
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    color: var(--text-muted); /* Neutral text */
+    
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    backdrop-filter: blur(4px);
+  }
+
+  .btn-outline:hover, .btn-pill:hover, .btn-back:hover {
+    /* Darker Hover */
+    background: var(--card-border); /* darker sand color */
+    color: var(--text); /* Darker text */
+    text-decoration: none;
+    border-color: transparent; /* Ensure no accent border */
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    body { overflow: auto; height: auto; }
+    .site-wrapper {
+      flex-direction: column;
+      height: auto;
+      overflow: auto;
+    }
+    .left-panel {
+      width: 100%;
+      min-width: 0;
+      max-width: none;
+      height: auto;
+      overflow: visible;
+      padding: 32px 24px 24px;
+    }
+    .right-panel {
+      height: 60vh;
+      min-height: 320px;
+    }
+    .bg-canvas-wrap { position: absolute; }
+  }
+</style>

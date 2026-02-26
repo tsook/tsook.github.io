@@ -1,0 +1,236 @@
+---
+interface Props {
+  paper: {
+    id: string;
+    title: string;
+    shortName: string;
+    venue: string;
+    year: number;
+    award: string | null;
+    cardImage: string;
+  };
+}
+const { paper } = Astro.props;
+---
+
+<button
+  class="card"
+  data-paper-id={paper.id}
+>
+  <div class="card-inner">
+    <div class="card-nameplate">
+      <span class="card-title">{paper.title}</span>
+    </div>
+    <div class="card-art" style={`background-image: url(${paper.cardImage})`}></div>
+    <div class="card-stats">
+      <span class="card-venue">{paper.venue} '{String(paper.year).slice(2)}</span>
+      {paper.award && (
+        <span class="card-award-badge" title={paper.award}>
+          <svg width="10" height="10" viewBox="0 0 512 512" fill="currentColor"><path d="M4.1 38.2C1.4 34.2 0 29.4 0 24.6C0 11 11 0 24.6 0H133.9c11.2 0 21.7 5.9 27.4 15.5l68.5 114.1c-48.2 6.1-91.3 28.6-123.4 61.9L4.1 38.2zm503.7 0L405.6 191.5c-32.1-33.3-75.2-55.8-123.4-61.9L350.7 15.5C356.5 5.9 366.9 0 378.1 0H487.4C501 0 512 11 512 24.6c0 4.8-1.4 9.6-4.1 13.6zM80 336a176 176 0 1 1 352 0A176 176 0 1 1 80 336zm184.4-94.9c-3.4-7-13.3-7-16.8 0l-22.4 45.4c-1.4 2.8-4 4.7-7 5.1L168 298.9c-7.7 1.1-10.7 10.5-5.2 16l36.3 35.4c2.2 2.2 3.2 5.2 2.7 8.3l-8.6 49.9c-1.3 7.6 6.7 13.5 13.6 9.9l44.8-23.6c2.7-1.4 6-1.4 8.7 0l44.8 23.6c6.9 3.6 14.9-2.2 13.6-9.9l-8.6-49.9c-.5-3 .5-6.1 2.7-8.3l36.3-35.4c5.6-5.4 2.5-14.8-5.2-16l-50.1-7.3c-3-.4-5.7-2.4-7-5.1l-22.4-45.4z"/></svg>
+        </span>
+      )}
+    </div>
+    <div class="card-sheen"></div>
+  </div>
+</button>
+
+<style>
+  .card {
+    position: relative;
+    border: none;
+    background: none;
+    cursor: pointer;
+    perspective: 600px;
+    flex-shrink: 0;
+    /* Subtle drop shadow beneath card — like it's sitting on sand */
+    filter: drop-shadow(0 3px 6px rgba(80,60,40,0.18));
+  }
+  .card.active {
+    z-index: 30;
+  }
+
+  .card-inner {
+    width: 100%;
+    height: 100%;
+    /* Warm aged card stock — slight yellowing, darker edges */
+    background:
+      linear-gradient(180deg,
+        #f5efe2 0%,
+        #f0e8d8 15%,
+        #ede4d2 85%,
+        #e2d8c4 100%
+      );
+    /* Thick card edge — warm tan like real card stock */
+    border: 2.5px solid #c0ad94;
+    border-radius: 8px;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    position: relative;
+    overflow: hidden;
+    /* Layered shadow for physical depth:
+       1) top edge highlight (card thickness catching light)
+       2) bottom edge shadow (card thickness in shadow)
+       3) contact shadow (card on surface) */
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.7),
+      inset 0 -1px 0 rgba(0,0,0,0.06),
+      0 1px 2px rgba(80,60,40,0.12),
+      0 4px 12px rgba(80,60,40,0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transform-style: preserve-3d;
+  }
+
+  /* Paper grain texture */
+  .card-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(120,100,70,0.02) 2px,
+        rgba(120,100,70,0.02) 3px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 3px,
+        rgba(120,100,70,0.015) 3px,
+        rgba(120,100,70,0.015) 4px
+      );
+    border-radius: 6px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .card:hover .card-inner {
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.8),
+      inset 0 -1px 0 rgba(0,0,0,0.06),
+      0 8px 24px rgba(80,60,40,0.2),
+      0 2px 6px rgba(80,60,40,0.1);
+  }
+  .card.active .card-inner {
+    border-color: #8a7a64;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.8),
+      inset 0 -1px 0 rgba(0,0,0,0.06),
+      0 10px 30px rgba(80,60,40,0.22),
+      0 2px 8px rgba(80,60,40,0.12);
+  }
+
+  /* ── Nameplate — stamped label feel ── */
+  .card-nameplate {
+    padding: 5px 6px 4px;
+    background: rgba(100,80,50,0.05);
+    border-radius: 5px 5px 2px 2px;
+    border-bottom: 1px solid rgba(100,80,50,0.1);
+    position: relative;
+    z-index: 2;
+  }
+  .card-title {
+    font-family: var(--font-heading);
+    font-size: 0.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #3a3228;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ── Art window — desaturated, high-contrast print feel ── */
+  .card-art {
+    flex: 1;
+    border-radius: 3px;
+    background-size: cover;
+    background-position: center;
+    /* Heavy desaturation + contrast = old printed card art */
+    filter: grayscale(60%) contrast(1.15) brightness(0.95) sepia(20%);
+    box-shadow:
+      inset 0 0 0 1px rgba(80,60,40,0.15),
+      inset 0 1px 3px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── Stats bar — tech readout on card stock ── */
+  .card-stats {
+    padding: 3px 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(100,80,50,0.04);
+    border-radius: 2px 2px 5px 5px;
+    border-top: 1px solid rgba(100,80,50,0.06);
+    position: relative;
+    z-index: 2;
+  }
+  .card-venue {
+    font-family: var(--font-heading);
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: #6a5a48;
+    letter-spacing: 0.03em;
+  }
+  .card-award-badge {
+    color: var(--award-gold);
+    filter: drop-shadow(0 1px 2px rgba(184,134,11,0.25));
+    line-height: 1;
+  }
+
+  /* ── Sheen overlay — glossy card surface catching light ── */
+  .card-sheen {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(255,255,255,0.45) 0%,
+      rgba(255,248,230,0.12) 25%,
+      transparent 55%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    border-radius: 8px;
+    mix-blend-mode: overlay;
+    z-index: 3;
+  }
+  .card:hover .card-sheen {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  // 3D tilt + mouse-position glare
+  document.querySelectorAll('.card').forEach(card => {
+    const inner = card.querySelector('.card-inner') as HTMLElement;
+    const sheen = card.querySelector('.card-sheen') as HTMLElement;
+    if (!inner || !sheen) return;
+
+    card.addEventListener('mousemove', (e: MouseEvent) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+
+      const tiltX = (0.5 - y) * 15;
+      const tiltY = (x - 0.5) * 15;
+      inner.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+
+      const pctX = (x * 100).toFixed(1);
+      const pctY = (y * 100).toFixed(1);
+      sheen.style.background = `radial-gradient(circle at ${pctX}% ${pctY}%, rgba(255,255,255,0.5) 0%, rgba(255,248,230,0.15) 25%, transparent 55%)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      inner.style.transform = 'rotateX(0) rotateY(0)';
+      sheen.style.background = '';
+    });
+  });
+</script>

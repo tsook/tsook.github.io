@@ -1,0 +1,50 @@
+{
+  "name": "Tae Soo Kim",
+  "photo": "/images/profile_new.jpeg",
+  "degree": "PhD",
+  "school": {
+    "name": "School of Computing, KAIST",
+    "url": "https://cs.kaist.ac.kr/",
+    "universityUrl": "https://www.kaist.ac.kr/"
+  },
+  "lab": {
+    "name": "KIXLAB",
+    "url": "https://www.kixlab.org/"
+  },
+  "advisor": {
+    "name": "Juho Kim",
+    "url": "https://juhokim.com/"
+  },
+  "focus": "HCI+NLP",
+  "bio": "I am a fourth year PhD candidate in the <a href=\"https://cs.kaist.ac.kr/\" target=\"_blank\">School of Computing</a> at <a href=\"https://www.kaist.ac.kr/\" target=\"_blank\">KAIST</a>. I work with <a href=\"https://juhokim.com/\" target=\"_blank\">Juho Kim</a> as a member of <a href=\"https://www.kixlab.org/\" target=\"_blank\">KIXLAB</a>.",
+  "bioKeywords": "My work falls in the intersection of <strong class=\"bio-keyword\" data-highlight=\"dis-hci\">HCI</strong> and <strong class=\"bio-keyword\" data-highlight=\"dis-nlp\">NLP</strong>, focusing on <strong>interactive alignment</strong> of AI models. Specifically, I explore how to <b>disentangle</b> natural language into interactive components that empower users to <strong class=\"bio-keyword\" data-highlight=\"dis-execution\">iterate on their intents</strong> and <strong class=\"bio-keyword\" data-highlight=\"dis-evaluation\">audit the model's behaviors</strong>.",
+  "links": [
+    {
+      "label": "CV",
+      "url": "/pdf/TaeSooKim_CV.pdf",
+      "type": "cv"
+    },
+    {
+      "label": "Google Scholar",
+      "url": "https://scholar.google.com/citations?user=CsBoGvMAAAAJ&hl=en"
+    },
+    {
+      "label": "Twitter/X",
+      "url": "https://twitter.com/tae_skim"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/tae-soo-kim-891093364"
+    },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/tsook"
+    },
+    {
+      "label": "Email",
+      "url": "mailto:taesoo.kim@kaist.ac.kr"
+    }
+  ],
+  "copyright": "2026 Tae Soo Kim",
+  "metaDescription": "Tae Soo Kim — PhD student at KAIST, researching interactive AI alignment at the intersection of HCI and NLP."
+}

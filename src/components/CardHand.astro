@@ -1,0 +1,187 @@
+---
+import Card from './Card.astro';
+
+interface Props {
+  papers: any[];
+}
+const { papers } = Astro.props;
+---
+
+<div class="card-grid cards-hidden" id="card-grid">
+  {papers.map((paper) => (
+    <div class="card-slot">
+      <Card paper={paper} />
+    </div>
+  ))}
+</div>
+
+<style>
+  .card-grid {
+    position: relative;
+    height: 220px;
+    transition: height 0.5s ease;
+    overflow: visible;
+  }
+  .card-grid.has-selection {
+    height: 350px;
+  }
+
+  /* Hidden initial state — revealed by disentangle.js */
+  .card-grid.cards-hidden {
+    pointer-events: none;
+  }
+  .card-grid.cards-hidden .card-slot {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x, 0px)), calc(var(--y, 0px) + 30px)) rotate(var(--rot, 0deg)) scale(0.75);
+  }
+
+  .card-slot {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(calc(-50% + var(--x, 0px)), var(--y, 0px)) rotate(var(--rot, 0deg));
+    z-index: var(--z, 1);
+    opacity: 1;
+    transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+                opacity 0.4s ease,
+                z-index 0s 0.25s;
+  }
+
+  /* Hover lift — default pile */
+  .card-grid:not(.has-selection) .card-slot:hover {
+    transform: translate(calc(-50% + var(--x, 0px)), calc(var(--y, 0px) - 14px)) rotate(0deg) scale(1.08);
+    z-index: 20;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), z-index 0s;
+  }
+
+  /* Hover lift — small unselected cards */
+  .card-grid.has-selection .card-slot:not(.slot-active):hover {
+    transform: translate(calc(-50% + var(--x, 0px)), calc(var(--y, 0px) - 8px)) rotate(0deg) scale(1.1);
+    z-index: 20;
+    transition: transform 0.3s ease, z-index 0s;
+  }
+
+  /* ── Card sizing ── */
+
+  .card-grid :global(.card) {
+    width: 120px;
+    height: 168px;
+    transition: width 0.45s ease, height 0.45s ease;
+  }
+
+  .card-grid.has-selection :global(.card.active) {
+    width: 200px;
+    height: 250px;
+  }
+  .card-grid.has-selection :global(.card.active .card-title) {
+    font-size: 0.6rem;
+    -webkit-line-clamp: 4;
+  }
+  .card-grid.has-selection :global(.card.active .card-venue) {
+    font-size: 0.65rem;
+  }
+
+  .card-grid.has-selection :global(.card:not(.active)) {
+    width: 62px;
+    height: 86px;
+  }
+  .card-grid.has-selection :global(.card:not(.active) .card-nameplate) {
+    padding: 2px 4px 2px;
+  }
+  .card-grid.has-selection :global(.card:not(.active) .card-title) {
+    font-size: 0.38rem;
+    -webkit-line-clamp: 2;
+  }
+  .card-grid.has-selection :global(.card:not(.active) .card-stats) {
+    padding: 1px 4px;
+  }
+  .card-grid.has-selection :global(.card:not(.active) .card-venue) {
+    font-size: 0.4rem;
+  }
+  .card-grid.has-selection :global(.card:not(.active) .card-award-badge) {
+    display: none;
+  }
+</style>
+
+<script>
+  const grid = document.getElementById('card-grid')!;
+  const slots = Array.from(grid.querySelectorAll('.card-slot')) as HTMLElement[];
+  const count = slots.length;
+
+  // ── Default pile: interfacecraft-style overlapping fan ──
+  // Each card stacks on top of the previous (z increases left→right).
+  // Y alternates high/low to create two visual rows.
+  // Rotation fans left-to-right.
+  const defaultPositions = [
+    { x: -128, y: 0,  rot: -8,   z: 1 },   // high
+    { x: -56,  y: 22, rot: -3,   z: 2 },   // low, on top of 0
+    { x: 8,    y: 0,  rot: 0.5,  z: 3 },   // high, on top of 1
+    { x: 72,   y: 22, rot: 4.5,  z: 4 },   // low, on top of 2
+    { x: 134,  y: 0,  rot: 9,    z: 5 },   // high, on top of 3
+  ];
+
+  function setPos(slot: HTMLElement, p: { x: number; y: number; rot: number; z: number }) {
+    slot.style.setProperty('--x', p.x + 'px');
+    slot.style.setProperty('--y', p.y + 'px');
+    slot.style.setProperty('--rot', p.rot + 'deg');
+    slot.style.setProperty('--z', String(p.z));
+  }
+
+  function applyDefault() {
+    slots.forEach((slot, i) => {
+      slot.classList.remove('slot-active');
+      setPos(slot, defaultPositions[i]);
+    });
+  }
+
+  function applySelected(selectedIndex: number) {
+    const bigHeight = 250;
+    const gap = 14;
+    // Small cards in a mini-fan below the selected card
+    const smallPositions = [
+      { x: -68, y: 0, rot: -6, z: 6 },
+      { x: -24, y: 8, rot: -2, z: 7 },
+      { x: 22,  y: 9, rot: 2,  z: 7 },
+      { x: 66,  y: 2, rot: 6,  z: 6 },
+    ];
+    let si = 0;
+
+    slots.forEach((slot, i) => {
+      if (i === selectedIndex) {
+        slot.classList.add('slot-active');
+        setPos(slot, { x: 0, y: 0, rot: 0, z: 10 });
+      } else {
+        slot.classList.remove('slot-active');
+        const sp = smallPositions[si] || smallPositions[0];
+        setPos(slot, {
+          x: sp.x,
+          y: bigHeight + gap + sp.y,
+          rot: sp.rot,
+          z: sp.z,
+        });
+        si++;
+      }
+    });
+  }
+
+  function updateLayout() {
+    if (grid.classList.contains('has-selection')) {
+      const activeEl = grid.querySelector('.card.active');
+      if (activeEl) {
+        const activeSlot = activeEl.closest('.card-slot') as HTMLElement;
+        const index = slots.indexOf(activeSlot);
+        if (index >= 0) {
+          applySelected(index);
+          return;
+        }
+      }
+    }
+    applyDefault();
+  }
+
+  // Initialize
+  applyDefault();
+
+  // Listen for selection changes from panel.js
+  document.addEventListener('card-selection-change', updateLayout);
+</script>

@@ -1,0 +1,16 @@
+{
+  "name": "taesookim-website",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@iconify-json/ph": "^1.2.2",
+    "astro": "^5.2.0",
+    "astro-icon": "^1.1.5",
+    "geist": "^1.7.0"
+  }
+}

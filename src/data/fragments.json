@@ -1,0 +1,622 @@
+{
+  "global": [
+    "disentangle",
+    "intent",
+    "style",
+    "content",
+    "evaluation",
+    "personalization",
+    "abstraction",
+    "prompt",
+    "output",
+    "criteria",
+    "alignment",
+    "decomposition",
+    "generation",
+    "interaction",
+    "uncertainty",
+    "conflict",
+    "inconsistency",
+    "comprehension",
+    "trust",
+    "hallucination",
+    "visual search",
+    "tacit knowledge",
+    "multimodal",
+    "asynchronous",
+    "collaboration",
+    "consensus",
+    "scaffolding",
+    "object-oriented",
+    "cells",
+    "generators",
+    "lenses",
+    "styling",
+    "natural language",
+    "annotation",
+    "scaffolding",
+    "collaboration",
+    "augmentation",
+    "visualization",
+    "feedback",
+    "preference",
+    "comprehension",
+    "manipulation",
+    "exploration",
+    "bridging",
+    "abstraction gap",
+    "user intent",
+    "LLM",
+    "prompt engineering",
+    "multi-turn",
+    "context",
+    "design framework",
+    "HCI",
+    "interface",
+    "semantic",
+    "syntax",
+    "encoding",
+    "decoding",
+    "latent",
+    "embedding",
+    "representation",
+    "attention",
+    "transform",
+    "iterate",
+    "refine",
+    "compose",
+    "structure",
+    "pattern",
+    "signal",
+    "noise",
+    "entropy",
+    "gradient",
+    "optimize",
+    "converge",
+    "diverge",
+    "cluster",
+    "classify",
+    "segment",
+    "parse",
+    "tokenize",
+    "generate",
+    "discriminate",
+    "align",
+    "calibrate",
+    "transfer",
+    "fine-tune",
+    "adapt",
+    "personalize",
+    "evaluate",
+    "measure",
+    "score",
+    "rank",
+    "compare",
+    "synthesize",
+    "analyze",
+    "recompose",
+    "entangle",
+    "bridge",
+    "gap",
+    "concrete",
+    "affordance",
+    "constraint",
+    "dimension",
+    "criteria",
+    "rubric",
+    "scaffold",
+    "annotate",
+    "curate",
+    "model",
+    "inference",
+    "reasoning",
+    "grounding",
+    "sensemaking",
+    "articulate",
+    "elicit",
+    "specify",
+    "iterate",
+    "prototype",
+    "validate",
+    "benchmark",
+    "metric",
+    "heuristic",
+    "workflow",
+    "pipeline",
+    "modular",
+    "composable",
+    "reusable",
+    "interactive",
+    "responsive",
+    "adaptive",
+    "contextual",
+    "situated",
+    "embodied",
+    "multimodal",
+    "cross-modal",
+    "temporal",
+    "spatial"
+  ],
+  "mergeRules": {
+    "natural+language": "natural language",
+    "prompt+engineering": "prompt engineering",
+    "user+intent": "user intent",
+    "abstraction+gap": "abstraction gap",
+    "design+framework": "design framework",
+    "feedback+loop": "feedback loop",
+    "multi+turn": "multi-turn",
+    "style+transfer": "style transfer",
+    "fine+tune": "fine-tune",
+    "object+oriented": "object-oriented",
+    "cross+modal": "cross-modal",
+    "signal+noise": "signal+noise",
+    "intent+style": "intent × style",
+    "content+style": "content × style",
+    "encode+decode": "encode ↔ decode",
+    "converge+diverge": "converge ↔ diverge",
+    "analyze+synthesize": "analyze ↔ synthesize",
+    "compose+decompose": "compose ↔ decompose",
+    "entangle+disentangle": "entangle ↔ disentangle"
+  },
+  "splitRules": {
+    "disentangle": [
+      "dis",
+      "entangle"
+    ],
+    "interaction": [
+      "inter",
+      "action"
+    ],
+    "decomposition": [
+      "de",
+      "composition"
+    ],
+    "personalization": [
+      "personal",
+      "ization"
+    ],
+    "evaluation": [
+      "eval",
+      "uation"
+    ],
+    "collaboration": [
+      "co",
+      "labor",
+      "ation"
+    ],
+    "visualization": [
+      "visual",
+      "ization"
+    ],
+    "augmentation": [
+      "augment",
+      "ation"
+    ],
+    "exploration": [
+      "explore",
+      "ation"
+    ],
+    "manipulation": [
+      "manipul",
+      "ation"
+    ],
+    "comprehension": [
+      "compre",
+      "hension"
+    ],
+    "representation": [
+      "re",
+      "present",
+      "ation"
+    ],
+    "contextualization": [
+      "context",
+      "ual",
+      "ization"
+    ],
+    "natural language": [
+      "natural",
+      "language"
+    ],
+    "prompt engineering": [
+      "prompt",
+      "engineering"
+    ],
+    "user intent": [
+      "user",
+      "intent"
+    ],
+    "abstraction gap": [
+      "abstraction",
+      "gap"
+    ],
+    "design framework": [
+      "design",
+      "framework"
+    ],
+    "object-oriented": [
+      "object",
+      "oriented"
+    ],
+    "sensemaking": [
+      "sense",
+      "making"
+    ],
+    "multi-turn": [
+      "multi",
+      "turn"
+    ],
+    "cross-modal": [
+      "cross",
+      "modal"
+    ],
+    "fine-tune": [
+      "fine",
+      "tune"
+    ],
+    "multimodal": [
+      "multi",
+      "modal"
+    ],
+    "interactive": [
+      "inter",
+      "active"
+    ],
+    "composable": [
+      "compose",
+      "able"
+    ],
+    "responsive": [
+      "response",
+      "ive"
+    ],
+    "grounding": [
+      "ground",
+      "ing"
+    ],
+    "reasoning": [
+      "reason",
+      "ing"
+    ],
+    "inference": [
+      "infer",
+      "ence"
+    ],
+    "benchmark": [
+      "bench",
+      "mark"
+    ],
+    "workflow": [
+      "work",
+      "flow"
+    ]
+  },
+  "papers": {
+    "stylette": {
+      "fragments": [
+        "color: #5b8a9a;",
+        "border-radius: 16px;",
+        "font-size: 1.2rem;",
+        "\"make it rounder\"",
+        "\"warmer tones\"",
+        "\"more contrast\"",
+        ".element {",
+        "}",
+        "natural language",
+        "CSS property",
+        "style transfer",
+        "web styling",
+        "conversational",
+        "feedback loop",
+        "███████",
+        "░░░░░",
+        "▓▓▓▓▓▓",
+        "→ border",
+        "→ color",
+        "→ layout"
+      ],
+      "layout": "stylesheet"
+    },
+    "cells-generators-lenses": {
+      "fragments": [
+        "┌───┐",
+        "│ ░▒│",
+        "└───┘",
+        "═══►",
+        "gen",
+        "───►",
+        "◇ lens",
+        "cell",
+        "generator",
+        "compose",
+        "transform",
+        "object",
+        "primitive",
+        "structured",
+        "manipulate",
+        "LLM input",
+        "LLM output",
+        "decompose",
+        "recombine",
+        "filter"
+      ],
+      "layout": "grid"
+    },
+    "evallm": {
+      "fragments": [
+        "Coherence",
+        "Relevance",
+        "Fluency",
+        "Depth",
+        "Specificity",
+        "█████████░░",
+        "███████░░░░",
+        "██████████░",
+        "█████░░░░░░",
+        "89%",
+        "71%",
+        "94%",
+        "52%",
+        "criteria",
+        "evaluate",
+        "compare",
+        "prompt A",
+        "prompt B",
+        "shoulder",
+        "metal",
+        "•",
+        "•",
+        "•",
+        "High Quality",
+        "Hallucinated",
+        "+",
+        "+",
+        "+",
+        "+"
+      ],
+      "layout": "rubric"
+    },
+    "cupid": {
+      "fragments": [
+        "╭──────╮",
+        "│ turn │",
+        "╰──────╯",
+        "tone:",
+        "formality:",
+        "length:",
+        "████░░",
+        "62%",
+        "78%",
+        "85%",
+        "91%",
+        "alignment",
+        "personalized",
+        "contextualized",
+        "preference",
+        "multi-turn",
+        "adapt",
+        "converge",
+        "feedback",
+        "dimension"
+      ],
+      "layout": "conversation"
+    },
+    "evalet": {
+      "fragments": [
+        "concise",
+        "verbose",
+        "intent",
+        "hallucination",
+        "constraints",
+        "tone",
+        "accuracy",
+        "rubric",
+        "•",
+        "•",
+        "•",
+        "•",
+        "•",
+        "score",
+        "align"
+      ],
+      "layout": "scatter"
+    },
+    "discoverllm": {
+      "fragments": [
+        "intent",
+        "ambiguous",
+        "discovery",
+        "options",
+        "diverge",
+        "converge",
+        "user goal",
+        "simulator",
+        "cognitive state",
+        "uncertainty",
+        "clarify",
+        "??"
+      ],
+      "layout": "ring"
+    },
+    "one-vs-many": {
+      "fragments": [
+        "uncertainty",
+        "conflict",
+        "inconsistency",
+        "comprehension",
+        "trust",
+        "hallucination",
+        "comparison",
+        "critical thinking",
+        "multiple outputs",
+        "error",
+        "1 vs N",
+        "accuracy",
+        "verify",
+        "skepticism",
+        "mental model",
+        "aggregation"
+      ],
+      "layout": "scatter"
+    },
+    "genquery": {
+      "fragments": [
+        "visual search",
+        "generative",
+        "intent",
+        "expressive",
+        "concretize",
+        "refine",
+        "query",
+        "image",
+        "text",
+        "modality",
+        "iterate",
+        "modify",
+        "diversify",
+        "align",
+        "search space",
+        "prompting"
+      ],
+      "layout": "grid"
+    },
+    "demystifying": {
+      "fragments": [
+        "tacit knowledge",
+        "graphic design",
+        "explicit",
+        "expertise",
+        "guidelines",
+        "education",
+        "coding",
+        "interview",
+        "process",
+        "intuition",
+        "articulate",
+        "transfer",
+        "embodies",
+        "practice",
+        "critique"
+      ],
+      "layout": "list"
+    },
+    "papeos": {
+      "fragments": [
+        "video",
+        "paper",
+        "alignment",
+        "multimodal",
+        "synchronization",
+        "reading",
+        "watching",
+        "accessibility",
+        "augmentation",
+        "talk",
+        "presentation",
+        "attention",
+        "context",
+        "media",
+        "link"
+      ],
+      "layout": "split"
+    },
+    "dapie": {
+      "fragments": [
+        "children",
+        "curiosity",
+        "why",
+        "how",
+        "explanation",
+        "scaffolding",
+        "dialogue",
+        "interaction",
+        "engagement",
+        "education",
+        "step-by-step",
+        "transform",
+        "QA",
+        "comprehension",
+        "agent"
+      ],
+      "layout": "conversation"
+    },
+    "promptiverse": {
+      "fragments": [
+        "scaffolding",
+        "pedagogy",
+        "knowledge graph",
+        "generation",
+        "scale",
+        "diversity",
+        "adaptivity",
+        "human-AI",
+        "annotation",
+        "crowdsourcing",
+        "learning",
+        "video",
+        "question",
+        "hint",
+        "path"
+      ],
+      "layout": "network"
+    },
+    "winder": {
+      "fragments": [
+        "asynchronous",
+        "collaboration",
+        "voice",
+        "deictic",
+        "reference",
+        "multimodal",
+        "link",
+        "design",
+        "feedback",
+        "context",
+        "recording",
+        "playback",
+        "cursor",
+        "communication",
+        "grounding"
+      ],
+      "layout": "timeline"
+    },
+    "coseq": {
+      "fragments": [
+        "sequence",
+        "collaboration",
+        "consensus",
+        "visual awareness",
+        "negotiation",
+        "conflict",
+        "preference",
+        "group decision",
+        "ordering",
+        "planning",
+        "itinerary",
+        "agreement",
+        "friction",
+        "coordination"
+      ],
+      "layout": "list"
+    },
+    "cometogether": {
+      "fragments": [
+        "collaborative search",
+        "information seeking",
+        "query",
+        "dynamic",
+        "awareness",
+        "transparency",
+        "group",
+        "strategy",
+        "filtering",
+        "browsing",
+        "synthesis",
+        "common ground",
+        "division of labor",
+        "cooperation"
+      ],
+      "layout": "cluster"
+    }
+  }
+}

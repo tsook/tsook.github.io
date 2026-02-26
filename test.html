@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Macro Data Refinement</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #f0ebdc;
+      /* Paper/Lumon white */
+      font-family: 'Space Mono', monospace;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    #overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.02) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      background-size: 100% 2px, 3px 100%;
+      z-index: 10;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="overlay"></div>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    // ============================================
+    // fragments.js — "Macro Data Refinement"
+    // ============================================
+
+    const CONFIG = {
+      inkColor: '#281e19',
+      bgCol: '#f0ebdc',
+      accentCol: '#3a2e25',
+
+      initialCount: 35,
+
+      // Physics (Fluid but contained)
+      friction: 0.94,
+      maxSpeed: 1.5,
+      repulsionRadius: 40,  // Words push each other away slightly
+      repulsionForce: 0.2,
+
+      // The Bin (Container)
+      binMargin: 80,        // Space from screen edge
+      wallRepelDist: 60,    // How far from wall to start pushing back
+      wallRepelForce: 0.8,  // Strength of wall repulsion (Soft Walls)
+
+      // Lifecycle
+      mergeChance: 0.005,   // Chance per frame to merge two words
+      splitChance: 0.003,   // Chance per frame to split a word
+    };
+
+    // ── Vocabulary ─────────────────────────────────
+    const RAW_DATA = [
+      '0x4F', '0x1A', 'NULL', 'VOID', 'BITS', 'RAW', 'HEX', 'INT', 'VAR', 'LOG', 'NaN', 'ERR', 'REF', 'PTR'
+    ];
+
+    const REFINED_DATA = [
+      'OPTIMIZED', 'SORTED', 'INDEXED', 'COMPILED', 'RENDERED', 'PARSED', 'LINKED', 'MAPPED', 'CACHED', 'SECURE'
+    ];
+
+    // ── Utility ────────────────────────────────────
+    const random = (min, max) => Math.random() * (max - min) + min;
+    const randomChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    const dist = (x1, y1, x2, y2) => Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
+
+    // ── Fragment Class ─────────────────────────────
+    class Fragment {
+      constructor(x, y, type = 'raw') {
+        this.x = x;
+        this.y = y;
+        this.vx = random(-0.5, 0.5);
+        this.vy = random(-0.5, 0.5);
+
+        this.type = type; // 'raw' or 'refined'
+        this.text = type === 'raw' ? randomChoice(RAW_DATA) : randomChoice(REFINED_DATA);
+
+        // Animation States
+        this.opacity = 0;
+        this.targetOpacity = 1;
+        this.glitchTimer = 0;
+        this.isDead = false;
+
+        // For merging animation
+        this.targetX = null;
+        this.targetY = null;
+      }
+
+      update(dt, bounds, allFrags) {
+        // 1. Friction
+        this.vx *= CONFIG.friction;
+        this.vy *= CONFIG.friction;
+
+        // 2. Repulsion from other words (Personal Space)
+        for (let other of allFrags) {
+          if (other === this || other.isDead) continue;
+          const d = dist(this.x, this.y, other.x, other.y);
+          if (d < CONFIG.repulsionRadius && d > 0) {
+            const force = (1 - d / CONFIG.repulsionRadius) * CONFIG.repulsionForce;
+            const dx = (this.x - other.x) / d;
+            const dy = (this.y - other.y) / d;
+            this.vx += dx * force;
+            this.vy += dy * force;
+          }
+        }
+
+        // 3. SOFT WALLS (The Solution to "Stuck in Corner")
+        // Instead of bouncing, we apply a force away from the wall 
+        // that gets stronger the closer you get.
+        const left = CONFIG.binMargin;
+        const right = bounds.w - CONFIG.binMargin;
+        const top = CONFIG.binMargin;
+        const bottom = bounds.h - CONFIG.binMargin;
+
+        if (this.x < left + CONFIG.wallRepelDist) this.vx += CONFIG.wallRepelForce * (1 - (this.x - left) / CONFIG.wallRepelDist);
+        if (this.x > right - CONFIG.wallRepelDist) this.vx -= CONFIG.wallRepelForce * (1 - (right - this.x) / CONFIG.wallRepelDist);
+        if (this.y < top + CONFIG.wallRepelDist) this.vy += CONFIG.wallRepelForce * (1 - (this.y - top) / CONFIG.wallRepelDist);
+        if (this.y > bottom - CONFIG.wallRepelDist) this.vy -= CONFIG.wallRepelForce * (1 - (bottom - this.y) / CONFIG.wallRepelDist);
+
+        // 4. Glitch Effect
+        if (this.glitchTimer > 0) {
+          this.glitchTimer--;
+          // While glitching, shake wildly
+          this.x += random(-2, 2);
+          this.y += random(-2, 2);
+        } else {
+          // Normal Move
+          this.x += this.vx;
+          this.y += this.vy;
+        }
+
+        // 5. Opacity fade in
+        this.opacity += (this.targetOpacity - this.opacity) * 0.05;
+      }
+
+      draw(ctx) {
+        if (this.isDead) return;
+
+        ctx.save();
+        ctx.translate(this.x, this.y);
+
+        // Glitch visuals
+        if (this.glitchTimer > 0) {
+          ctx.translate(random(-2, 2), random(-2, 2));
+          ctx.fillStyle = Math.random() > 0.5 ? CONFIG.accentCol : CONFIG.inkColor;
+        } else {
+          ctx.fillStyle = CONFIG.inkColor;
+        }
+
+        ctx.globalAlpha = this.opacity;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        if (this.type === 'refined') {
+          ctx.font = 'bold 14px "Space Mono", monospace';
+          // Box around refined data (Severance style)
+          const m = ctx.measureText(this.text);
+          const w = m.width + 10;
+          const h = 20;
+          ctx.strokeStyle = CONFIG.inkColor;
+          ctx.lineWidth = 1.5;
+          ctx.strokeRect(-w / 2, -h / 2, w, h);
+        } else {
+          ctx.font = '12px "Space Mono", monospace';
+          ctx.globalAlpha = this.opacity * 0.6; // Raw data is dimmer
+        }
+
+        ctx.fillText(this.text, 0, 1);
+        ctx.restore();
+      }
+    }
+
+    // ── System ─────────────────────────────────────
+    class BinSystem {
+      constructor(canvas) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
+        this.fragments = [];
+        this.resize = this.resize.bind(this);
+        this.loop = this.loop.bind(this);
+      }
+
+      init() {
+        window.addEventListener('resize', this.resize);
+        this.resize();
+
+        // Seed
+        for (let i = 0; i < CONFIG.initialCount; i++) {
+          this.spawnRandom();
+        }
+        this.loop();
+      }
+
+      resize() {
+        const dpr = window.devicePixelRatio || 1;
+        this.canvas.width = window.innerWidth * dpr;
+        this.canvas.height = window.innerHeight * dpr;
+        this.ctx.scale(dpr, dpr);
+        this.bounds = { w: window.innerWidth, h: window.innerHeight };
+      }
+
+      spawnRandom() {
+        // Spawn within safe area
+        const m = CONFIG.binMargin + 20;
+        const x = random(m, this.bounds.w - m);
+        const y = random(m, this.bounds.h - m);
+        this.fragments.push(new Fragment(x, y, 'raw'));
+      }
+
+      // ── Logic: The Cycle ─────────────────────────
+
+      triggerMerge() {
+        // Find two raw fragments
+        const raws = this.fragments.filter(f => f.type === 'raw' && !f.isDead && f.glitchTimer === 0);
+        if (raws.length < 2) return;
+
+        // Pick two random ones
+        const a = randomChoice(raws);
+        const b = randomChoice(raws.filter(r => r !== a));
+        if (!b) return;
+
+        // "Glitch" them out
+        a.glitchTimer = 30; // Frames to glitch
+        b.glitchTimer = 30;
+        a.isDead = true; // Mark dead (but we keep drawing them briefly via glitch?)
+        // Actually, let's kill them after glitch. 
+        // Simplified: Just spawn the new one at midpoint.
+
+        // Remove old
+        this.fragments = this.fragments.filter(f => f !== a && f !== b);
+
+        // Create new Refined word at midpoint
+        const mx = (a.x + b.x) / 2;
+        const my = (a.y + b.y) / 2;
+        const refined = new Fragment(mx, my, 'refined');
+        refined.glitchTimer = 10; // Pop in glitch
+        refined.vx = 0; refined.vy = 0; // Pause momentarily
+        this.fragments.push(refined);
+      }
+
+      triggerSplit() {
+        // Find a refined fragment
+        const refined = this.fragments.filter(f => f.type === 'refined' && !f.isDead);
+        if (refined.length === 0) return;
+
+        const target = randomChoice(refined);
+
+        // Remove target
+        this.fragments = this.fragments.filter(f => f !== target);
+
+        // Spawn 2-3 raw fragments
+        const count = Math.floor(random(2, 4));
+        for (let i = 0; i < count; i++) {
+          const raw = new Fragment(target.x, target.y, 'raw');
+          raw.vx = random(-2, 2); // Burst out
+          raw.vy = random(-2, 2);
+          raw.glitchTimer = 20;
+          this.fragments.push(raw);
+        }
+      }
+
+      update() {
+        // 1. Lifecycle Events (Random & Periodic)
+        if (Math.random() < CONFIG.mergeChance) this.triggerMerge();
+        if (Math.random() < CONFIG.splitChance) this.triggerSplit();
+
+        // 2. Physics Update
+        this.fragments.forEach(f => f.update(1, this.bounds, this.fragments));
+      }
+
+      draw() {
+        this.ctx.fillStyle = CONFIG.bgCol;
+        this.ctx.fillRect(0, 0, this.bounds.w, this.bounds.h);
+
+        // Draw The "Bin" (Severance Interface Border)
+        const m = CONFIG.binMargin;
+        const w = this.bounds.w - m * 2;
+        const h = this.bounds.h - m * 2;
+
+        this.ctx.strokeStyle = CONFIG.inkColor;
+        this.ctx.lineWidth = 2;
+
+        // Rounded corners rect
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.roundRect(m, m, w, h, 20);
+        this.ctx.globalAlpha = 0.1; // Faint fill
+        this.ctx.fillStyle = CONFIG.inkColor;
+        this.ctx.fill();
+        this.ctx.globalAlpha = 1.0; // Solid stroke
+        this.ctx.stroke();
+
+        // UI Decorations (Corners)
+        const len = 40;
+        this.ctx.lineWidth = 4;
+        this.ctx.beginPath();
+        // Top Left
+        this.ctx.moveTo(m - 10, m + len); this.ctx.lineTo(m - 10, m - 10); this.ctx.lineTo(m + len, m - 10);
+        // Top Right
+        this.ctx.moveTo(m + w - len, m - 10); this.ctx.lineTo(m + w + 10, m - 10); this.ctx.lineTo(m + w + 10, m + len);
+        // Bottom Left
+        this.ctx.moveTo(m - 10, m + h - len); this.ctx.lineTo(m - 10, m + h + 10); this.ctx.lineTo(m + len, m + h + 10);
+        // Bottom Right
+        this.ctx.moveTo(m + w - len, m + h + 10); this.ctx.lineTo(m + w + 10, m + h + 10); this.ctx.lineTo(m + w + 10, m + h - len);
+        this.ctx.stroke();
+
+        // Label
+        this.ctx.font = '10px "Space Mono"';
+        this.ctx.fillText("0x14 // MACRO_DATA_REFINEMENT", m, m - 20);
+
+        this.ctx.restore();
+
+        // Draw Fragments
+        this.fragments.forEach(f => f.draw(this.ctx));
+      }
+
+      loop() {
+        this.update();
+        this.draw();
+        requestAnimationFrame(this.loop);
+      }
+    }
+
+    // Start
+    const canvas = document.getElementById('canvas');
+    const system = new BinSystem(canvas);
+    system.init();
+  </script>
+
+</body>
+
+</html>
