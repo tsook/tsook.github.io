@@ -134,7 +134,7 @@ export function initPanelManager() {
     }
 
     const fs = getFragmentSystem();
-    if (fs) {
+    if (fs && window.innerWidth > 768) {
       requestAnimationFrame(() => {
         const canvas = document.getElementById('fragment-canvas');
         const canvasRect = canvas?.getBoundingClientRect();

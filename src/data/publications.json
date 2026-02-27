@@ -57,11 +57,13 @@
       },
       "authors": [
         {
-          "name": "Tae Soo Kim"
+          "name": "Tae Soo Kim",
+          "equalContrib": true
         },
         {
           "name": "Heechan Lee",
-          "url": "https://heechanlee.com/"
+          "url": "https://heechanlee.com/",
+          "equalContrib": true
         },
         {
           "name": "Yoonjoo Lee",

@@ -4,13 +4,21 @@ interface Props {
   selectedIds: string[];
 }
 const { publications, selectedIds } = Astro.props;
+
+const hasEqualContrib = publications.some(pub => 
+  pub.authors && pub.authors.some((a: any) => a.equalContrib)
+);
 ---
 
 <div class="pub-list">
   {publications.map((pub: any) => {
     const isSelected = selectedIds.includes(pub.id);
     const authorStr = pub.authors
-      .map((a: any) => a.name === 'Tae Soo Kim' ? `<strong>${a.name}</strong>` : a.name)
+      .map((a: any) => {
+        let nameStr = a.name === 'Tae Soo Kim' ? `<strong>${a.name}</strong>` : a.name;
+        if (a.equalContrib) nameStr += '*';
+        return nameStr;
+      })
       .join(', ');
     return (
       <button
@@ -41,6 +49,9 @@ const { publications, selectedIds } = Astro.props;
       </button>
     );
   })}
+  {hasEqualContrib && (
+    <div class="equal-contrib-note">* Equal contribution</div>
+  )}
 </div>
 
 <style>
@@ -143,6 +154,15 @@ const { publications, selectedIds } = Astro.props;
     background: rgba(0, 51, 204, 0.12);
     text-decoration: none;
     color: var(--accent-hover);
+  }
+
+  .equal-contrib-note {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    padding: 0 10px;
+    margin-top: 8px;
+    margin-bottom: 8px;
   }
 
   @media (max-width: 768px) {

@@ -25,33 +25,32 @@ const allPubs = publications.publications;
   <!-- Full-viewport fragment animation canvas -->
   <canvas class="fragment-canvas" id="fragment-canvas"></canvas>
 
-  <!-- Detail overlay — gradient-backed paper detail over the canvas -->
-  <div class="detail-overlay" id="detail-overlay">
-    <button class="btn-pill detail-back-btn" id="detail-back" aria-label="Close">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M19 12H5M12 5l-7 7 7 7"/>
-      </svg>
-      <span>Back</span>
-    </button>
-    <div class="detail-scroll" id="detail-body">
-      {allPubs.map(pub => {
-        const content = paperContentMap.get(pub.id);
-        return (
-          <div class="paper-detail-wrap" data-detail-id={pub.id} style="display:none;">
-            <PaperDetail
-              paper={pub}
-              detailContent={content?.html || pub.description}
-              demoId={content?.demoId}
-            />
-          </div>
-        );
-      })}
-    </div>
-  </div>
-
-
   <!-- Reduced motion fallback -->
   <div class="fragment-static-fallback" id="fragment-fallback"></div>
+</div>
+
+<!-- Detail overlay — gradient-backed paper detail over the canvas -->
+<div class="detail-overlay" id="detail-overlay">
+  <button class="btn-pill detail-back-btn" id="detail-back" aria-label="Close">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 12H5M12 5l-7 7 7 7"/>
+    </svg>
+    <span>Back</span>
+  </button>
+  <div class="detail-scroll" id="detail-body">
+    {allPubs.map(pub => {
+      const content = paperContentMap.get(pub.id);
+      return (
+        <div class="paper-detail-wrap" data-detail-id={pub.id} style="display:none;">
+          <PaperDetail
+            paper={pub}
+            detailContent={content?.html || pub.description}
+            demoId={content?.demoId}
+          />
+        </div>
+      );
+    })}
+  </div>
 </div>
 
 <style>
@@ -93,7 +92,7 @@ const allPubs = publications.publications;
 
   /* ── Detail Overlay ── */
   .detail-overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
@@ -281,22 +280,19 @@ const allPubs = publications.publications;
   }
 
   @media (max-width: 768px) {
-    /* No canvas on mobile — hide the animation */
-    .fragment-canvas { display: none; }
+    /* Canvas stays visible on mobile for background waves. Fragments are hidden by fragments.js */
     .fragment-static-fallback { display: none; }
 
-    /* Raise canvas-panel above left-panel when detail overlay is visible */
-    .canvas-panel:has(.detail-overlay.visible) {
-      z-index: 20;
-    }
-
+    /* The detail overlay should sit on top of everything on mobile */
     .detail-overlay {
-      /* Full width + frosted frosted bg on mobile for readability */
+      z-index: 20;
+      /* Full width + frosted bg on mobile for readability */
       right: 0;
       width: 100%;
-      background: rgba(242, 244, 246, 0.65);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      height: 100dvh; /* Cover full screen including dynamic URL bar */
+      background: rgba(242, 244, 246, 0.45);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
     /* Mobile: show everything at once, skip scramble effect */

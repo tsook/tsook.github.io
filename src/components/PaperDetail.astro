@@ -7,10 +7,12 @@ interface Props {
 const { paper, detailContent } = Astro.props;
 
 const authorHtml = paper.authors.map((a: any) => {
-  if (a.name === 'Tae Soo Kim') return `<strong>${a.name}</strong>`;
-  if (a.url) return `<a href="${a.url}" target="_blank">${a.name}</a>`;
-  return a.name;
+  let nameStr = a.name === 'Tae Soo Kim' ? `<strong>${a.name}</strong>` : a.name;
+  if (a.url) nameStr = `<a href="${a.url}" target="_blank">${nameStr}</a>`;
+  if (a.equalContrib) nameStr += '*';
+  return nameStr;
 }).join(', ');
+const hasEqualContrib = paper.authors && paper.authors.some((a: any) => a.equalContrib);
 
 const LINK_LABELS: Record<string, string> = {
   pdf: 'PDF',
@@ -57,5 +59,18 @@ const LINK_LABELS: Record<string, string> = {
     </div>
   )}
   <div class="paper-detail-authors" set:html={authorHtml} />
+  {hasEqualContrib && (
+    <div class="equal-contrib-note">* Equal contribution</div>
+  )}
   <div class="paper-detail-description" set:html={detailContent} />
 </div>
+
+<style>
+  .equal-contrib-note {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    margin-top: -12px;
+    margin-bottom: 20px;
+  }
+</style>

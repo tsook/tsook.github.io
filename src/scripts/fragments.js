@@ -2209,6 +2209,9 @@ class FragmentSystem {
     ctx.fillRect(0, 0, w, h);
     renderCloudDitherBackground(ctx, w, h, this.time, this.clearZone);
 
+    // Skip drawing fragments on mobile, just let the dither waves run
+    if (window.innerWidth <= 768) return;
+
     // Flash lines
     for (const fl of this.flashLines) fl.render(ctx);
 
