@@ -7,8 +7,8 @@
 // ── Configuration ──────────────────────────────
 
 const CONFIG = {
-  inkColor: '#1F2933', // Deep Graphite
-  paperColor: '#F2F4F6', // Cool Pale Grey
+  inkColor: '#8EA6B4', // Snowy slate blue
+  paperColor: '#F8FAFC', // Matching site background
 
   // Grid — dense, Severance/Lumon-style
   fragmentCount: 200,
@@ -79,9 +79,9 @@ const CONFIG = {
     step: 3,              // dot grid spacing (px)
     dotSize: 1.5,         // dot size (px)
     // Opacity scales with brightness: low wave → faint dots, high wave → opaque dots
-    alphaLow: 0.04,       // dot opacity at brightness floor
-    alphaHigh: 0.28,      // dot opacity at full brightness
-    waveFloor: 0.28,      // brightness below this → zero dots (hard trough cutoff)
+    alphaLow: 0.12,       // dot opacity at brightness floor
+    alphaHigh: 0.55,      // dot opacity at full brightness
+    waveFloor: 0.15,      // brightness below this → zero dots (hard trough cutoff)
 
     // Vortex swirl — 3 centers orbit the canvas in slow ellipses
     vortexSpeed: 0.07,

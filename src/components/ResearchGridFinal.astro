@@ -47,9 +47,9 @@ if (papers && Array.isArray(papers)) { // Safety check
   <div class="grid-line horizontal h-mid2" style="top: 260px;"></div>
   <div class="grid-line horizontal h-bot" style="bottom: 0;"></div>
 
-  <div class="grid-line vertical v-left" style="left: 28px;"></div>
-  <div class="grid-line vertical v-mid" style="left: calc(50%+28px);"></div>
-  <div class="grid-line vertical v-right" style="right: 0;"></div>
+  <div class="grid-line vertical v-left"></div>
+  <div class="grid-line vertical v-mid"></div>
+  <div class="grid-line vertical v-right" style="right: 4px;"></div>
 
   <!-- Axis Labels -->
   <div class="axis-label x-axis" style="grid-column: 2;">EXECUTION</div>
@@ -117,13 +117,13 @@ if (papers && Array.isArray(papers)) { // Safety check
   .grid-line.horizontal.h-mid2 { top: 260px; } /* 140 + 120 */
   .grid-line.horizontal.h-bot { bottom: 0; }
 
-  /* Grid columns: 28px + 1fr + 1fr with 4px padding on sides */
-  .grid-line.vertical.v-left { left: 32px; } /* 4px padding + 28px col */
-  .grid-line.vertical.v-mid { left: calc(50% + 14px); } /* 32px + (100% - 36px)/2 = 50% + 14px */
+  /* Grid columns: 16px + 1fr + 1fr with 4px padding on sides */
+  .grid-line.vertical.v-left { left: 20px; } /* 4px padding + 16px col */
+  .grid-line.vertical.v-mid { left: calc(50% + 8px); } /* 20px + (100% - 24px)/2 */
   .grid-line.vertical.v-right { right: 4px; } /* 4px padding */
 
   .grid-line.horizontal {
-    left: 28px; right: 0; height: 1px;
+    left: 20px; right: 0; height: 1px;
     transform-origin: left;
     transform: scaleX(0); /* Hidden initially */
   }
