@@ -48,7 +48,7 @@
       "title": "Evalet: Evaluating Large Language Models by Fragmenting Outputs into Functions",
       "shortName": "Evalet",
       "year": "2026",
-      "venue": "(Cond. Accept) CHI",
+      "venue": "CHI",
       "links": {
         "pdf": "https://arxiv.org/pdf/2509.11206",
         "website": "https://evalet.kixlab.org/",
@@ -78,7 +78,7 @@
           "url": "https://juhokim.com/"
         }
       ],
-      "award": null,
+      "award": "Honorable Mention Award",
       "teaserImage": "/images/evalet.json",
       "cardImage": "/images/evalet.json",
       "description": "<p>Evalet addresses the opacity of LLM-based evaluations by proposing functional fragmentation: dissecting model outputs into key text fragments and interpreting the rhetoric functions each serves relative to evaluation criteria. This interactive system visualizes these fragment-level functions across multiple outputs, empowering practitioners to transparently inspect, rate, and compare evaluations at scale.</p>"
@@ -87,7 +87,7 @@
       "id": "clearfairy",
       "title": "ClearFairy: Capturing Creative Workflows through Decision Structuring, In-Situ Questioning, and Rationale Inference",
       "shortName": "ClearFairy",
-      "venue": "(Cond. Accept) CHI",
+      "venue": "CHI",
       "year": 2026,
       "authors": [
         {
