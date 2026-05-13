@@ -18,7 +18,7 @@
         "pdf": "https://arxiv.org/pdf/2602.03429",
         "website": "https://taesookim.com/discoverllm",
         "code": "https://github.com/tsook/discoverllm",
-        "data": "https://huggingface.co/collections/kixlab/discoverllm-icml-2026",
+        "data": "https://huggingface.co/datasets/kixlab/DiscoverLLM-multiturn-preferences",
         "arxiv": "https://arxiv.org/abs/2602.03429"
       },
       "authors": [
