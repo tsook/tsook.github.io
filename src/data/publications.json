@@ -13,9 +13,12 @@
       "title": "DiscoverLLM: From Executing Intents to Discovering Them",
       "shortName": "DiscoverLLM",
       "year": "2026",
-      "venue": "Preprint",
+      "venue": "ICML",
       "links": {
         "pdf": "https://arxiv.org/pdf/2602.03429",
+        "website": "https://taesookim.com/discoverllm",
+        "code": "https://github.com/tsook/discoverllm",
+        "data": "https://huggingface.co/kixlab",
         "arxiv": "https://arxiv.org/abs/2602.03429"
       },
       "authors": [
