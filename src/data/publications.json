@@ -324,6 +324,48 @@
       }
     },
     {
+      "id": "semantic-reader",
+      "title": "The Semantic Reader Project: Augmenting Scholarly Documents through AI-Powered Interactive Reading Interfaces",
+      "shortName": "Semantic Reader",
+      "venue": "CACM",
+      "year": 2024,
+      "authors": [
+        {
+          "name": "Kyle Lo"
+        },
+        {
+          "name": "Joseph Chee Chang",
+          "url": "https://joe.cat/"
+        },
+        {
+          "name": "Andrew Head"
+        },
+        {
+          "name": "Jonathan Bragg",
+          "url": "https://www.jonathanbragg.com/"
+        },
+        {
+          "name": "Amy X. Zhang",
+          "url": "https://homes.cs.washington.edu/~axz/"
+        },
+        {
+          "name": "Cassidy Trier"
+        },
+        {
+          "name": "(+ 47 authors including <strong>Tae Soo Kim</strong>)"
+        },
+        {
+          "name": "Marti A. Hearst"
+        },
+        {
+          "name": "Daniel S. Weld"
+        }
+      ],
+      "award": null,
+      "description": "<p>The Semantic Reader Project is a collaborative effort to build reading interfaces that make scholarly papers easier to read and understand. The interfaces add AI-powered features directly onto the paper, such as inline definitions of terms, links between citations and their references, and ways to skim and navigate dense text. The paper reviews these features and what the project learned about designing for researchers.</p>",
+      "links": {}
+    },
+    {
       "id": "cells-generators-lenses",
       "title": "Cells, Generators, and Lenses: Design Framework for Object-Oriented Interaction with Large Language Models",
       "shortName": "Cells, Generators, and Lenses",

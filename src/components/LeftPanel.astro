@@ -21,8 +21,7 @@ const bioKeywordsText = profile.bioKeywords.replace(/<[^>]*>/g, '');
       </div>
       <div>
         <h1>{profile.name}</h1>
-        <p class="affiliation">{profile.degree}, {profile.school.name}</p>
-        <p class="affiliation"><a href={profile.lab.url} target="_blank">{profile.lab.name}</a> · {profile.focus}</p>
+        <p class="affiliation">{profile.lab.name} · {profile.focus}</p>
       </div>
     </div>
     <p class="bio-text">
@@ -86,7 +85,7 @@ const bioKeywordsText = profile.bioKeywords.replace(/<[^>]*>/g, '');
   .bio-top {
     display: flex;
     gap: 20px;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 12px; /* Reduced from 16 */
   }
   .profile-photo-wrap {
@@ -94,7 +93,7 @@ const bioKeywordsText = profile.bioKeywords.replace(/<[^>]*>/g, '');
     width: 80px;
     height: 80px;
     flex-shrink: 0;
-    border-radius: 50%;
+    border-radius: 10px;
     overflow: hidden;
   }
   .profile-photo {
