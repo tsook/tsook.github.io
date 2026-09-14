@@ -52,7 +52,7 @@ function resetStyles(d){ d.querySelectorAll('.st-el').forEach(e => e.removeAttri
 
 /* Speak a request: mic bubble, typing, inference, palette. */
 async function speak(d, i, tok, animate = true){
-  const req = REQ[i]; d._st.req = i;
+  const req = REQ[i]; d._st.req = i; const run = ++d._st.run; const live = () => d._st.run === run;
   const status = d.querySelector('[data-status]'); const mic = d.querySelector('[data-mic]'); const mt = d.querySelector('[data-mic-text]');
   const cols = d.querySelector('[data-cols]');
   d.querySelectorAll('[data-reqs] button').forEach(b => b.classList.toggle('is-on', +b.dataset.req === i));
@@ -60,9 +60,11 @@ async function speak(d, i, tok, animate = true){
   cols.classList.remove('is-in'); cols.innerHTML = '';
   mic.classList.add('is-on', 'is-listening'); status.textContent = 'Listening…';
   if(animate) await typeInto(mt, req.text, tok, 30); else mt.textContent = req.text;
+  if(!live()) return;
   mic.classList.remove('is-listening');
   status.textContent = 'Finding properties for the ' + EL_NAME[req.el] + '…'; status.classList.add('is-busy');
   await sleep(animate ? 800 : 0, tok);
+  if(!live()) return;
   status.classList.remove('is-busy'); status.textContent = `${req.cols.length} properties, ${req.cols.length * 3} suggestions`;
   renderCols(d, req);
   requestAnimationFrame(() => cols.classList.add('is-in'));
@@ -71,7 +73,7 @@ async function speak(d, i, tok, animate = true){
 
 export default {
   init(d){
-    d._st = { req: 0 };
+    d._st = { req: 0, run: 0 };
     d.querySelector('[data-reqs]').innerHTML = REQ.map((r, i) => `<button class="chip" data-act="req" data-req="${i}">${esc(r.text)}</button>`).join('');
     d.querySelector('[data-mic]').classList.remove('is-on');
   },

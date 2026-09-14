@@ -23,13 +23,14 @@ its corner. Any click on a control cancels the walkthrough. With
 `prefers-reduced-motion` the figure jumps to its finished state.
 
 The page map at the right edge lists every theme and paper, theme rows in
-their theme color. A sunk window shows which rows are on screen (page
-position mapped piecewise onto the rows). Click a row to jump, drag anywhere
-on the map to scrub. At viewports narrower than 1440px only the rail, the
-window and the current row show; hovering reveals the labels. Below 1040px
-the map is hidden. The three linked phrases in the bio, colored by theme,
-hint their theme section on hover and are marked while that section is on
-screen.
+their theme color. A darker segment on the rail shows which rows are on
+screen (page position mapped piecewise onto the rows), and rows on screen
+are tinted. Click a row to jump, drag anywhere on the map to scrub. Below
+1440px the labels collapse to dots on the rail (theme dots in the theme
+color, the current dot enlarged); hovering or focusing the map reveals the
+labels. Below 1060px the page is one column and the map is hidden. The
+three linked phrases in the bio carry a theme-colored underline, hint their
+theme section on hover, and are marked while that section is on screen.
 
 ## Where things live
 
@@ -39,7 +40,9 @@ screen.
 - `src/styles/global.css` is the page: tokens (including the three theme
   colors), sidebar, map, entries, publication list, mobile.
   `src/styles/demos.css` is every figure, laid out for about 590 by 300;
-  a container query below 480px stacks each figure for phones.
+  a container query below 480px stacks each figure for phones. The
+  one-column breakpoint (1060px) lives in both stylesheets; the figure
+  height override must stay in demos.css because it loads last.
 - `src/components/Side.astro` is the left column. The bio text lives here.
 - `src/components/PageMap.astro` renders the map rows from `themes.json`.
 - `src/components/Work.astro` renders the themes (each `section` carries
@@ -107,8 +110,12 @@ to `assets/` (leading underscores are reserved), rewrite root-relative paths
 `index.html` with the other files.
 
 Headless Chrome can screenshot the flows in their finished state with
-`--virtual-time-budget=25000`. Chrome enforces a minimum window width, so for
-phone widths render the page inside a 390px iframe.
+`--virtual-time-budget=30000`. Chrome enforces a minimum window width, so for
+phone widths render the page inside a 390px iframe. For interaction tests,
+a small CDP driver (Node 22, built-in WebSocket, `--remote-debugging-port`)
+can click controls mid-walkthrough and capture element screenshots; the
+scenario used in September 2026 exercised every demo's cancel-then-act path
+and the map's click and drag.
 
 The demos are curated illustrations of each system, not live model output.
 Keep their text faithful to the papers and say so on the page.

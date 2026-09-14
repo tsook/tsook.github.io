@@ -55,7 +55,9 @@ function setup(d){
     e.preventDefault(); onAct(el);
   });
   if(!('IntersectionObserver' in window)){ mod.final(d); d.classList.add('is-played'); return; }
-  ctl.io = new IntersectionObserver(es => { es.forEach(en => { if(en.isIntersecting && !ctl.played) play(); }); }, { threshold: 0.55 });
+  /* tall stacked figures on phones can never reach 55 percent, so scale the threshold to the viewport */
+  const th = Math.min(0.55, Math.max(0.2, (window.innerHeight * 0.6) / Math.max(1, d.offsetHeight)));
+  ctl.io = new IntersectionObserver(es => { es.forEach(en => { if(en.isIntersecting && !ctl.played) play(); }); }, { threshold: th });
   ctl.io.observe(d);
 }
 export function initDemos(){ document.querySelectorAll('[data-demo]').forEach(setup); }

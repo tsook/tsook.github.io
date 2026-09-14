@@ -11,14 +11,14 @@ const FRAGS = [
   { t:'That is really all there is to it.', fn:'Omits key caveats', k:6, pol:'neg' },
 ];
 const CL = [
-  { n:'Engagement quality', c:'#E9C94A', sub:[['Vivid examples', 5, 1], ['Rhetorical questions', 3, 2]] },
-  { n:'Technical precision', c:'#9A9A94', sub:[['Oversimplifies concepts', 1, 6], ['Precise definitions', 4, 0]] },
-  { n:'Communication strategy', c:'#4F8BFF', sub:[['Clear explanations', 7, 0], ['Effective analogies', 5, 1], ['Generic filler phrases', 0, 4]] },
-  { n:'Factual accuracy', c:'#5BB86A', sub:[['Accurate statements', 8, 0], ['Misstated facts', 0, 3]] },
-  { n:'Structural organization', c:'#E58A2B', sub:[['Structured explanations', 6, 0], ['Abrupt transitions', 0, 2]] },
-  { n:'Evidence support', c:'#7C6BD6', sub:[['Cites relevant examples', 4, 0], ['Unsupported claims', 0, 3]] },
-  { n:'Completeness and depth', c:'#B65BC7', sub:[['Covers key aspects', 3, 0], ['Omits key caveats', 0, 6]] },
-  { n:'Analytical reasoning', c:'#2FA5A0', sub:[['Logical reasoning', 5, 0], ['Circular reasoning', 0, 2]] },
+  { n:'Engagement', c:'#E9C94A', sub:[['Vivid examples', 5, 1], ['Rhetorical questions', 3, 2]] },
+  { n:'Precision', c:'#9A9A94', sub:[['Oversimplifies concepts', 1, 6], ['Precise definitions', 4, 0]] },
+  { n:'Communication', c:'#4F8BFF', sub:[['Clear explanations', 7, 0], ['Effective analogies', 5, 1], ['Generic filler phrases', 0, 4]] },
+  { n:'Accuracy', c:'#5BB86A', sub:[['Accurate statements', 8, 0], ['Misstated facts', 0, 3]] },
+  { n:'Structure', c:'#E58A2B', sub:[['Structured explanations', 6, 0], ['Abrupt transitions', 0, 2]] },
+  { n:'Evidence', c:'#7C6BD6', sub:[['Cites relevant examples', 4, 0], ['Unsupported claims', 0, 3]] },
+  { n:'Completeness', c:'#B65BC7', sub:[['Covers key aspects', 3, 0], ['Omits key caveats', 0, 6]] },
+  { n:'Reasoning', c:'#2FA5A0', sub:[['Logical reasoning', 5, 0], ['Circular reasoning', 0, 2]] },
 ];
 const R = 94, C = 150, CR = 38;
 let seed = 7; const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
@@ -70,7 +70,7 @@ function renderText(d){
   d.querySelector('[data-text]').innerHTML = FRAGS.map((f, i) => `<button class="et-frag ${f.pol} ${s.lit > i ? 'is-lit' : ''} ${s.cur === i ? 'is-on' : ''}" data-act="frag" data-i="${i}">${esc(f.t)}</button>`).join(' ');
   d.querySelector('[data-fns]').innerHTML = FRAGS.slice(0, s.lit).map((f, i) => `<button class="et-fn ${f.pol} ${s.cur === i ? 'is-on' : ''}" data-act="frag" data-i="${i}" style="--c:${CL[f.k].c}" title="${esc(CL[f.k].n)}"><i></i><span>${esc(f.fn)}</span></button>`).join('');
   const pos = FRAGS.slice(0, s.lit).filter(f => f.pol === 'pos').length;
-  d.querySelector('[data-score]').textContent = s.lit ? `${pos} of ${s.lit} functions for` : '';
+  d.querySelector('[data-score]').textContent = s.lit ? `${pos} for · ${s.lit - pos} against` : '';
 }
 function setCur(d, i){ const s = S(d); s.cur = i; renderText(d);
   d.querySelectorAll('.et-pt').forEach(p => p.classList.toggle('is-on', i != null && p.dataset.frag === String(i))); }
@@ -81,7 +81,7 @@ function animateVB(d, to, tok, ms = 550){
   s.endVB?.();
   if(reduced() || ms === 0){ s.vb = to; svg.setAttribute('viewBox', to.join(' ')); return Promise.resolve(); }
   return new Promise(res => {
-    const fin = () => { if(s.raf) cancelAnimationFrame(s.raf); s.raf = 0; s.endVB = null; tok?.off(fin); res(); };
+    const fin = () => { if(s.raf) cancelAnimationFrame(s.raf); s.raf = 0; s.endVB = null; tok?.off(fin); s.vb = to; svg.setAttribute('viewBox', to.join(' ')); res(); };
     s.endVB = fin; tok?.on(fin);
     const step = now => {
       const p = Math.min(1, (now - t0) / ms); const e = 1 - Math.pow(1 - p, 3);

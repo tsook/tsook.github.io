@@ -43,12 +43,12 @@ export function initMap(){
     if(!items.length) return;
     const y0 = toMap(window.scrollY), y1 = toMap(window.scrollY + window.innerHeight);
     view.style.setProperty('--vt', y0.toFixed(1) + 'px');
-    view.style.setProperty('--vh', Math.max(8, y1 - y0).toFixed(1) + 'px');
+    view.style.setProperty('--vh', Math.max(12, y1 - y0).toFixed(1) + 'px');
     const pos = window.scrollY + window.innerHeight * 0.3;
     let cur = items[0];
     items.forEach(t => { if(t.top - 8 <= pos) cur = t; });
     if(window.scrollY + window.innerHeight >= docH - 4) cur = items[items.length-1];
-    items.forEach(t => t.a.classList.toggle('is-current', t === cur));
+    items.forEach(t => { t.a.classList.toggle('is-current', t === cur); t.a.classList.toggle('is-seen', t.y < y1 && t.y + t.h > y0); });
     const theme = cur.el.closest('.theme') || (cur.el.classList.contains('theme') ? cur.el : null);
     const tid = theme ? theme.id.replace(/^t-/, '') : null;
     phrases.forEach(a => a.classList.toggle('is-current', a.dataset.theme === tid));
