@@ -3,8 +3,6 @@ import Base from '../layouts/Base.astro';
 import Side from '../components/Side.astro';
 import Work from '../components/Work.astro';
 import Publications from '../components/Publications.astro';
-import Minimap from '../components/Minimap.astro';
-import Options from '../components/Options.astro';
 import profile from '../data/profile.json';
 ---
 <Base title={profile.name}>
@@ -15,15 +13,11 @@ import profile from '../data/profile.json';
       <Publications />
     </main>
   </div>
-  <footer class="foot"><span class="foot-copy">© 2026 {profile.name}</span><span>Demos are curated illustrations of each system, not live model output.</span></footer>
-  <Minimap />
-  <Options />
+  <footer class="foot"><span class="foot-copy">© 2026 {profile.name}</span></footer>
 </Base>
 <script>
   import { initDemos } from '../scripts/demos.js';
-  import { initMinimap } from '../scripts/minimap.js';
-  import { initOptions } from '../scripts/options.js';
-  initOptions();
+  import { initMap } from '../scripts/map.js';
   initDemos();
-  initMinimap();
+  initMap();
 </script>

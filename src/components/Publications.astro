@@ -3,31 +3,32 @@ import publications from '../data/publications.json';
 const LABEL = { pdf:'Paper', website:'Website', code:'Code', data:'Data', arxiv:'arXiv', acmdl:'ACM DL', video:'Video', demo:'Demo', poster:'Poster', slides:'Slides' };
 const pubs = publications.publications;
 const posters = publications.posters;
-const years = [...new Set(pubs.map(p => p.year))].sort((a, b) => b - a);
-const img = p => p.thumb || null;
+const years = [...new Set(pubs.map(p => Number(p.year)))].sort((a, b) => b - a);
 const links = p => Object.entries(p.links || {});
+const primary = p => { const l = links(p); return (l.find(([k]) => k === 'pdf') || l[0] || null); };
+const rest = p => { const pr = primary(p); return links(p).filter(([k]) => !pr || k !== pr[0]); };
 ---
 <section class="section" id="publications" data-spy data-section data-label="All publications">
   <div class="section-h"><h2>All publications</h2><span class="k">{pubs.length} papers</span></div>
   {years.map(y => (<>
     <div class="year">{y}</div>
-    {pubs.filter(p => p.year === y).map(p => (
-      <div class="pub" id={`p-${p.id}`}>
-        {img(p) ? <img class="thumb" src={img(p)} alt="" loading="lazy" width="120" height="75" /> : <div class="thumb empty">{p.id === 'evalet' ? 'demo' : 'no image'}</div>}
+    {pubs.filter(p => Number(p.year) === y).map(p => (
+      <div class={`pub${p.thumb ? '' : ' no-thumb'}`} id={`p-${p.id}`}>
+        {p.thumb && <img class="thumb" src={p.thumb} alt="" loading="lazy" width="112" height="70" />}
         <div>
-          <div class="t">{links(p)[0] ? <a href={links(p)[0][1]} target="_blank" rel="noopener">{p.title}</a> : p.title}</div>
-          <div class="m"><span>{p.venue} {p.year}</span>{p.award && <span class="award">{p.award.replace(' Award','')}</span>}{links(p).map(([k, url]) => <a href={url} target="_blank" rel="noopener">{LABEL[k] || k}</a>)}</div>
+          <div class="t">{primary(p) ? <a href={primary(p)[1]} target="_blank" rel="noopener">{p.title}</a> : p.title}</div>
+          <div class="m"><span>{p.venue} {p.year}</span>{p.award && <span class="award">{p.award.replace(' Award','')}</span>}{rest(p).map(([k, url]) => <a href={url} target="_blank" rel="noopener">{LABEL[k] || k}</a>)}</div>
         </div>
       </div>
     ))}
   </>))}
-</section>
-<section class="section posters" id="posters" data-spy data-section data-label="Posters">
-  <div class="section-h"><h2>Posters and workshop papers</h2><span class="k">{posters.length}</span></div>
-  {posters.map(p => (
-    <div class="pub no-thumb"><div>
-      <div class="t">{p.title}</div>
-      <div class="m"><span>{p.venue}</span>{links(p).map(([k, url]) => <a href={url} target="_blank" rel="noopener">{LABEL[k] || k}</a>)}</div>
-    </div></div>
-  ))}
+  <details class="posters" id="posters">
+    <summary>Posters and workshop papers <span class="k">{posters.length}</span></summary>
+    {posters.map(p => (
+      <div class="pub no-thumb"><div>
+        <div class="t">{p.title}</div>
+        <div class="m"><span>{p.venue}</span>{links(p).map(([k, url]) => <a href={url} target="_blank" rel="noopener">{LABEL[k] || k}</a>)}</div>
+      </div></div>
+    ))}
+  </details>
 </section>
