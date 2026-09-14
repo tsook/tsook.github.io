@@ -1,0 +1,29 @@
+---
+import Stylette from './demos/Stylette.astro';
+import Cells from './demos/Cells.astro';
+import EvalLM from './demos/EvalLM.astro';
+import Evalet from './demos/Evalet.astro';
+import Cupid from './demos/Cupid.astro';
+import Discover from './demos/Discover.astro';
+const { paper } = Astro.props;
+const DEMO = { 'stylette': Stylette, 'cells-generators-lenses': Cells, 'evallm': EvalLM, 'evalet': Evalet, 'cupid': Cupid, 'discoverllm': Discover };
+const CAPTION = {
+  'stylette': 'Say what you want, then pick a concrete property change.',
+  'cells-generators-lenses': 'Link cells to a generator and read the outputs through a lens.',
+  'evallm': 'Score two prompts on criteria you define.',
+  'evalet': 'Split an output into fragments and name the function of each.',
+  'cupid': 'Decide which earlier preference applies to the current request.',
+  'discoverllm': 'The model asks until an intent becomes discoverable.',
+};
+const Demo = DEMO[paper.id];
+const links = Object.entries(paper.links || {});
+const LABEL = { pdf:'Paper', website:'Website', code:'Code', data:'Data', arxiv:'arXiv', acmdl:'ACM DL', video:'Video', demo:'Demo' };
+---
+<article class="entry" id={`w-${paper.id}`} data-spy data-label={paper.shortName}>
+  <div class="meta">
+    <div class="entry-k"><span class="venue">{paper.venue} {paper.year}</span>{paper.award && <span class="award">{paper.award.replace(' Award','')}</span>}</div>
+    <h3>{paper.title}</h3>
+    <div class="entry-links">{links.map(([k, url]) => <a href={url} target="_blank" rel="noopener">{LABEL[k] || k}</a>)}</div>
+  </div>
+  <div class="demo-slot">{Demo && <Demo />}<p class="cap">{CAPTION[paper.id]}</p></div>
+</article>

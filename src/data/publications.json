@@ -44,7 +44,9 @@
       "award": null,
       "teaserImage": "/images/discoverllm.png",
       "cardImage": "/images/discoverllm.png",
-      "description": "<p>DiscoverLLM introduces a framework that trains LLMs to help users form and discover their intents through interaction. By using a novel user simulator that models cognitive states with a progressive hierarchy of intents, the framework trains models to handle ambiguous requests by surfacing relevant options that guide users toward concretizing what they want.</p>"
+      "description": "<p>DiscoverLLM introduces a framework that trains LLMs to help users form and discover their intents through interaction. By using a novel user simulator that models cognitive states with a progressive hierarchy of intents, the framework trains models to handle ambiguous requests by surfacing relevant options that guide users toward concretizing what they want.</p>",
+      "line": "Trains LLMs to help you discover what you want, not only execute it.",
+      "thumb": "/images/thumbs/discoverllm.png"
     },
     {
       "id": "evalet",
@@ -84,7 +86,8 @@
       "award": "Honorable Mention Award",
       "teaserImage": "/images/evalet.json",
       "cardImage": "/images/evalet.json",
-      "description": "<p>Evalet addresses the opacity of LLM-based evaluations by proposing functional fragmentation: dissecting model outputs into key text fragments and interpreting the rhetoric functions each serves relative to evaluation criteria. This interactive system visualizes these fragment-level functions across multiple outputs, empowering practitioners to transparently inspect, rate, and compare evaluations at scale.</p>"
+      "description": "<p>Evalet addresses the opacity of LLM-based evaluations by proposing functional fragmentation: dissecting model outputs into key text fragments and interpreting the rhetoric functions each serves relative to evaluation criteria. This interactive system visualizes these fragment-level functions across multiple outputs, empowering practitioners to transparently inspect, rate, and compare evaluations at scale.</p>",
+      "line": "Evaluates an LLM output by splitting it into fragments and naming the function each one serves."
     },
     {
       "id": "clearfairy",
@@ -124,7 +127,9 @@
       "links": {
         "pdf": "https://arxiv.org/pdf/2509.14537",
         "arxiv": "https://arxiv.org/abs/2509.14537"
-      }
+      },
+      "line": "Captures the decisions behind creative work with in-situ questions and inferred rationale.",
+      "thumb": "/images/thumbs/clearfairy.png"
     },
     {
       "id": "cupid",
@@ -166,7 +171,9 @@
         "website": "https://cupid.kixlab.org/",
         "code": "https://github.com/kixlab/cupid",
         "arxiv": "https://arxiv.org/abs/2508.01674"
-      }
+      },
+      "line": "A benchmark of 756 sessions that tests whether an LLM can infer your preferences from context.",
+      "thumb": "/images/thumbs/cupid.png"
     },
     {
       "id": "one-vs-many",
@@ -210,7 +217,9 @@
         "pdf": "https://arxiv.org/pdf/2405.05581",
         "arxiv": "https://arxiv.org/abs/2405.05581",
         "acmdl": "https://dl.acm.org/doi/10.1145/3630106.3662681"
-      }
+      },
+      "line": "How people make sense of several AI answers that disagree with each other.",
+      "thumb": "/images/thumbs/one-vs-many.png"
     },
     {
       "id": "evallm",
@@ -250,7 +259,10 @@
         "acmdl": "https://dl.acm.org/doi/10.1145/3613904.3642216",
         "arxiv": "https://arxiv.org/abs/2309.13633",
         "code": "https://github.com/kixlab/EvalLM"
-      }
+      },
+      "line": "Compare prompt outputs on criteria you define, and refine both as you go.",
+      "stillImage": "/images/evallm-still.png",
+      "thumb": "/images/thumbs/evallm.png"
     },
     {
       "id": "genquery",
@@ -288,7 +300,9 @@
         "website": "https://genquery.kixlab.org/",
         "acmdl": "https://dl.acm.org/doi/10.1145/3613904.3642847",
         "arxiv": "https://arxiv.org/abs/2310.01287"
-      }
+      },
+      "line": "Visual search where generative models help you say what you are looking for.",
+      "thumb": "/images/thumbs/genquery.png"
     },
     {
       "id": "demystifying",
@@ -321,7 +335,9 @@
         "pdf": "https://arxiv.org/pdf/2403.06252",
         "arxiv": "https://arxiv.org/abs/2403.06252",
         "acmdl": "https://dl.acm.org/doi/10.1145/3613904.3642886"
-      }
+      },
+      "line": "What tacit knowledge in graphic design looks like, with instances and guidelines.",
+      "thumb": "/images/thumbs/demystifying.png"
     },
     {
       "id": "semantic-reader",
@@ -363,7 +379,8 @@
       ],
       "award": null,
       "description": "<p>The Semantic Reader Project is a collaborative effort to build reading interfaces that make scholarly papers easier to read and understand. The interfaces add AI-powered features directly onto the paper, such as inline definitions of terms, links between citations and their references, and ways to skim and navigate dense text. The paper reviews these features and what the project learned about designing for researchers.</p>",
-      "links": {}
+      "links": {},
+      "line": "AI-powered reading interfaces that make scholarly papers easier to read."
     },
     {
       "id": "cells-generators-lenses",
@@ -397,7 +414,9 @@
         "website": "https://llm-objects.kixlab.org",
         "code": "https://github.com/kixlab/llm-ui-objects",
         "acmdl": "https://dl.acm.org/doi/10.1145/3586183.3606833"
-      }
+      },
+      "line": "Three primitives for working with LLMs as objects instead of one long chat.",
+      "thumb": "/images/thumbs/cells-generators-lenses.png"
     },
     {
       "id": "papeos",
@@ -435,7 +454,9 @@
         "arxiv": "https://arxiv.org/abs/2308.15224",
         "acmdl": "https://dl.acm.org/doi/10.1145/3586183.3606770",
         "demo": "https://papeo.app"
-      }
+      },
+      "line": "Research papers that carry their own talk video, aligned passage by passage.",
+      "thumb": "/images/thumbs/papeos.png"
     },
     {
       "id": "dapie",
@@ -472,7 +493,9 @@
         "website": "https://dapie.kixlab.org",
         "video": "https://youtu.be/nBdIhI66_vY",
         "acmdl": "https://dl.acm.org/doi/10.1145/3544548.3581369"
-      }
+      },
+      "line": "Step-by-step dialogues that answer children's why and how questions.",
+      "thumb": "/images/thumbs/dapie.png"
     },
     {
       "id": "stylette",
@@ -506,7 +529,9 @@
         "website": "https://stylette.kixlab.org",
         "video": "https://youtu.be/7ZJZpIW9FHc",
         "acmdl": "https://dl.acm.org/doi/10.1145/3491102.3501931"
-      }
+      },
+      "line": "Style a web page by describing the change in plain language.",
+      "thumb": "/images/thumbs/stylette.png"
     },
     {
       "id": "promptiverse",
@@ -544,7 +569,9 @@
         "website": "https://promptiverse.kixlab.org/",
         "video": "https://youtu.be/jvtsD73-Hqw",
         "acmdl": "https://dl.acm.org/doi/10.1145/3491102.3502087"
-      }
+      },
+      "line": "Generating scaffolding prompts for lecture videos with human and AI annotation.",
+      "thumb": "/images/thumbs/promptiverse.png"
     },
     {
       "id": "winder",
@@ -577,7 +604,9 @@
         "website": "https://winder.kixlab.org",
         "video": "https://www.youtube.com/watch?v=_Y0d_uyA6XA",
         "acmdl": "https://dl.acm.org/doi/10.1145/3411764.3445686"
-      }
+      },
+      "line": "Voice comments linked to design objects for asynchronous collaboration.",
+      "thumb": "/images/thumbs/winder.png"
     },
     {
       "id": "coseq",
@@ -615,7 +644,9 @@
         "website": "https://coseq.kixlab.org/",
         "video": "https://www.youtube.com/watch?v=Lh805dyTnA0&t=357s",
         "acmdl": "https://dl.acm.org/doi/10.1145/3449250"
-      }
+      },
+      "line": "Visual awareness that helps small groups agree on a sequence.",
+      "thumb": "/images/thumbs/coseq.png"
     },
     {
       "id": "cometogether",
@@ -659,7 +690,9 @@
       "links": {
         "pdf": "https://kixlab.github.io/website-files/2019/cscw2019-ComeTogether-paper.pdf",
         "acmdl": "https://dl.acm.org/doi/10.1145/3359208"
-      }
+      },
+      "line": "Collaborative dynamic queries for groups searching together.",
+      "thumb": "/images/thumbs/cometogether.png"
     }
   ],
   "posters": [

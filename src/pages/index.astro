@@ -1,36 +1,29 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import LeftPanel from '../components/LeftPanel.astro';
-import CanvasPanel from '../components/CanvasPanel.astro';
+import Base from '../layouts/Base.astro';
+import Side from '../components/Side.astro';
+import Work from '../components/Work.astro';
+import Publications from '../components/Publications.astro';
+import Minimap from '../components/Minimap.astro';
+import Options from '../components/Options.astro';
 import profile from '../data/profile.json';
 ---
-
-<Layout title={profile.name}>
-  <LeftPanel />
-  <CanvasPanel />
-</Layout>
-
+<Base title={profile.name}>
+  <div class="page">
+    <Side />
+    <main class="main" id="main">
+      <Work />
+      <Publications />
+    </main>
+  </div>
+  <footer class="foot"><span class="foot-copy">© 2026 {profile.name}</span><span>Demos are curated illustrations of each system, not live model output.</span></footer>
+  <Minimap />
+  <Options />
+</Base>
 <script>
-  import { initFragmentAnimation } from '../scripts/fragments.js';
-  import { initPanelManager } from '../scripts/panel.js';
-  import { initDisentangle } from '../scripts/disentangle.js';
-  import fragmentData from '../data/fragments.json';
-  import profile from '../data/profile.json';
-
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  let fragmentSystem = null;
-
-  if (!prefersReducedMotion) {
-    const canvas = document.getElementById('fragment-canvas');
-    if (canvas) {
-      fragmentSystem = await initFragmentAnimation(canvas, fragmentData, profile);
-
-      // Expose fragment system for panel.js to trigger paper transitions
-      window.__fragmentSystem = fragmentSystem;
-    }
-  }
-
-  initPanelManager();
-  initDisentangle();
+  import { initDemos } from '../scripts/demos.js';
+  import { initMinimap } from '../scripts/minimap.js';
+  import { initOptions } from '../scripts/options.js';
+  initOptions();
+  initDemos();
+  initMinimap();
 </script>

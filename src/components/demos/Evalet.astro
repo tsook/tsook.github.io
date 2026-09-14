@@ -1,0 +1,18 @@
+---
+const bars = [3,4,2,5,4,3,4,2,3,5,4,4,3,2,4,5,3,4,1,3,4,2,5,4,3,3,4,2,4,5,3,2,4,3,4,5,2,3,4,3];
+---
+<div class="fig" data-demo="evalet">
+  <div class="etf">
+    <div class="etf-h"><span class="lab">Output 12 of 40</span><span class="etf-c">criterion: safe and complete</span><span class="etf-s">4<small>/5</small></span></div>
+    <p class="et-text">
+      <button class="frag pos" data-act="frag" data-i="0">Yes, you can freeze cooked rice.</button>
+      <button class="frag pos" data-act="frag" data-i="1">Cool it within an hour,</button>
+      <button class="frag pos" data-act="frag" data-i="2">pack it flat,</button>
+      <button class="frag pos" data-act="frag" data-i="3">and use it within a month.</button>
+      <button class="frag neg" data-act="frag" data-i="4">Leaving it out overnight is fine too.</button>
+      <button class="frag pos" data-act="frag" data-i="5">Reheat until steaming hot.</button>
+    </p>
+    <div class="et-detail" data-etd></div>
+    <div class="et-strip" aria-hidden="true">{bars.map((b, i) => <i style={`height:${b*20}%`} class={i === 11 ? 'cur' : ''}></i>)}</div>
+  </div>
+</div>

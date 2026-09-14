@@ -1,0 +1,29 @@
+[
+  {
+    "id": "expanding",
+    "name": "Expanding",
+    "intro": "Systems that expand what people can draft and explore.",
+    "papers": [
+      "stylette",
+      "cells-generators-lenses"
+    ]
+  },
+  {
+    "id": "navigating",
+    "name": "Navigating",
+    "intro": "Interfaces for comparing alternatives and learning from them.",
+    "papers": [
+      "evallm",
+      "evalet"
+    ]
+  },
+  {
+    "id": "modeling",
+    "name": "Modeling",
+    "intro": "Models of how goals develop, used to train and evaluate AI.",
+    "papers": [
+      "discoverllm",
+      "cupid"
+    ]
+  }
+]

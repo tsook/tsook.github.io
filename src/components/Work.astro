@@ -1,0 +1,13 @@
+---
+import themes from '../data/themes.json';
+import publications from '../data/publications.json';
+import Entry from './Entry.astro';
+const byId = Object.fromEntries(publications.publications.map(p => [p.id, p]));
+---
+<div class="section-h sel-h"><h2>Selected publications</h2><span class="k">{publications.selected.length} of {publications.publications.length}</span></div>
+{themes.map(th => (
+  <section class="theme" id={`t-${th.id}`} data-spy data-section data-label={th.name}>
+    <div class="theme-h"><h2>{th.name}</h2><p class="intro">{th.intro}</p></div>
+    <div class="theme-grid">{th.papers.map(id => <Entry paper={byId[id]} />)}</div>
+  </section>
+))}

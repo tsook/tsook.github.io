@@ -1,0 +1,25 @@
+---
+import profile from '../data/profile.json';
+import publications from '../data/publications.json';
+const byId = Object.fromEntries(publications.publications.map(p => [p.id, p]));
+const selected = publications.selected.map(id => byId[id]);
+const year = new Date().getFullYear();
+---
+<aside class="side" id="side">
+  <img class="portrait" src={profile.photo} alt={`Portrait of ${profile.name}`} width="56" height="56" />
+  <h1 class="name">{profile.name}</h1>
+  <div class="role">Research Scientist and Postdoc, SkillBench and KAIST</div>
+  <div class="bio">
+    <p>I am a Research Scientist and Postdoc at SkillBench and <a href={profile.school.universityUrl} target="_blank" rel="noopener">KAIST</a>. I completed my PhD at KAIST in 2026 with <a href={profile.advisor.url} target="_blank" rel="noopener">Juho Kim</a> in <a href={profile.lab.url} target="_blank" rel="noopener">KIXLAB</a>.</p>
+    <p>I build AI systems that help people discover and develop their goals. I design interactive systems that <a class="tl" data-theme="expanding" href="#t-expanding">expand what people can draft and explore</a>, help them <a class="tl" data-theme="navigating" href="#t-navigating">compare alternatives and learn from them</a>, and <a class="tl" data-theme="modeling" href="#t-modeling">model how goals develop</a> to train and evaluate AI.</p>
+  </div>
+  <div class="links">
+    {profile.links.map(l => <a href={l.url} target={l.url.startsWith('mailto:') ? undefined : '_blank'} rel="noopener">{l.label}</a>)}
+  </div>
+  <nav class="toc" aria-label="Selected work">
+    <div class="toc-h">Selected publications</div>
+    {selected.map(p => <a href={`#w-${p.id}`} data-spy-link={`w-${p.id}`}><span>{p.shortName}</span><span class="yr">{p.year}</span></a>)}
+    <div class="more"><a href="#publications" data-spy-link="publications">All publications</a><a href="#posters" data-spy-link="posters" data-posters-link>Posters and workshop papers</a></div>
+  </nav>
+  <div class="side-bottom">© {year} {profile.name}</div>
+</aside>
