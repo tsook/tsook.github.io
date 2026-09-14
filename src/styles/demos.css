@@ -314,3 +314,4 @@ mark{background:none;color:inherit;padding:0 5px;border-radius:3px;font-size:10.
   .dl-turns{max-height:260px}
   .dl-state{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:10px;grid-template-rows:auto auto auto auto}
 }
+@media (max-width:900px){ .fig{height:auto} }
