@@ -8,12 +8,13 @@ explorations and do not describe the current page.
 ## What is on the page
 
 A fixed left column with portrait, name, role, a bio taken from the research
-statement, links, and a page map. On the right, "Selected publications"
-grouped into three themes (Expanding, Navigating, Modeling). Each paper is a
-full-width entry: a header row (title left, venue, award and links right), a
-380px interactive figure, and a one-sentence caption naming the mechanism.
-Then the full publication list with thumbnails, and posters folded into a
-`<details>` at the end.
+statement, and links. In the middle, "Selected work" grouped into three
+themes (Expanding, Navigating, Modeling), each with a colored mark and a
+one-line intro. Each paper is one row: venue, award, title, authors, links
+and a caption on the left (216px), and a 300px-tall interactive figure on
+the right. Then the full publication list with thumbnails, and posters
+folded into a `<details>` at the end. A page map sits at the right edge of
+the viewport.
 
 Each figure plays a scripted walkthrough of the system once, when it scrolls
 into view: a fake cursor moves, text is typed or streamed, the system
@@ -21,23 +22,29 @@ responds. After that the figure is interactive and a replay button appears in
 its corner. Any click on a control cancels the walkthrough. With
 `prefers-reduced-motion` the figure jumps to its finished state.
 
-The page map in the left column lists every theme and paper. A translucent
-window shows which rows are on screen (page position mapped piecewise onto
-the rows). Click a row to jump, drag anywhere on the map to scrub. The three
-linked phrases in the bio hint their theme section on hover and are marked
-while that section is on screen.
+The page map at the right edge lists every theme and paper, theme rows in
+their theme color. A sunk window shows which rows are on screen (page
+position mapped piecewise onto the rows). Click a row to jump, drag anywhere
+on the map to scrub. At viewports narrower than 1440px only the rail, the
+window and the current row show; hovering reveals the labels. Below 1040px
+the map is hidden. The three linked phrases in the bio, colored by theme,
+hint their theme section on hover and are marked while that section is on
+screen.
 
 ## Where things live
 
 - `src/pages/index.astro` composes the page and loads the two scripts.
 - `src/layouts/Base.astro` is the document head: fonts, favicons, analytics,
   and the two stylesheets.
-- `src/styles/global.css` is the page: tokens, sidebar, map, entries,
-  publication list, mobile. `src/styles/demos.css` is every figure.
+- `src/styles/global.css` is the page: tokens (including the three theme
+  colors), sidebar, map, entries, publication list, mobile.
+  `src/styles/demos.css` is every figure, laid out for about 590 by 300;
+  a container query below 480px stacks each figure for phones.
 - `src/components/Side.astro` is the left column. The bio text lives here.
-  The map rows are rendered statically from `themes.json`.
-- `src/components/Work.astro` renders the themes; `Entry.astro` renders one
-  entry and holds the figure captions.
+- `src/components/PageMap.astro` renders the map rows from `themes.json`.
+- `src/components/Work.astro` renders the themes (each `section` carries
+  `data-th`, which sets the theme color token); `Entry.astro` renders one
+  row and holds the figure captions.
 - `src/components/demos/*.astro` are the six figures (markup only).
 - `src/scripts/flow.js` is the shared walkthrough runtime: cancellation
   token, `sleep`, `typeInto`, `stream`, the fake cursor.

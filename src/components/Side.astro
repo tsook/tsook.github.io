@@ -1,8 +1,5 @@
 ---
 import profile from '../data/profile.json';
-import publications from '../data/publications.json';
-import themes from '../data/themes.json';
-const byId = Object.fromEntries(publications.publications.map(p => [p.id, p]));
 const year = new Date().getFullYear();
 ---
 <aside class="side" id="side">
@@ -16,16 +13,5 @@ const year = new Date().getFullYear();
   <div class="links">
     {profile.links.map(l => <a href={l.url} target={l.url.startsWith('mailto:') ? undefined : '_blank'} rel="noopener">{l.label}</a>)}
   </div>
-  <nav class="map" id="map" aria-label="Page map">
-    <div class="map-rail" aria-hidden="true"></div>
-    <div class="map-items" id="map-items">
-      {themes.map(th => (<>
-        <a class="map-item is-section" href={`#t-${th.id}`} data-map={`t-${th.id}`}><span>{th.name}</span></a>
-        {th.papers.map(id => <a class="map-item is-paper" href={`#w-${id}`} data-map={`w-${id}`}><span>{byId[id].shortName}</span></a>)}
-      </>))}
-      <a class="map-item is-section" href="#publications" data-map="publications"><span>All publications</span></a>
-    </div>
-    <div class="map-view" id="map-view" aria-hidden="true"></div>
-  </nav>
   <div class="side-bottom">© {year} {profile.name}</div>
 </aside>

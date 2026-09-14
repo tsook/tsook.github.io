@@ -3,10 +3,10 @@ import { sleep, typeInto, stream, esc, reduced } from '../flow.js';
 /* Two possible current requests. Each shares a context factor with one earlier session,
    so a different earlier preference applies. */
 const REQ = [
-  { chip:'PBS Nature · orchid mantises', text:'Help me write a treatment for a PBS Nature segment on urban orchid mantises.', rel:1,
+  { chip:'PBS Nature · mantises', text:'Write a treatment for a PBS Nature segment on urban orchid mantises.', rel:1,
     ctx:'Session 7, same channel (PBS Nature)', pref:'Observational detail only, no artificial drama.',
     resp:'Open on a balcony orchid at dawn. The mantis holds its pose for eleven minutes. No chase, no music sting: we count the minutes with her, and let the first fly arrive on its own.' },
-  { chip:'Canon MP-E lens · beetle wings', text:'Plan a macro shoot of beetle wing scales with my Canon MP-E 65mm.', rel:0,
+  { chip:'Canon MP-E · beetle wings', text:'Plan a macro shoot of beetle wing scales with my Canon MP-E.', rel:0,
     ctx:'Session 1, same equipment (Canon MP-E)', pref:'Technical specifications first, then creative suggestions.',
     resp:'Setup first: MP-E at 3×, f/8, twin flash at 1/4 power, focus rail in 40 µm steps, 60 frames per stack. Then three compositions: edge-on for the ridges, oblique for the color shift, and a full-scale grid.' },
 ];

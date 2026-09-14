@@ -1,0 +1,16 @@
+---
+import themes from '../data/themes.json';
+import publications from '../data/publications.json';
+const byId = Object.fromEntries(publications.publications.map(p => [p.id, p]));
+---
+<nav class="map" id="map" aria-label="Page map">
+  <div class="map-items" id="map-items">
+    {themes.map(th => (<>
+      <a class="map-item is-section" data-th={th.id} href={`#t-${th.id}`} data-map={`t-${th.id}`}><span>{th.name}</span></a>
+      {th.papers.map(id => <a class="map-item is-paper" data-th={th.id} href={`#w-${id}`} data-map={`w-${id}`}><span>{byId[id].shortName}</span></a>)}
+    </>))}
+    <a class="map-item is-section" href="#publications" data-map="publications"><span>All publications</span></a>
+  </div>
+  <div class="map-rail" aria-hidden="true"></div>
+  <div class="map-view" id="map-view" aria-hidden="true"></div>
+</nav>

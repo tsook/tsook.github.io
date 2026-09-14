@@ -20,7 +20,7 @@ const CL = [
   { n:'Completeness and depth', c:'#B65BC7', sub:[['Covers key aspects', 3, 0], ['Omits key caveats', 0, 6]] },
   { n:'Analytical reasoning', c:'#2FA5A0', sub:[['Logical reasoning', 5, 0], ['Circular reasoning', 0, 2]] },
 ];
-const R = 112, C = 160, CR = 42;
+const R = 94, C = 150, CR = 38;
 let seed = 7; const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
 function layout(){
   seed = 7; const pts = [];
@@ -59,7 +59,7 @@ function renderMap(d){
   const pts = PTS.map((p, i) => {
     const mine = p.frag != null;
     const shape = p.pol === 'pos'
-      ? `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${mine ? 3.2 : 2}"></circle>`
+      ? `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${mine ? 3.4 : 2.2}"></circle>`
       : `<path d="M${(p.x-2.2).toFixed(1)},${(p.y-2.2).toFixed(1)}l4.4,4.4m0,-4.4l-4.4,4.4"></path>`;
     return `<g class="et-pt ${p.pol} ${mine ? 'mine' : ''} ${mine && s.lit > p.frag ? 'is-lit' : ''} ${s.cur === p.frag && mine ? 'is-on' : ''}" data-act="pt" data-i="${i}" ${mine ? `data-frag="${p.frag}"` : ''} tabindex="0" role="button" aria-label="${p.pol === 'pos' ? 'For' : 'Against'}: ${esc(p.fn)}">${shape}</g>`;
   }).join('');
@@ -96,14 +96,14 @@ async function zoomTo(d, k, tok){
   d.querySelector('[data-map]').classList.add('is-zoomed');
   d.querySelectorAll('.et-cl').forEach(g => g.classList.toggle('is-focus', +g.dataset.k === k));
   d.querySelector('[data-act="zoomout"]').hidden = false;
-  await animateVB(d, [cl.x - 62, cl.y - 62, 124, 124], tok);
+  await animateVB(d, [cl.x - 60, cl.y - 60, 120, 120], tok);
 }
 async function zoomOut(d, tok){
   const s = S(d); s.zoom = null; tip(d, null);
   d.querySelector('[data-map]').classList.remove('is-zoomed');
   d.querySelectorAll('.et-cl').forEach(g => g.classList.remove('is-focus'));
   d.querySelector('[data-act="zoomout"]').hidden = true;
-  await animateVB(d, [0, 0, 320, 320], tok);
+  await animateVB(d, [0, 0, 300, 300], tok);
 }
 function tip(d, el){
   const t = d.querySelector('[data-tip]'); if(!el){ t.hidden = true; return; }
@@ -118,7 +118,7 @@ function tip(d, el){
 
 export default {
   init(d){
-    d._et = { lit:0, cur:null, vb:[0,0,320,320], zoom:null, raf:0, endVB:null };
+    d._et = { lit:0, cur:null, vb:[0,0,300,300], zoom:null, raf:0, endVB:null };
     renderText(d); renderMap(d);
     const box = d.querySelector('.et-mapbox');
     box.addEventListener('pointerover', e => { const p = e.target.closest('.et-pt'); if(p) tip(d, p); });
