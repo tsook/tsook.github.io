@@ -19,8 +19,11 @@ export function sleep(ms, tok){
     tok?.on(stop);
   });
 }
+/* Each animated write stamps the element, so a cancelled run never overwrites a newer one. */
+const claim = el => (el._gen = (el._gen || 0) + 1);
 /* Type text into an element, one character at a time. */
 export async function typeInto(el, text, tok, cps = 38){
+  const gen = claim(el);
   el.textContent = '';
   el.classList.add('is-typing');
   if(reduced()){ el.textContent = text; el.classList.remove('is-typing'); return; }
@@ -29,10 +32,11 @@ export async function typeInto(el, text, tok, cps = 38){
       el.textContent = text.slice(0, i);
       await sleep(1000 / cps + (/[,.?!]/.test(text[i-1]) ? 120 : 0), tok);
     }
-  } finally { el.textContent = text; el.classList.remove('is-typing'); }
+  } finally { if(el._gen === gen){ el.textContent = text; el.classList.remove('is-typing'); } }
 }
 /* Reveal an element's text word by word (streaming output). */
 export async function stream(el, text, tok, wps = 22){
+  const gen = claim(el);
   const words = text.split(' ');
   el.textContent = '';
   if(reduced()){ el.textContent = text; return; }
@@ -41,7 +45,7 @@ export async function stream(el, text, tok, wps = 22){
       el.textContent = words.slice(0, i).join(' ');
       await sleep(1000 / wps, tok);
     }
-  } finally { el.textContent = text; }
+  } finally { if(el._gen === gen) el.textContent = text; }
 }
 /* Fake cursor: one per figure, moved to element centers. */
 export function cursor(d){

@@ -2,7 +2,7 @@
   {
     "id": "expanding",
     "name": "Expanding",
-    "intro": "Systems that expand what people can draft and explore.",
+    "intro": "Turning a vague request into concrete options to try.",
     "papers": [
       "stylette",
       "cells-generators-lenses"
@@ -11,7 +11,7 @@
   {
     "id": "navigating",
     "name": "Navigating",
-    "intro": "Interfaces for comparing alternatives and learning from them.",
+    "intro": "Judging many model outputs at once, on criteria of your own.",
     "papers": [
       "evallm",
       "evalet"
@@ -20,7 +20,7 @@
   {
     "id": "modeling",
     "name": "Modeling",
-    "intro": "Models of how goals develop, used to train and evaluate AI.",
+    "intro": "Benchmarks and training signals built from how goals change across a conversation.",
     "papers": [
       "discoverllm",
       "cupid"

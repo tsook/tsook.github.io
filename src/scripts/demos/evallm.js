@@ -2,8 +2,8 @@ import { sleep, cursor, esc, reduced } from '../flow.js';
 
 /* Two prompts' outputs, split into spans tagged with the criteria they are evidence for. */
 const OUT = [
-  [ {t:'Plants make their own food.', c:[0,3]}, {t:'They take in sunlight, water, and air, and mix them into sugar.', c:[2]}, {t:'That is why they need a sunny spot.', c:[0]} ],
-  [ {t:'A little leaf named Pip woke up hungry. "Time to cook!" she said.', c:[1,3]}, {t:'She gulped water from her roots and stirred in sunshine', c:[2]}, {t:'until sweet sugar bubbled up.', c:[1,0]} ],
+  [ {t:'Plants make their own food.', c:[0,1,3]}, {t:'They take in sunlight, water, and air, and mix them into sugar.', c:[2]}, {t:'That is why they need a sunny spot.', c:[0]} ],
+  [ {t:'A little leaf named Pip woke up hungry. "Time to cook!" she said.', c:[0,1,3]}, {t:'She gulped water from her roots and stirred in sunshine', c:[2]}, {t:'until sweet sugar bubbled up.', c:[1,0]} ],
 ];
 const CRIT = [
   { n:'Concept familiarity', s:[9,9], why:'Both build on eating and cooking, which a five-year-old already knows.' },
@@ -58,9 +58,10 @@ export default {
     await sleep(300, tok); c.hide();
   },
   final(d){ const s = S(d); s.n = 4; s.scored = 4; renderRows(d); setCur(d, 1); },
+  clean(d){ const s = S(d); if(d.querySelector('.ev-busy')) setCur(d, s.scored ? s.scored - 1 : null); },
   async act(d, el, tok){
     const s = S(d);
-    if(el.dataset.act === 'crit'){ if(s.scored > +el.dataset.c) setCur(d, +el.dataset.c); }
+    if(el.dataset.act === 'crit'){ const i = +el.dataset.c; if(s.scored > i) setCur(d, i); else await score(d, i, tok); }
     if(el.dataset.act === 'add'){ s.n = Math.min(CRIT.length, s.n + 1); await score(d, s.n - 1, tok); }
   },
 };

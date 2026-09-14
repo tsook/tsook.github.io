@@ -13,8 +13,8 @@ const rest = p => { const pr = primary(p); return links(p).filter(([k]) => !pr |
   {years.map(y => (<>
     <div class="year">{y}</div>
     {pubs.filter(p => Number(p.year) === y).map(p => (
-      <div class={`pub${p.thumb ? '' : ' no-thumb'}`} id={`p-${p.id}`}>
-        {p.thumb && <img class="thumb" src={p.thumb} alt="" loading="lazy" width="112" height="70" />}
+      <div class="pub" id={`p-${p.id}`}>
+        {p.thumb ? <img class="thumb" src={p.thumb} alt="" loading="lazy" width="112" height="70" /> : <span class="thumb-gap" aria-hidden="true"></span>}
         <div>
           <div class="t">{primary(p) ? <a href={primary(p)[1]} target="_blank" rel="noopener">{p.title}</a> : p.title}</div>
           <div class="m"><span>{p.venue} {p.year}</span>{p.award && <span class="award">{p.award.replace(' Award','')}</span>}{rest(p).map(([k, url]) => <a href={url} target="_blank" rel="noopener">{LABEL[k] || k}</a>)}</div>

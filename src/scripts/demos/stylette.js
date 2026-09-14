@@ -43,8 +43,11 @@ function apply(d, btn){
   const req = REQ[d._st.req]; const col = req.cols[+btn.dataset.col];
   const target = d.querySelector(`[data-el="${req.el}"]`);
   const was = btn.classList.contains('is-on');
-  btn.closest('.st-col').querySelectorAll('.st-sug').forEach(b => b.classList.remove('is-on'));
+  const colEl = btn.closest('.st-col');
+  colEl.querySelectorAll('.st-sug').forEach(b => b.classList.remove('is-on'));
   if(was) target.style[col.css] = ''; else { target.style[col.css] = btn.dataset.v; btn.classList.add('is-on'); }
+  const cur = colEl.querySelector('.st-cur');
+  if(cur){ const val = was ? col.cur : col.sug.find(x => x[0] === btn.dataset.v) || col.cur; cur.innerHTML = `<span>${was ? 'current' : 'applied'}</span>${sugLabel(col, val)}`; }
 }
 function resetStyles(d){ d.querySelectorAll('.st-el').forEach(e => e.removeAttribute('style')); }
 
@@ -91,6 +94,11 @@ export default {
   final(d){
     speak(d, 0, null, false);
     d.querySelector('[data-try]').classList.add('is-shown');
+  },
+  clean(d){
+    d.querySelector('[data-try]').classList.add('is-shown');
+    const st = d.querySelector('[data-status]'); if(st.classList.contains('is-busy') || /…$/.test(st.textContent)) st.textContent = 'Select an element and say what you want.';
+    if(!d.querySelector('.st-col')) speak(d, d._st.req, null, false);
   },
   async act(d, el, tok){
     if(el.dataset.act === 'sug') apply(d, el);

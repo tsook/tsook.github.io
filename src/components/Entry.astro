@@ -8,10 +8,10 @@ import Discover from './demos/Discover.astro';
 const { paper } = Astro.props;
 const DEMO = { 'stylette': Stylette, 'cells-generators-lenses': Cells, 'evallm': EvalLM, 'evalet': Evalet, 'cupid': Cupid, 'discoverllm': Discover };
 const CAPTION = {
-  'stylette': 'Select an element and say what you want in plain words. Stylette infers which CSS properties you mean and offers values to try on the page.',
+  'stylette': 'Select an element and say what you want in plain words. Stylette infers which CSS properties you mean and suggests values drawn from 1.7 million real web components to try on the page.',
   'cells-generators-lenses': 'Text lives in cells. A chain of cells prompts a generator, and a lens decides how its outputs are shown, as a list or on two axes.',
   'evallm': 'Two prompts, one input, and criteria in your own words. The evaluator scores each output, explains why, and points at the evidence.',
-  'evalet': 'Each output is cut into fragments, and each fragment is named by the function it serves. Functions from every output land on one map, so patterns across outputs show up.',
+  'evalet': 'Each output is cut into fragments, and each fragment is named by the function it serves for a criterion. Functions from every output land on one map, so patterns across outputs show up.',
   'cupid': 'The benchmark asks which earlier session shares a context with the new request, and whether the model recovers the preference the user showed there.',
   'discoverllm': 'A simulated user starts with intents they cannot name yet. Responses earn reward for surfacing those intents, not only for executing the request.',
 };
@@ -23,7 +23,7 @@ const LABEL = { pdf:'Paper', website:'Website', code:'Code', data:'Data', arxiv:
   <header class="entry-h">
     <h3>{paper.title}</h3>
     <div class="entry-m">
-      <div class="entry-k"><span>{paper.venue} {paper.year}</span>{paper.award && <span class="award">{paper.award.replace(' Award','')}</span>}</div>
+      <span class="entry-k"><span>{paper.venue} {paper.year}</span>{paper.award && <span class="award">{paper.award.replace(' Award','')}</span>}</span>
       <nav class="entry-links" aria-label={`Links for ${paper.shortName}`}>{links.map(([k, url]) => <a href={url} target="_blank" rel="noopener">{LABEL[k] || k}</a>)}</nav>
     </div>
   </header>

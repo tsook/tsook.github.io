@@ -5,6 +5,7 @@ export function initMap(){
   const nav = document.getElementById('map'); if(!nav) return;
   const view = document.getElementById('map-view');
   const rows = [...nav.querySelectorAll('[data-map]')];
+  const phrases = [...document.querySelectorAll('.tl')];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let items = [], docH = 1, raf = 0;
 
@@ -50,26 +51,34 @@ export function initMap(){
     items.forEach(t => t.a.classList.toggle('is-current', t === cur));
     const theme = cur.el.closest('.theme') || (cur.el.classList.contains('theme') ? cur.el : null);
     const tid = theme ? theme.id.replace(/^t-/, '') : null;
-    document.querySelectorAll('.tl').forEach(a => a.classList.toggle('is-current', a.dataset.theme === tid));
+    phrases.forEach(a => a.classList.toggle('is-current', a.dataset.theme === tid));
   }
+  const schedule = fn => { if(!raf) raf = requestAnimationFrame(() => { raf = 0; fn(); }); };
+
   /* drag to scrub */
   let down = null, dragging = false;
   const scrubTo = clientY => {
     const my = clientY - nav.getBoundingClientRect().top;
     window.scrollTo({ top: Math.max(0, toPage(my) - window.innerHeight * 0.3), behavior: 'auto' });
   };
-  nav.addEventListener('pointerdown', e => { if(e.button !== 0) return; down = { y: e.clientY, id: e.pointerId }; dragging = false; });
+  const endDrag = () => {
+    if(down){ try{ nav.releasePointerCapture(down.id); }catch(_){} }
+    nav.classList.remove('is-dragging'); down = null;
+    setTimeout(() => { dragging = false; }, 0);
+  };
+  nav.addEventListener('pointerdown', e => {
+    if(e.button !== 0) return;
+    down = { y: e.clientY, id: e.pointerId }; dragging = false;
+    try{ nav.setPointerCapture(e.pointerId); }catch(_){}
+    e.preventDefault();
+  });
   nav.addEventListener('pointermove', e => {
     if(!down) return;
-    if(!dragging && Math.abs(e.clientY - down.y) > 4){ dragging = true; nav.classList.add('is-dragging'); try{ nav.setPointerCapture(down.id); }catch(_){} }
+    if(!(e.buttons & 1)){ endDrag(); return; }
+    if(!dragging && Math.abs(e.clientY - down.y) > 4){ dragging = true; nav.classList.add('is-dragging'); }
     if(dragging) scrubTo(e.clientY);
   });
-  const end = e => {
-    if(!down) return;
-    if(dragging){ try{ nav.releasePointerCapture(down.id); }catch(_){} nav.classList.remove('is-dragging'); }
-    down = null; setTimeout(() => { dragging = false; }, 0);
-  };
-  nav.addEventListener('pointerup', end); nav.addEventListener('pointercancel', end);
+  nav.addEventListener('pointerup', endDrag); nav.addEventListener('pointercancel', endDrag);
   nav.addEventListener('click', e => {
     if(dragging){ e.preventDefault(); return; }
     const a = e.target.closest('[data-map]'); if(!a) return;
@@ -79,15 +88,20 @@ export function initMap(){
     history.replaceState(null, '', '#' + a.dataset.map);
   });
 
-  window.addEventListener('scroll', () => { if(!raf) raf = requestAnimationFrame(() => { raf = 0; update(); }); }, { passive:true });
-  window.addEventListener('resize', () => { measure(); update(); });
-  if(document.fonts) document.fonts.ready.then(() => { measure(); update(); });
+  window.addEventListener('scroll', () => schedule(update), { passive:true });
+  const remeasure = () => schedule(() => { measure(); update(); });
+  window.addEventListener('resize', remeasure);
+  if('ResizeObserver' in window){
+    const ro = new ResizeObserver(remeasure);
+    const main = document.getElementById('main'); if(main) ro.observe(main);
+    ro.observe(document.body);
+  }
+  if(document.fonts) document.fonts.ready.then(remeasure);
   measure(); update();
-  setTimeout(() => { measure(); update(); }, 800);
-  setTimeout(() => { measure(); update(); }, 2500);
+  setTimeout(remeasure, 800);
 
   /* bio phrases hint their theme section */
-  document.querySelectorAll('.tl').forEach(a => {
+  phrases.forEach(a => {
     const sec = () => document.getElementById('t-' + a.dataset.theme);
     const on = () => sec()?.classList.add('is-hinted'), off = () => sec()?.classList.remove('is-hinted');
     a.addEventListener('mouseenter', on); a.addEventListener('mouseleave', off);

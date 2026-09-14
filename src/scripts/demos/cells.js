@@ -40,17 +40,18 @@ function renderLens(d){
     const all = OUT.flat(2);
     box.innerHTML = `<div class="cg-space">
       <span class="cg-ax cg-ax-x"><em>calm</em><em>frantic</em></span><span class="cg-ax cg-ax-y"><em>literal</em><em>figurative</em></span>
-      ${all.map(o => { const on = cur.includes(o); const side = (o.x > .62 ? 'r' : o.x < .28 ? 'l' : '') + (o.y > .78 ? ' t' : ''); return `<button class="cg-pt ${on ? 'is-on' : ''} ${side}" data-act="pt" style="left:${(o.x*100).toFixed(1)}%;top:${((1-o.y)*100).toFixed(1)}%" aria-label="${esc(o.t)}"><span class="cg-tip">${esc(o.t)}</span></button>`; }).join('')}
+      ${all.map(o => { const on = cur.includes(o); const side = (o.x > .62 ? 'r' : o.x < .28 ? 'l' : '') + (o.y > .78 ? ' t' : ''); return `<button class="cg-pt ${on ? 'is-on' : ''} ${side}" data-act="pt" style="left:${(o.x*100).toFixed(1)}%;top:${((1-o.y)*100).toFixed(1)}%" ><span class="cg-pl">${esc(o.t)}</span><span class="cg-tip">${esc(o.t)}</span></button>`; }).join('')}
     </div>`;
-    note.textContent = 'Every output placed on two axes. The linked chain is dark.';
+    note.textContent = 'Every output placed on two axes. This run\u2019s outputs are dark.';
   }
+  wire(d);
 }
 async function generate(d, tok){
   const s = S(d); const gen = d.querySelector('[data-gen]'); const st = d.querySelector('[data-genstate]');
   gen.classList.add('is-running'); st.textContent = 'generating';
   d.querySelector('.cg-wires').classList.add('is-flowing');
   await sleep(reduced() ? 0 : 700, tok);
-  gen.classList.remove('is-running'); st.textContent = 'idle'; d.querySelector('.cg-wires').classList.remove('is-flowing');
+  gen.classList.remove('is-running'); st.textContent = 'ready'; d.querySelector('.cg-wires').classList.remove('is-flowing');
   s.shown = 0; renderLens(d);
   if(s.view === 'list'){
     for(let i = 0; i < 3; i++){ s.shown = i + 1; d.querySelectorAll('.cg-li')[i]?.classList.add('is-in'); await sleep(reduced() ? 0 : 260, tok); }
@@ -65,10 +66,11 @@ export default {
     d._cg = { chain:0, temp:0, view:'list', shown:0 };
     setChain(d, 0); renderLens(d);
     requestAnimationFrame(() => wire(d));
-    const rewire = () => wire(d);
+    let raf = 0; const rewire = () => { if(!raf) raf = requestAnimationFrame(() => { raf = 0; wire(d); }); };
     window.addEventListener('resize', rewire);
     if(document.fonts) document.fonts.ready.then(rewire);
   },
+  clean(d){ const s = S(d); d.querySelector('[data-genstate]').textContent = 'ready'; s.shown = 3; renderLens(d); },
   async flow(d, tok){
     const c = cursor(d); const s = S(d);
     await sleep(400, tok);

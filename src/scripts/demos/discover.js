@@ -17,7 +17,7 @@ const BRANCH = {
     { who:'user', t:U0 },
     { who:'ai', t:'Here are first lines for a few options. <b>1) The Dog:</b> The dog waits where the day comes home… <b>2) The Fox:</b> The fox stitches the hedge at dusk… Which feels closer?', found:['pet','indoors'], len:0.1 },
     { who:'user', t:'the dog one. something about a pet at home' },
-    { who:'ai', t:'Two ways in. <b>A)</b> The dog asleep by the door, one ear up for the car. <b>B)</b> A cat on the sofa, refusing to wake for anyone.', found:['cat','sofa'], len:0.1 },
+    { who:'ai', t:'Two ways in. <b>A)</b> The dog asleep by the door, one ear up for the car. <b>B)</b> A cat on the sofa, refusing to wake for anyone.', found:['cat','sofa'], near:['tabby'], len:0.1 },
     { who:'user', t:'B, the cat on the sofa. keep it short' },
     { who:'ai', t:'Three lines, then: <i>The tabby sleeps where the sun lands last, / one ear turned toward the kettle, / the sofa keeping her shape.</i>', found:['tabby','three'], len:0 },
   ],
@@ -25,17 +25,18 @@ const BRANCH = {
     { who:'user', t:U0 },
     { who:'ai', t:'Here is a poem about an animal: <i>The eagle rides the morning air, / above the ridge, above the pines, / it circles once and does not care / how far the valley falls…</i> (14 lines)', found:[], len:0.4 },
     { who:'user', t:'hmm, not really what I had in mind. can it be different?' },
-    { who:'ai', t:'Of course! Here is a revised version with more vivid imagery: <i>The eagle climbs the golden dawn, / its wings a blade against the light…</i> (14 lines)', found:[], len:0.4 },
-    { who:'user', t:'closer maybe? i\'m not sure what to change' },
+    { who:'ai', t:'Of course. What would you like to change? Anything about the tone, the animal, or the length?', found:[], len:0 },
+    { who:'user', t:'i don\'t know how to describe it' },
     { who:'ai', t:'No problem! Here is another take with a gentler tone: <i>Soft above the sleeping hills, / the eagle drifts on quiet air…</i> (12 lines)', found:[], len:0.3 },
   ],
 };
 const S = d => d._dl;
 
 function found(d){ const s = S(d); const set = new Set(NODES.filter(n => n.start).map(n => n.id)); BRANCH[s.mode].slice(0, s.turn + 1).forEach(t => (t.found || []).forEach(id => set.add(id))); return set; }
+function emerging(d){ const s = S(d); const set = new Set(); BRANCH[s.mode].slice(0, s.turn + 1).forEach(t => (t.near || []).forEach(id => set.add(id))); return set; }
 function renderTree(d){
-  const s = S(d); const f = found(d); const last = new Set(BRANCH[s.mode][s.turn]?.found || []);
-  d.querySelector('[data-tree]').innerHTML = NODES.map(n => `<span class="dl-node d${n.depth} ${f.has(n.id) ? (last.has(n.id) ? 'new' : 'found') : ''}" style="--d:${n.depth}">${esc(n.t)}</span>`).join('');
+  const s = S(d); const f = found(d); const em = emerging(d); const last = new Set(BRANCH[s.mode][s.turn]?.found || []);
+  d.querySelector('[data-tree]').innerHTML = NODES.map(n => `<span class="dl-node d${n.depth} ${f.has(n.id) ? (last.has(n.id) ? 'new' : 'found') : (em.has(n.id) ? 'emerging' : '')}" style="--d:${n.depth}">${esc(n.t)}</span>`).join('');
   d.querySelector('[data-bar]').innerHTML = NODES.map(n => `<i class="${f.has(n.id) ? (last.has(n.id) ? 'new' : 'on') : ''}"></i>`).join('');
   d.querySelector('[data-progk]').textContent = `${f.size} of ${NODES.length}`;
 }
@@ -55,13 +56,12 @@ async function showTurn(d, i, tok, animate){
   el.classList.add('is-done');
   renderTree(d);
   box.scrollTop = box.scrollHeight;
-  d.querySelector('[data-act="next"]').disabled = i >= BRANCH[s.mode].length - 1;
+  const nb = d.querySelector('[data-act="next"]'); nb.textContent = i >= BRANCH[s.mode].length - 1 ? 'Start over' : 'Next turn';
 }
 function reset(d, mode){
   const s = S(d); s.mode = mode; s.turn = -1;
   d.querySelectorAll('[data-act="mode"]').forEach(b => b.classList.toggle('is-on', b.dataset.mode === mode));
   d.querySelector('[data-turns]').innerHTML = '';
-  d.querySelector('[data-act="next"]').disabled = false;
   showTurn(d, 0, null, false);
 }
 async function play(d, tok, from = 1){
@@ -73,9 +73,10 @@ export default {
   init(d){ d._dl = { mode:'dl', turn:-1 }; reset(d, 'dl'); },
   async flow(d, tok){ reset(d, 'dl'); await sleep(400, tok); await play(d, tok); },
   final(d){ reset(d, 'dl'); for(let i = 1; i < BRANCH.dl.length; i++) showTurn(d, i, null, false); },
+  clean(d){ const s = S(d); const last = d.querySelector('[data-turns]').lastElementChild; if(last && !last.classList.contains('is-done')){ const t = BRANCH[s.mode][+last.dataset.i]; last.querySelector('[data-tx]').innerHTML = t.t; last.classList.add('is-done', 'is-in'); renderTree(d); } },
   async act(d, el, tok){
     const s = S(d); const a = el.dataset.act;
     if(a === 'mode'){ reset(d, el.dataset.mode); await play(d, tok); }
-    if(a === 'next'){ if(s.turn < BRANCH[s.mode].length - 1) await showTurn(d, s.turn + 1, tok, !reduced()); }
+    if(a === 'next'){ if(s.turn < BRANCH[s.mode].length - 1) await showTurn(d, s.turn + 1, tok, !reduced()); else reset(d, s.mode); }
   },
 };

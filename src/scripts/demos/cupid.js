@@ -10,7 +10,7 @@ const REQ = [
     ctx:'Session 1, same equipment (Canon MP-E)', pref:'Technical specifications first, then creative suggestions.',
     resp:'Setup first: MP-E at 3×, f/8, twin flash at 1/4 power, focus rail in 40 µm steps, 60 frames per stack. Then three compositions: edge-on for the ridges, oblique for the color shift, and a full-scale grid.' },
 ];
-const VERDICT = [['different equipment', 'same equipment'], ['different channel', 'same channel']];
+const VERDICT = [['no shared context', 'same equipment'], ['no shared context', 'same channel']];
 const S = d => d._cu;
 
 function clear(d){
@@ -41,7 +41,7 @@ async function infer(d, i, tok, animate = true, type = animate){
   const step = k => d.querySelector(`[data-step="${k}"]`);
   step('ctx').classList.add('is-in'); d.querySelector('[data-ctx]').textContent = r.ctx;
   await sleep(animate ? 600 : 0, tok);
-  step('pref').classList.add('is-in'); step('pref').dataset.tone = r.rel === 0 ? 'green' : 'orange'; d.querySelector('[data-pref]').textContent = r.pref;
+  step('pref').classList.add('is-in'); step('pref').dataset.tone = r.rel === 0 ? 'blue' : 'violet'; d.querySelector('[data-pref]').textContent = r.pref;
   await sleep(animate ? 700 : 0, tok);
   step('resp').classList.add('is-in');
   if(animate) await stream(d.querySelector('[data-resp]'), r.resp, tok, 20); else d.querySelector('[data-resp]').textContent = r.resp;
@@ -55,6 +55,7 @@ export default {
   },
   async flow(d, tok){ await sleep(500, tok); await infer(d, 0, tok, true, false); },
   final(d){ infer(d, 0, null, false); },
+  clean(d){ const s = S(d); if(!d.querySelector('[data-step="resp"]').classList.contains('is-in')) infer(d, s.req, null, false); },
   async act(d, el, tok){
     if(el.dataset.act === 'req') await infer(d, +el.dataset.req, tok, !reduced());
     if(el.dataset.act === 'sess') el.classList.toggle('is-open');
