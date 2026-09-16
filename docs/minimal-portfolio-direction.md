@@ -1,5 +1,7 @@
 # Minimal portfolio direction
 
+Latest direction: see [Beautiful UI portfolio handoff](beautiful-ui-portfolio-handoff.md). The user identified Beautiful UI as a particularly strong reference after this brief was written.
+
 Build a professional, personal research portfolio with a restrained Apple-like visual language: white and soft neutrals, clear typography, generous spacing, and purposeful motion. A centered, readable composition is a starting point; the layout remains open to exploration.
 
 Make the introduction, research contributions, and paper/contact links immediately accessible. Keep normal scrolling and a clear hierarchy. Subtle inline expansion can add depth and a little tangibility; avoid elaborate gadget metaphors, floating navigation, or interactions required to discover basic information.
