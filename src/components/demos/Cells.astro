@@ -1,17 +1,11 @@
 <div class="fig" data-demo="cells">
   <svg class="cg-wires" aria-hidden="true"></svg>
   <div class="cg">
-    <div class="cg-col cg-cells">
+    <div class="cg-col cg-left">
       <span class="cg-lab">Cells</span>
-      <div class="cg-tree">
-        <div class="cg-cell is-root">Icy fingers grabbed my arm in the dark.</div>
-        <div class="cg-cell is-root">I jerked away.</div>
-        <div class="cg-branch">
-          <button class="cg-cell cg-leaf" data-act="chain" data-chain="0">The hand grabbed again.</button>
-          <button class="cg-cell cg-leaf" data-act="chain" data-chain="1">Nothing was there.</button>
-        </div>
-      </div>
-      <span class="cg-note" aria-hidden="true"></span>
+      <div class="cg-tray" data-tray data-zone="tray"></div>
+      <span class="cg-lab">Chain <em>the prompt, in order</em></span>
+      <div class="cg-chain" data-chain data-zone="chain"></div>
     </div>
     <div class="cg-col cg-mid">
       <span class="cg-lab">Generator</span>
@@ -25,7 +19,6 @@
     <div class="cg-col cg-right">
       <span class="cg-lab">Lens <span class="cg-sw"><button class="is-on" data-act="lens" data-lens="list">list</button><button data-act="lens" data-lens="space">space</button></span></span>
       <div class="cg-lens" data-lensbox></div>
-      <span class="cg-note" data-lensnote>Outputs from the linked chain, as a list.</span>
     </div>
   </div>
 </div>

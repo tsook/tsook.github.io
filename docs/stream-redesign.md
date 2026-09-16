@@ -9,12 +9,12 @@ explorations and do not describe the current page.
 
 A fixed left column with portrait, name, role, a bio taken from the research
 statement, and links. In the middle, "Selected work" grouped into three
-themes (Expanding, Navigating, Modeling), each with a colored mark and a
-one-line intro. Each paper is one row: venue, award, title, authors, links
-and a caption on the left (216px), and a 300px-tall interactive figure on
-the right. Then the full publication list with thumbnails, and posters
-folded into a `<details>` at the end. A page map sits at the right edge of
-the viewport.
+themes (Expanding, Navigating, Modeling), each with an icon, a colored name
+and a one-line intro on the same line. Each paper is one row: venue, award,
+title, authors and links on the left (216px), and a 300px-tall interactive
+figure on the right. Then the full publication list with thumbnails and
+author lists, and posters folded into a `<details>` at the end. A page map
+sits at the right edge of the viewport.
 
 Each figure plays a scripted walkthrough of the system once, when it scrolls
 into view: a fake cursor moves, text is typed or streamed, the system
@@ -22,15 +22,14 @@ responds. After that the figure is interactive and a replay button appears in
 its corner. Any click on a control cancels the walkthrough. With
 `prefers-reduced-motion` the figure jumps to its finished state.
 
-The page map at the right edge lists every theme and paper, theme rows in
-their theme color. A darker segment on the rail shows which rows are on
-screen (page position mapped piecewise onto the rows), and rows on screen
-are tinted. Click a row to jump, drag anywhere on the map to scrub. Below
-1440px the labels collapse to dots on the rail (theme dots in the theme
-color, the current dot enlarged); hovering or focusing the map reveals the
-labels. Below 1060px the page is one column and the map is hidden. The
-three linked phrases in the bio carry a theme-colored underline, hint their
-theme section on hover, and are marked while that section is on screen.
+The page map at the right edge is the page in miniature: one block per
+paper in its theme color, one gray block for the publication list, heights
+proportional to the page (computed in `map.js`), and a translucent window
+for what is on screen. Hovering a block shows its name; the current block is
+solid. Click a block to jump, drag anywhere on the map to scrub. Below
+1060px the page is one column and the map is hidden. The three linked
+phrases in the bio carry a theme-colored underline, hint their theme section
+on hover, and are marked while that section is on screen.
 
 ## Where things live
 
@@ -75,27 +74,32 @@ Unused but still present: `src/layouts/Layout.astro`, the old components
 
 ## The six figures
 
-- Stylette: a mock web page and the palette. The cursor selects the
-  paragraph, a mic bubble types "tone down the text", three property columns
-  appear (color, font-family, font-size) with the current value and three
-  suggestions each, and two are applied. Two more requests target the heading
-  and the button.
-- Cells, Generators, Lenses: two cells feed a branch of two leaf cells; the
-  linked chain prompts a generator (GPT-4, temperature 0.7 or 1.2); outputs
-  land in a list lens or a space lens with two axes.
-- EvalLM: the paper's photosynthesis example, two prompts, three criteria
-  scored one at a time with an explanation and evidence highlights, then a
-  fourth criterion is added.
-- Evalet: the relativity example from the teaser video. Six fragments light
-  up with their functions, points appear on a map of eight super clusters,
-  and the map zooms into one cluster to show its base clusters.
-- CUPID: two earlier sessions with context factors (Canon lens, PBS Nature)
-  and a current request. The model scans the sessions, finds the one sharing
-  a factor, recovers its preference, and answers. A second request switches
-  the relevant session.
-- DiscoverLLM: the paper's Figure 1 example, "write me a poem about an
-  animal", with the eight-node intent tree, per-turn rewards, and a
-  Base model / DiscoverLLM switch.
+- Stylette: a mock web page with a mic pill. The cursor selects the
+  paragraph and taps the mic; a waveform plays while the words of "tone down
+  the text" arrive; three property rows appear (color, font-family,
+  font-size) with three suggestions each, and two are applied. The mic
+  cycles to the next request; chips pick one directly.
+- Cells, Generators, Lenses: four cell blocks in a tray. Dragging (or
+  clicking) a cell moves it into the chain, which is the prompt; the
+  generator (GPT-4, temperature 0.7 or 1.2) continues it; outputs land in a
+  list lens or a space lens with two axes. Outputs are keyed by the last
+  cell in the chain.
+- EvalLM: the paper's photosynthesis example. Criteria are added one at a
+  time, typed into a field or picked from suggestion chips; each one lights
+  up its evidence in both outputs and scores them, with an explanation.
+  Unknown text gets a hint naming the four known criteria.
+- Evalet: the relativity example. Six fragments light up with their
+  functions, their points appear on a map of eight clusters drawn as density
+  glows with smooth hulls, and the map zooms into one cluster to show its
+  base clusters.
+- CUPID: three earlier session cards, each with a context factor and the
+  preference shown there, and a current request. The model scans the cards,
+  marks the one sharing a factor, a line links them, and the preference is
+  copied into a one-line response. Chips switch between three requests.
+- DiscoverLLM: the paper's Figure 1 example with assistant turns summarized
+  as actions ("Offers two starts: a dog at home · a fox at dusk"), the
+  eight-node intent tree, per-turn rewards, and a Base model switch whose
+  clarifying question the simulated user cannot answer.
 
 ## Working on it
 

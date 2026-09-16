@@ -8,14 +8,6 @@ import Discover from './demos/Discover.astro';
 import profile from '../data/profile.json';
 const { paper } = Astro.props;
 const DEMO = { 'stylette': Stylette, 'cells-generators-lenses': Cells, 'evallm': EvalLM, 'evalet': Evalet, 'cupid': Cupid, 'discoverllm': Discover };
-const CAPTION = {
-  'stylette': 'Say what you want in plain words. Stylette infers the CSS properties you mean and suggests values from 1.7 million real web components.',
-  'cells-generators-lenses': 'Text lives in cells. A chain of cells prompts a generator, and a lens decides how the outputs are shown.',
-  'evallm': 'Two prompts, one input, criteria in your own words. The evaluator scores each output, explains why, and points at the evidence.',
-  'evalet': 'Each output is cut into fragments named by the function they serve for a criterion. Functions from every output land on one map.',
-  'cupid': 'Which earlier session shares a context with the new request, and does the model recover the preference the user showed there?',
-  'discoverllm': 'A simulated user starts with intents it cannot name yet. Responses earn reward for surfacing them, not only for executing the request.',
-};
 const Demo = DEMO[paper.id];
 const links = Object.entries(paper.links || {});
 const LABEL = { pdf:'Paper', website:'Website', code:'Code', data:'Data', arxiv:'arXiv', acmdl:'ACM DL', video:'Video', demo:'Demo' };
@@ -27,7 +19,6 @@ const authors = paper.authors || [];
     <h3>{paper.title}</h3>
     <p class="authors">{authors.map((a, i) => <>{a.name === profile.name ? <b>{a.name}</b> : (a.url ? <a href={a.url} target="_blank" rel="noopener">{a.name}</a> : a.name)}{a.equalContrib ? '*' : ''}{i < authors.length - 1 ? ', ' : ''}</>)}</p>
     <nav class="entry-links" aria-label={`Links for ${paper.shortName}`}>{links.map(([k, url]) => <a href={url} target="_blank" rel="noopener">{LABEL[k] || k}</a>)}</nav>
-    <p class="cap">{CAPTION[paper.id]}</p>
   </div>
   {Demo && <Demo />}
 </article>

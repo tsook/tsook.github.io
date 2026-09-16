@@ -1,12 +1,15 @@
 <div class="fig" data-demo="evallm">
   <div class="ev">
-    <div class="ev-task"><span class="ev-lab">Task</span><span>Given a piece of scientific information, write an example that helps a young child understand it.</span></div>
     <div class="ev-outs">
       <div class="ev-o o1"><span class="ev-oh">Prompt 1 · <b>kindergarten teacher</b></span><p data-out="0"></p></div>
       <div class="ev-o o2"><span class="ev-oh">Prompt 2 · <b>story narrator</b></span><p data-out="1"></p></div>
     </div>
     <div class="ev-eval">
-      <div class="ev-rows" data-rows></div>
+      <div class="ev-crit">
+        <form class="ev-form" data-form><input class="ev-in" type="text" placeholder="Add a criterion…" aria-label="Criterion" data-in autocomplete="off" /><button type="submit" class="ev-go" data-act="go">Add</button></form>
+        <div class="ev-sugg" data-sugg></div>
+        <div class="ev-rows" data-rows></div>
+      </div>
       <div class="ev-why" data-why></div>
     </div>
   </div>

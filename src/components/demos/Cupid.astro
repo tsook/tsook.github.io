@@ -1,36 +1,18 @@
 <div class="fig" data-demo="cupid">
+  <svg class="cu-link" aria-hidden="true"></svg>
   <div class="cu">
-    <div class="cu-hist">
-      <span class="cu-lab">Earlier sessions with this user</span>
-      <div class="cu-line">
-        <button class="cu-sess" data-act="sess" data-s="0">
-          <span class="cu-sn">Session 1</span>
-          <mark class="f-blue">Canon MP-E lens</mark>
-          <span class="cu-sd">Macro shoot of leaf-cutter ant mandibles.</span>
-          <span class="cu-verdict" data-verdict="0"></span>
-          <span class="cu-peek"><b>Preference they showed</b>Technical specs first, in detail, before creative suggestions.</span>
-        </button>
-        <span class="cu-gap">Sessions 2 to 6</span>
-        <button class="cu-sess" data-act="sess" data-s="1">
-          <span class="cu-sn">Session 7</span>
-          <mark class="f-violet">PBS Nature</mark>
-          <span class="cu-sd">Segment treatment on butterfly metamorphosis.</span>
-          <span class="cu-verdict" data-verdict="1"></span>
-          <span class="cu-peek"><b>Preference they showed</b>Observational detail only, no artificial drama.</span>
-        </button>
-        <span class="cu-gap">Session 8</span>
-        <div class="cu-sess cu-now">
-          <span class="cu-sn">Session 9 · now</span>
-          <p class="cu-req" data-req></p>
-          <div class="cu-reqs"><span class="cu-try">Try</span><span data-reqs></span></div>
-        </div>
-      </div>
+    <div class="cu-left">
+      <span class="cu-lab">Earlier sessions</span>
+      <div class="cu-sessions" data-sessions></div>
+      <span class="cu-lab">Session 9 · now</span>
+      <div class="cu-req"><mark data-req-mark></mark><span class="cu-req-t" data-req></span></div>
+      <div class="cu-reqs"><span class="cu-try">Try</span><span data-reqs></span></div>
     </div>
     <div class="cu-model">
-      <span class="cu-lab">What the model must infer</span>
-      <div class="cu-step" data-step="ctx"><span class="cu-k">Relevant context factor</span><span class="cu-v" data-ctx></span></div>
-      <div class="cu-step" data-step="pref"><span class="cu-k">Contextual preference</span><span class="cu-v" data-pref></span></div>
-      <div class="cu-step cu-resp" data-step="resp"><span class="cu-k">Response</span><p class="cu-v" data-resp></p></div>
+      <span class="cu-lab">Model</span>
+      <div class="cu-step" data-step="ctx"><span class="cu-k">Shares a factor with</span><span class="cu-v" data-ctx></span></div>
+      <div class="cu-step" data-step="pref"><span class="cu-k">Preference to honor</span><span class="cu-v" data-pref></span></div>
+      <div class="cu-step" data-step="resp"><span class="cu-k">Response</span><span class="cu-v" data-resp></span></div>
     </div>
   </div>
 </div>

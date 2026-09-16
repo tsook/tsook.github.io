@@ -1,6 +1,7 @@
 import { sleep, typeInto, stream, esc, reduced } from '../flow.js';
 
-/* The intent hierarchy from the paper's opening figure. Two nodes are known at the start. */
+/* The intent hierarchy from the paper's opening figure. Two nodes are known at the start.
+   Assistant turns are summarized as actions so the mechanism, not the poem, is what you read. */
 const NODES = [
   { id:'animal', t:'Includes an animal', depth:0, start:true },
   { id:'pet', t:'Includes a pet', depth:1 },
@@ -15,19 +16,19 @@ const U0 = 'write me a poem about an animal';
 const BRANCH = {
   dl: [
     { who:'user', t:U0 },
-    { who:'ai', t:'Here are first lines for a few options. <b>1) The Dog:</b> The dog waits where the day comes home… <b>2) The Fox:</b> The fox stitches the hedge at dusk… Which feels closer?', found:['pet','indoors'], len:0.1 },
-    { who:'user', t:'the dog one. something about a pet at home' },
-    { who:'ai', t:'Two ways in. <b>A)</b> The dog asleep by the door, one ear up for the car. <b>B)</b> A cat on the sofa, refusing to wake for anyone.', found:['cat','sofa'], near:['tabby'], len:0.1 },
-    { who:'user', t:'B, the cat on the sofa. keep it short' },
-    { who:'ai', t:'Three lines, then: <i>The tabby sleeps where the sun lands last, / one ear turned toward the kettle, / the sofa keeping her shape.</i>', found:['tabby','three'], len:0 },
+    { who:'ai', t:'Offers two starts: <b>a dog</b> waiting at home · <b>a fox</b> at dusk', found:['pet','indoors'], len:0.1 },
+    { who:'user', t:'the dog. something about a pet at home' },
+    { who:'ai', t:'Offers two: the dog by the door · <b>a cat asleep on the sofa</b>', found:['cat','sofa'], near:['tabby'], len:0.1 },
+    { who:'user', t:'the cat on the sofa, keep it short' },
+    { who:'ai', t:'Writes it: <b>three lines</b> about a <b>tabby</b> on the sofa', found:['tabby','three'], len:0 },
   ],
   base: [
     { who:'user', t:U0 },
-    { who:'ai', t:'Here is a poem about an animal: <i>The eagle rides the morning air, / above the ridge, above the pines, / it circles once and does not care / how far the valley falls…</i> (14 lines)', found:[], len:0.4 },
-    { who:'user', t:'hmm, not really what I had in mind. can it be different?' },
-    { who:'ai', t:'Of course. What would you like to change? Anything about the tone, the animal, or the length?', found:[], len:0 },
+    { who:'ai', t:'Writes a full poem about an eagle <i>(14 lines)</i>', found:[], len:0.4 },
+    { who:'user', t:'hmm, not really. can it be different?' },
+    { who:'ai', t:'Asks what to change: tone, animal, or length?', found:[], len:0 },
     { who:'user', t:'i don\'t know how to describe it' },
-    { who:'ai', t:'No problem! Here is another take with a gentler tone: <i>Soft above the sleeping hills, / the eagle drifts on quiet air…</i> (12 lines)', found:[], len:0.3 },
+    { who:'ai', t:'Rewrites the eagle poem, gentler tone <i>(12 lines)</i>', found:[], len:0.3 },
   ],
 };
 const S = d => d._dl;
@@ -52,7 +53,7 @@ async function showTurn(d, i, tok, animate){
   s.turn = i;
   if(!animate || reduced()){ tx.innerHTML = t.t; }
   else if(t.who === 'user'){ await typeInto(tx, t.t, tok, 40); }
-  else { const plain = t.t.replace(/<[^>]+>/g, ''); await stream(tx, plain, tok, 26); tx.innerHTML = t.t; }
+  else { const plain = t.t.replace(/<[^>]+>/g, ''); await stream(tx, plain, tok, 16); tx.innerHTML = t.t; }
   el.classList.add('is-done');
   renderTree(d);
   box.scrollTop = box.scrollHeight;
@@ -66,7 +67,7 @@ function reset(d, mode){
 }
 async function play(d, tok, from = 1){
   const s = S(d);
-  for(let i = from; i < BRANCH[s.mode].length; i++){ await showTurn(d, i, tok, true); await sleep(i % 2 ? 900 : 500, tok); }
+  for(let i = from; i < BRANCH[s.mode].length; i++){ await showTurn(d, i, tok, true); await sleep(i % 2 ? 1000 : 500, tok); }
 }
 
 export default {

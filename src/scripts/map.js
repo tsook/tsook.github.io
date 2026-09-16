@@ -1,6 +1,6 @@
-/* Sidebar map. Each row stands for one section or paper. A translucent window shows
-   which rows are on screen, mapped piecewise from page position to row position.
-   Click a row to jump; drag anywhere on the map to scrub the page. */
+/* Page map: a miniature of the page. One block per paper (and one for the publication list),
+   heights proportional to the page, a translucent window for what is on screen.
+   Click a block to jump; drag anywhere on the map to scrub. */
 export function initMap(){
   const nav = document.getElementById('map'); if(!nav) return;
   const view = document.getElementById('map-view');
@@ -10,15 +10,20 @@ export function initMap(){
   let items = [], docH = 1, raf = 0;
 
   function measure(){
-    const nr = nav.getBoundingClientRect();
     docH = document.documentElement.scrollHeight;
-    items = rows.map(a => {
+    const spans = rows.map(a => {
       const el = document.getElementById(a.dataset.map); if(!el) return null;
-      const r = a.getBoundingClientRect();
-      return { el, a, top: el.getBoundingClientRect().top + window.scrollY, y: r.top - nr.top, h: r.height };
+      const topEl = a.dataset.top ? document.getElementById(a.dataset.top) || el : el;
+      return { a, el, top: topEl.getBoundingClientRect().top + window.scrollY };
     }).filter(Boolean);
+    /* proportional heights: the whole page maps onto at most 60vh or 440px */
+    const mapH = Math.min(440, window.innerHeight * 0.6) - (spans.length - 1) * 2 - 10;
+    const first = spans[0]?.top || 0;
+    spans.forEach((s, i) => { const t1 = spans[i+1] ? spans[i+1].top : docH; s.a.style.height = Math.max(8, (t1 - s.top) / Math.max(1, docH - first) * mapH).toFixed(1) + 'px'; });
+    const nr = nav.getBoundingClientRect();
+    items = spans.map(s => { const r = s.a.getBoundingClientRect(); return { ...s, y: r.top - nr.top, h: r.height }; });
   }
-  /* page y to map y and back, piecewise linear between rows */
+  /* page y to map y and back, piecewise linear between blocks */
   function toMap(py){
     if(!items.length) return 0;
     if(py <= items[0].top) return items[0].y;
@@ -43,13 +48,13 @@ export function initMap(){
     if(!items.length) return;
     const y0 = toMap(window.scrollY), y1 = toMap(window.scrollY + window.innerHeight);
     view.style.setProperty('--vt', y0.toFixed(1) + 'px');
-    view.style.setProperty('--vh', Math.max(12, y1 - y0).toFixed(1) + 'px');
+    view.style.setProperty('--vh', Math.max(10, y1 - y0).toFixed(1) + 'px');
     const pos = window.scrollY + window.innerHeight * 0.3;
     let cur = items[0];
     items.forEach(t => { if(t.top - 8 <= pos) cur = t; });
     if(window.scrollY + window.innerHeight >= docH - 4) cur = items[items.length-1];
-    items.forEach(t => { t.a.classList.toggle('is-current', t === cur); t.a.classList.toggle('is-seen', t.y < y1 && t.y + t.h > y0); });
-    const theme = cur.el.closest('.theme') || (cur.el.classList.contains('theme') ? cur.el : null);
+    items.forEach(t => t.a.classList.toggle('is-current', t === cur));
+    const theme = cur.el.closest('.theme');
     const tid = theme ? theme.id.replace(/^t-/, '') : null;
     phrases.forEach(a => a.classList.toggle('is-current', a.dataset.theme === tid));
   }
@@ -84,7 +89,8 @@ export function initMap(){
     const a = e.target.closest('[data-map]'); if(!a) return;
     e.preventDefault();
     const it = items.find(t => t.a === a); if(!it) return;
-    window.scrollTo({ top: Math.max(0, it.top - 28), behavior: reduced ? 'auto' : 'smooth' });
+    const target = it.el.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: Math.max(0, target - 28), behavior: reduced ? 'auto' : 'smooth' });
     history.replaceState(null, '', '#' + a.dataset.map);
   });
 

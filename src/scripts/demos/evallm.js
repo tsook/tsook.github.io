@@ -1,6 +1,7 @@
 import { sleep, cursor, esc, reduced } from '../flow.js';
 
-/* Two prompts' outputs, split into spans tagged with the criteria they are evidence for. */
+/* Two prompts' outputs, split into spans tagged with the criteria they are evidence for.
+   Criteria are added one at a time; each one lights up its evidence and scores both outputs. */
 const OUT = [
   [ {t:'Plants make their own food.', c:[0,1,3]}, {t:'They take in sunlight, water, and air, and mix them into sugar.', c:[2]}, {t:'That is why they need a sunny spot.', c:[0]} ],
   [ {t:'A little leaf named Pip woke up hungry. "Time to cook!" she said.', c:[0,1,3]}, {t:'She gulped water from her roots and stirred in sunshine', c:[2]}, {t:'until sweet sugar bubbled up.', c:[1,0]} ],
@@ -12,56 +13,86 @@ const CRIT = [
   { n:'Child vocabulary', s:[9,9], why:'Neither uses a word longer than "sunshine".' },
 ];
 const S = d => d._ev;
+const cls = (c, k) => { const a = c.s[k], b = c.s[1-k]; return a > b ? 'win' : a < b ? 'lose' : 'tie'; };
 
 function renderOut(d){
-  d.querySelectorAll('[data-out]').forEach((p, i) => { p.innerHTML = OUT[i].map(s => `<span class="is-in" data-c="${s.c.join(' ')}">${esc(s.t)}</span>`).join(' '); p.classList.add('is-shown'); });
+  d.querySelectorAll('[data-out]').forEach((p, i) => { p.innerHTML = OUT[i].map(s => `<span data-c="${s.c.join(' ')}">${esc(s.t)}</span>`).join(' '); });
 }
-function renderRows(d){
+function render(d){
   const s = S(d);
-  d.querySelector('[data-rows]').innerHTML = `
-    <div class="ev-row ev-row-h"><span></span><span class="ev-p1">P1</span><span class="ev-p2">P2</span></div>
-    ${CRIT.slice(0, s.n).map((c, i) => `<button class="ev-row ${s.cur === i ? 'is-on' : ''}" data-act="crit" data-c="${i}" style="--i:${i}">
+  d.querySelector('[data-rows]').innerHTML = (s.added.length ? `<div class="ev-row ev-row-h"><span></span><span class="ev-p1">P1</span><span class="ev-p2">P2</span></div>` : '') +
+    s.added.map(i => { const c = CRIT[i]; const done = s.scored.has(i); return `<button class="ev-row ${s.cur === i ? 'is-on' : ''}" data-act="crit" data-c="${i}">
       <span class="ev-cn">${esc(c.n)}</span>
-      <span class="ev-sc ${s.scored > i ? cls(c, 0) : 'is-wait'}">${s.scored > i ? c.s[0] : ''}</span>
-      <span class="ev-sc ${s.scored > i ? cls(c, 1) : 'is-wait'}">${s.scored > i ? c.s[1] : ''}</span>
-    </button>`).join('')}
-    ${s.n < CRIT.length ? `<button class="ev-add" data-act="add">+ Add a criterion: <b>${esc(CRIT[s.n].n)}</b></button>` : ''}`;
+      <span class="ev-sc ${done ? cls(c, 0) : 'is-wait'}">${done ? c.s[0] : ''}</span>
+      <span class="ev-sc ${done ? cls(c, 1) : 'is-wait'}">${done ? c.s[1] : ''}</span>
+    </button>`; }).join('');
+  d.querySelector('[data-sugg]').innerHTML = CRIT.map((c, i) => s.added.includes(i) ? '' : `<button class="chip" data-act="sugg" data-c="${i}">${esc(c.n)}</button>`).join('');
 }
-function cls(c, k){ const a = c.s[k], b = c.s[1-k]; return a > b ? 'win' : a < b ? 'lose' : 'tie'; }
+function highlight(d, i, pop){
+  d.querySelectorAll('.ev-o span[data-c]').forEach(sp => {
+    const on = i != null && sp.dataset.c.split(' ').includes(String(i));
+    sp.classList.toggle('is-hl', on);
+    if(on && pop){ sp.classList.remove('is-pop'); void sp.offsetWidth; sp.classList.add('is-pop'); }
+  });
+}
 function setCur(d, i){
-  const s = S(d); s.cur = i;
-  d.querySelectorAll('.ev-row[data-c]').forEach(r => r.classList.toggle('is-on', +r.dataset.c === i));
-  d.querySelectorAll('.ev-o span[data-c]').forEach(sp => sp.classList.toggle('is-hl', i != null && sp.dataset.c.split(' ').includes(String(i))));
-  const why = d.querySelector('[data-why]');
-  why.innerHTML = i == null ? '' : `<b>${esc(CRIT[i].n)}.</b> ${esc(CRIT[i].why)}`;
+  const s = S(d); s.cur = i; render(d); highlight(d, i, false);
+  d.querySelector('[data-why]').innerHTML = i == null ? '' : `<b>${esc(CRIT[i].n)}.</b> ${esc(CRIT[i].why)}`;
 }
-async function score(d, i, tok){
-  const s = S(d);
-  s.cur = null; renderRows(d);
-  d.querySelectorAll('.ev-o span[data-c]').forEach(sp => sp.classList.toggle('is-hl', sp.dataset.c.split(' ').includes(String(i))));
+async function add(d, i, tok){
+  const s = S(d); if(s.added.includes(i)) { setCur(d, i); return; }
+  s.added.push(i); s.cur = i; render(d);
+  d.querySelector('[data-in]').value = '';
   d.querySelector('[data-why]').innerHTML = `<span class="ev-busy">Evaluating ${esc(CRIT[i].n.toLowerCase())}</span>`;
-  await sleep(reduced() ? 0 : 850, tok);
-  s.scored = Math.max(s.scored, i + 1); renderRows(d); setCur(d, i);
+  highlight(d, i, true);
+  await sleep(reduced() ? 0 : 900, tok);
+  s.scored.add(i); setCur(d, i);
+}
+function match(text){
+  const q = text.trim().toLowerCase(); if(!q) return -1;
+  let i = CRIT.findIndex(c => c.n.toLowerCase() === q); if(i >= 0) return i;
+  i = CRIT.findIndex(c => c.n.toLowerCase().includes(q) || q.includes(c.n.toLowerCase().split(' ')[0])); return i;
+}
+async function typeValue(input, text, tok){
+  input.value = ''; input.classList.add('is-typing');
+  if(reduced()){ input.value = text; input.classList.remove('is-typing'); return; }
+  try { for(let k = 1; k <= text.length; k++){ input.value = text.slice(0, k); await sleep(38, tok); } }
+  finally { input.value = text; input.classList.remove('is-typing'); }
 }
 
 export default {
-  init(d){ d._ev = { n:3, scored:0, cur:null }; renderOut(d); renderRows(d); },
+  init(d){
+    d._ev = { added:[], scored:new Set(), cur:null };
+    renderOut(d); render(d);
+    d.querySelector('[data-form]').addEventListener('submit', e => { e.preventDefault(); d.querySelector('[data-act="go"]').click(); });
+  },
   async flow(d, tok){
     const c = cursor(d); const s = S(d);
-    s.n = 3; s.scored = 0; s.cur = null; renderRows(d); setCur(d, null);
-    await sleep(600, tok);
-    for(let i = 0; i < 3; i++){ await score(d, i, tok); await sleep(500, tok); }
+    s.added = []; s.scored = new Set(); s.cur = null; render(d); highlight(d, null); d.querySelector('[data-why]').innerHTML = '';
+    const input = d.querySelector('[data-in]'); const go = d.querySelector('[data-act="go"]');
     await sleep(500, tok);
-    const add = d.querySelector('[data-act="add"]');
-    await c.show(d.querySelector('[data-why]'), tok); await c.moveTo(add, tok, 500); await c.click(tok);
-    s.n = 4; await score(d, 3, tok);
+    await c.show(d.querySelector('.ev-outs'), tok);
+    for(const name of ['Engagingness', 'Scientific accuracy']){
+      await c.moveTo(input, tok, 500); await c.click(tok);
+      await typeValue(input, name, tok);
+      await c.moveTo(go, tok, 300); await c.click(tok);
+      await add(d, match(name), tok);
+      await sleep(900, tok);
+    }
+    const chip = d.querySelector('[data-act="sugg"][data-c="3"]');
+    if(chip){ await c.moveTo(chip, tok, 500); await c.click(tok); await add(d, 3, tok); }
     await sleep(300, tok); c.hide();
   },
-  final(d){ const s = S(d); s.n = 4; s.scored = 4; renderRows(d); setCur(d, 1); },
-  clean(d){ const s = S(d); if(d.querySelector('.ev-busy')) setCur(d, s.scored ? s.scored - 1 : null); },
+  final(d){ const s = S(d); s.added = [1, 2, 3]; s.scored = new Set([1, 2, 3]); setCur(d, 1); },
+  clean(d){ const s = S(d); const busy = d.querySelector('.ev-busy'); if(busy){ s.added.forEach(i => s.scored.add(i)); setCur(d, s.cur); } d.querySelector('[data-in]')?.classList.remove('is-typing'); },
   async act(d, el, tok){
-    const s = S(d);
-    if(el.dataset.act === 'crit'){ const i = +el.dataset.c; if(s.scored > i) setCur(d, i); else await score(d, i, tok); }
-    if(el.dataset.act === 'add'){ s.n = Math.min(CRIT.length, s.n + 1); await score(d, s.n - 1, tok); }
+    const s = S(d); const a = el.dataset.act;
+    if(a === 'crit'){ const i = +el.dataset.c; if(s.scored.has(i)) setCur(d, i); else await add(d, i, tok); }
+    if(a === 'sugg'){ await add(d, +el.dataset.c, tok); }
+    if(a === 'go'){
+      const input = d.querySelector('[data-in]'); const i = match(input.value);
+      if(i < 0){ input.classList.remove('is-shake'); void input.offsetWidth; input.classList.add('is-shake'); d.querySelector('[data-why]').innerHTML = `<span class="ev-hint">This walkthrough only knows the four criteria below. Pick one.</span>`; return; }
+      await add(d, i, tok);
+    }
   },
 };
