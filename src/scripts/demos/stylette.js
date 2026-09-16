@@ -3,17 +3,17 @@ import { sleep, stream, cursor, esc, reduced } from '../flow.js';
 /* Each request names the element it targets and the properties Stylette infers for it.
    The palette follows the paper: one group per property with the current value and candidates. */
 const REQ = [
-  { el:'p', text:'tone down the text', cols:[
+  { el:'p', text:'tone down the text', chip:'tone down text', cols:[
     { verb:'Change', prop:'color', css:'color', cur:['#141414','141414'], kind:'color', sug:[['#6E6E68','6E6E68'],['#8C8C85','8C8C85'],['#4B4B46','4B4B46']] },
     { verb:'Change', prop:'font-family', css:'fontFamily', cur:['Geist','Geist'], kind:'font', sug:[['Georgia, serif','Georgia'],['Palatino, "Book Antiqua", serif','Palatino'],['"Helvetica Neue", Arial, sans-serif','Helvetica']] },
     { verb:'Decrease', prop:'font-size', css:'fontSize', cur:['12px','12px'], kind:'size', sug:[['11px','11px'],['10.5px','10.5px'],['10px','10px']] },
   ]},
-  { el:'h', text:'make the heading pop', cols:[
+  { el:'h', text:'make the heading pop', chip:'heading pop', cols:[
     { verb:'Increase', prop:'font-size', css:'fontSize', cur:['19px','19px'], kind:'size', sug:[['22px','22px'],['25px','25px'],['28px','28px']] },
     { verb:'Change', prop:'color', css:'color', cur:['#141414','141414'], kind:'color', sug:[['#1F56D9','1F56D9'],['#C2410C','C2410C'],['#0F766E','0F766E']] },
     { verb:'Change', prop:'font-weight', css:'fontWeight', cur:['600','600'], kind:'weight', sug:[['700','700'],['800','800'],['900','900']] },
   ]},
-  { el:'b', text:'make the button friendlier', cols:[
+  { el:'b', text:'make the button friendlier', chip:'friendlier button', cols:[
     { verb:'Change', prop:'background', css:'background', cur:['#141414','141414'], kind:'color', sug:[['#1F56D9','1F56D9'],['#2E7D32','2E7D32'],['#E58A2B','E58A2B']] },
     { verb:'Increase', prop:'border-radius', css:'borderRadius', cur:['4px','4px'], kind:'radius', sug:[['10px','10px'],['16px','16px'],['999px','pill']] },
     { verb:'Increase', prop:'padding', css:'padding', cur:['5px 11px','5 · 11'], kind:'pad', sug:[['7px 14px','7 · 14'],['9px 18px','9 · 18'],['11px 22px','11 · 22']] },
@@ -71,7 +71,7 @@ async function speak(d, i, tok, animate = true){
 export default {
   init(d){
     d._st = { req: 0, run: 0 };
-    d.querySelector('[data-reqs]').innerHTML = REQ.map((r, i) => `<button class="chip" data-act="req" data-req="${i}">${esc(r.text)}</button>`).join('');
+    d.querySelector('[data-reqs]').innerHTML = REQ.map((r, i) => `<button class="chip" data-act="req" data-req="${i}" title="${esc(r.text)}">${esc(r.chip)}</button>`).join('');
   },
   async flow(d, tok){
     const c = cursor(d);

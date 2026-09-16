@@ -4,12 +4,12 @@ import { sleep, cursor, esc, reduced } from '../flow.js';
    rated for or against it. Functions from every evaluated output are embedded on one map:
    soft density contours per cluster, dots for positive functions, crosses for negative ones. */
 const FRAGS = [
-  { t:"Einstein's theory of relativity describes how space and time are woven together.", fn:'Explains the core mechanism clearly', k:2, pol:'pos' },
-  { t:'The special theory shows that the speed of light is the same for every observer,', fn:'States a key principle accurately', k:3, pol:'pos' },
-  { t:'while the general theory explains gravity as the curving of spacetime caused by mass and energy.', fn:'Gives a structured two-part explanation', k:4, pol:'pos' },
-  { t:'Think of a bowling ball on a trampoline: heavy objects bend the surface, and smaller ones roll toward them.', fn:'Uses an analogy effectively', k:2, pol:'pos' },
-  { t:'In short, gravity is just heavy things making dents.', fn:'Oversimplifies a technical concept', k:1, pol:'neg' },
-  { t:'That is really all there is to it.', fn:'Omits key caveats', k:6, pol:'neg' },
+  { t:'Relativity says space and time are woven together.', fn:'Explains the core mechanism clearly', k:2, pol:'pos' },
+  { t:'Light moves at the same speed for every observer,', fn:'States a key principle accurately', k:3, pol:'pos' },
+  { t:'and gravity is spacetime curving around mass.', fn:'Gives a structured two-part explanation', k:4, pol:'pos' },
+  { t:'Picture a bowling ball on a trampoline.', fn:'Uses an analogy effectively', k:2, pol:'pos' },
+  { t:'So gravity is just heavy things making dents.', fn:'Oversimplifies a technical concept', k:1, pol:'neg' },
+  { t:'That is all there is to it.', fn:'Omits key caveats', k:6, pol:'neg' },
 ];
 const CL = [
   { n:'Engagement', c:'#D9AE2A', cx:92, cy:58, sub:[['Vivid examples', 6, 1], ['Rhetorical questions', 3, 2]] },

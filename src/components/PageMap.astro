@@ -9,7 +9,7 @@ const byId = Object.fromEntries(publications.publications.map(p => [p.id, p]));
       <a class={`map-item is-section${ti > 0 ? ' gap' : ''}`} data-th={th.id} href={`#t-${th.id}`} data-map={`t-${th.id}`} data-label={th.name} aria-label={th.name}></a>
       {th.papers.map(id => <a class="map-item" data-th={th.id} href={`#w-${id}`} data-map={`w-${id}`} data-label={byId[id].shortName} aria-label={byId[id].shortName}></a>)}
     </>))}
-    <a class="map-item is-section gap" href="#publications" data-map="publications" data-label="All publications" aria-label="All publications"></a>
+    <a class="map-item is-section gap" href="#publications" data-map="publications" data-label="All Publications" aria-label="All Publications"></a>
   </div>
   <div class="map-label" id="map-label" hidden></div>
 </nav>

@@ -11,15 +11,18 @@ A fixed left column with portrait, name, role, a bio taken from the research
 statement, and links. In the middle, "Selected work" grouped into three
 themes (Expanding, Navigating, Modeling), each with an icon, a colored name
 and a one-line intro on the same line. Each paper is one row: venue, award,
-title, authors and links on the left (248px), and a 270px-tall interactive
-figure on the right. Then the full publication list with contained
+title, authors and links on the left (236px), and a 248px-tall interactive
+figure on the right. The page is set a notch smaller than before (14px body,
+1120px max width, 262px sidebar). Then the full publication list with contained
 thumbnails (regenerated to fit, not crop), linked author lists, and no
 posters. A page map sits at the right edge of the viewport.
 
-Each figure plays a scripted walkthrough of the system once, when it scrolls
-into view: a fake cursor moves, text is typed or streamed, the system
-responds. After that the figure is interactive and a replay button appears in
-its corner. Any click on a control cancels the walkthrough. With
+Each figure plays a scripted walkthrough of the system once, when the
+visitor reaches it: a fake cursor moves, text is typed or streamed, the
+system responds. Walkthroughs play one at a time in page order; scrolling
+away from a playing figure settles it to its finished state and lets the
+next one start. After that the figure is interactive and a replay button
+appears in its corner. Any click on a control cancels the walkthrough. With
 `prefers-reduced-motion` the figure jumps to its finished state.
 
 The page map at the right edge is a rail of ticks, one per theme (longer,
@@ -62,8 +65,8 @@ section on hover, and are marked while that section is on screen.
   `thumb` is the generated thumbnail. `src/data/profile.json` has the links
   and portrait.
 - `public/images/thumbs/` are 360 by 225 images: each teaser trimmed of
-  white margins and fitted whole onto a white canvas (Evalet from a frame of
-  its teaser video). Regenerate with the small PIL script in the session
+  white margins and fitted whole onto a white canvas (Evalet from the paper's
+  teaser figure, saved as `public/images/evalet.png`). Regenerate with the small PIL script in the session
   notes if teasers change; `scripts/make-thumbs.py` is the older cropper.
 - `public/fonts/Geist-Variable.woff2` and `GeistMono-Variable.woff2` are
   copied from the `geist` package.

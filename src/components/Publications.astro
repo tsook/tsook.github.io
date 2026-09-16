@@ -9,8 +9,8 @@ const rest = p => { const pr = primary(p); return links(p).filter(([k]) => !pr |
 const ME = 'Tae Soo Kim';
 const isNote = a => /^(and|\+)\s/.test(a.name);
 ---
-<section class="section" id="publications" data-spy data-section data-label="All publications">
-  <div class="section-h"><h2>All publications</h2><span class="k">{pubs.length} papers</span></div>
+<section class="section" id="publications" data-spy data-section data-label="All Publications">
+  <div class="section-h"><h2>All Publications</h2><span class="k">{pubs.length} papers</span></div>
   {years.map(y => (<>
     <div class="year">{y}</div>
     {pubs.filter(p => Number(p.year) === y).map(p => (

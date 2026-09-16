@@ -3,8 +3,8 @@ import { sleep, cursor, esc, reduced } from '../flow.js';
 /* Two prompts' outputs, split into spans tagged with the criteria they are evidence for.
    Criteria are added one at a time; each one lights up its evidence and scores both outputs. */
 const OUT = [
-  [ {t:'Plants make their own food.', c:[0,1,3]}, {t:'They take in sunlight, water, and air, and mix them into sugar.', c:[2]}, {t:'That is why they need a sunny spot.', c:[0]} ],
-  [ {t:'A little leaf named Pip woke up hungry. "Time to cook!" she said.', c:[0,1,3]}, {t:'She gulped water from her roots and stirred in sunshine', c:[2]}, {t:'until sweet sugar bubbled up.', c:[1,0]} ],
+  [ {t:'Plants make their own food.', c:[0,1,3]}, {t:'They mix sunlight, water, and air into sugar.', c:[2]} ],
+  [ {t:'A leaf named Pip woke up hungry. "Time to cook!"', c:[0,1,3]}, {t:'She gulped water from her roots and stirred in sunshine', c:[2]}, {t:'until sugar bubbled up.', c:[1,0]} ],
 ];
 const CRIT = [
   { n:'Concept familiarity', s:[9,9], why:'Both build on eating and cooking, which a five-year-old already knows.' },
