@@ -55,9 +55,11 @@ img{max-width:100%;display:block}
 .side-bottom{margin-top:auto;padding-top:16px;font-size:12.5px;color:var(--ink-3)}
 .main{padding:52px 0 40px;min-width:0}
 .portrait{width:72px;height:72px;border-radius:8px;object-fit:cover;background:var(--sunk)}
-.name{font-size:19px;font-weight:500;margin-top:16px}
-.role{font-size:13.5px;color:var(--ink-2);margin-top:3px;line-height:1.4}
-.bio{margin-top:14px;display:grid;gap:8px;font-size:13.5px;line-height:1.5;color:var(--ink)}
+.who{display:grid;grid-template-columns:72px minmax(0,1fr);column-gap:14px;align-items:center}
+.who-t{min-width:0}
+.name{font-size:19px;font-weight:500;line-height:1.2}
+.role{font-size:12.5px;color:var(--ink-2);margin-top:4px;line-height:1.35}
+.bio{margin-top:18px;display:grid;gap:8px;font-size:13.5px;line-height:1.5;color:var(--ink)}
 .bio b{font-weight:600}
 .bio a{text-decoration-color:var(--line-2)}
 .tl{color:var(--ink);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px;transition:color var(--t) var(--ease)}
@@ -74,7 +76,7 @@ img{max-width:100%;display:block}
 .tl[data-theme="modeling"]:hover,.tl[data-theme="modeling"].is-current{color:var(--th-modeling)}
 .links{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;margin-top:14px;color:var(--ink-2)}
 .links a{text-decoration-color:var(--line-2)}
-@media (max-height:700px){ .side{padding:40px 0 22px} .bio{font-size:13.5px;gap:6px} .name{margin-top:12px} .portrait{width:56px;height:56px} }
+@media (max-height:700px){ .side{padding:40px 0 22px} .bio{font-size:13px;gap:6px} }
 
 /* page map on the right edge: a rail of ticks, one per section or paper, magnified near the pointer */
 .map{position:fixed;right:0;top:0;height:100vh;width:72px;z-index:20;display:none;touch-action:none;user-select:none;-webkit-user-select:none}

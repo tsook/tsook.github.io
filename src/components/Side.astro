@@ -4,9 +4,13 @@ import { ICON } from '../data/icons.js';
 const year = new Date().getFullYear();
 ---
 <aside class="side" id="side">
-  <img class="portrait" src={profile.photo} alt={`Portrait of ${profile.name}`} width="72" height="72" />
-  <h1 class="name">{profile.name}</h1>
-  <div class="role">Research Scientist and Postdoc, SkillBench and KAIST</div>
+  <div class="who">
+    <img class="portrait" src={profile.photo} alt={`Portrait of ${profile.name}`} width="72" height="72" />
+    <div class="who-t">
+      <h1 class="name">{profile.name}</h1>
+      <div class="role">Research Scientist and Postdoc, SkillBench and KAIST</div>
+    </div>
+  </div>
   <div class="bio">
     <p>I work at SkillBench and <a href={profile.school.universityUrl} target="_blank" rel="noopener">KAIST</a>, where I completed my PhD in 2026 with <a href={profile.advisor.url} target="_blank" rel="noopener">Juho Kim</a> in <a href={profile.lab.url} target="_blank" rel="noopener">KIXLAB</a>.</p>
     <p>I build AI systems that help people <b>discover and develop their goals</b>. I design interactive systems that <a class="tl" data-theme="expanding" href="#t-expanding"><i class="ti" set:html={ICON.expanding} />expand what people can draft and explore</a>, help them <a class="tl" data-theme="navigating" href="#t-navigating"><i class="ti" set:html={ICON.navigating} />compare alternatives and learn from them</a>, and <a class="tl" data-theme="modeling" href="#t-modeling"><i class="ti" set:html={ICON.modeling} />model how goals develop</a> to train and evaluate AI.</p>
