@@ -40,12 +40,10 @@
       ],
       "award": null,
       "teaserImage": "/images/knowsim.png",
-      "cardImage": "/images/knowsim.png",
       "description": "<p>KnowSim evaluates whether LLM assistants calibrate the information they give to what a user already knows, using user simulators whose knowledge state updates as the conversation unfolds.</p>",
       "links": {
         "arxiv": "https://arxiv.org/abs/2608.17150"
       },
-      "line": "Evaluates whether assistants calibrate information to a user who learns as they talk.",
       "thumb": "/images/thumbs/knowsim.png"
     },
     {
@@ -83,9 +81,7 @@
       ],
       "award": null,
       "teaserImage": "/images/discoverllm.png",
-      "cardImage": "/images/discoverllm.png",
       "description": "<p>DiscoverLLM introduces a framework that trains LLMs to help users form and discover their intents through interaction. By using a novel user simulator that models cognitive states with a progressive hierarchy of intents, the framework trains models to handle ambiguous requests by surfacing relevant options that guide users toward concretizing what they want.</p>",
-      "line": "Trains LLMs to help you discover what you want, not only execute it.",
       "thumb": "/images/thumbs/discoverllm.png"
     },
     {
@@ -125,9 +121,7 @@
       ],
       "award": "Honorable Mention Award",
       "teaserImage": "/images/evalet.png",
-      "cardImage": "/images/evalet.png",
       "description": "<p>Evalet addresses the opacity of LLM-based evaluations by proposing functional fragmentation: dissecting model outputs into key text fragments and interpreting the rhetoric functions each serves relative to evaluation criteria. This interactive system visualizes these fragment-level functions across multiple outputs, empowering practitioners to transparently inspect, rate, and compare evaluations at scale.</p>",
-      "line": "Evaluates an LLM output by splitting it into fragments and naming the function each one serves.",
       "thumb": "/images/thumbs/evalet.png"
     },
     {
@@ -163,13 +157,11 @@
       ],
       "award": null,
       "teaserImage": "/images/clearfairy.png",
-      "cardImage": "/images/clearfairy.png",
       "description": "<p>ClearFairy introduces the CLEAR framework and a think-aloud AI assistant to capture professionals' decision-making processes in creative workflows. By structuring reasoning into cognitive decision steps, the system detects weak explanations, asks lightweight clarifying questions, and infers missing rationales. This approach significantly increases the capture of strong design explanations without adding cognitive burden, while also providing structured data that enhances downstream generative AI agents.</p>",
       "links": {
         "pdf": "https://arxiv.org/pdf/2509.14537",
         "arxiv": "https://arxiv.org/abs/2509.14537"
       },
-      "line": "Captures the decisions behind creative work with in-situ questions and inferred rationale.",
       "thumb": "/images/thumbs/clearfairy.png"
     },
     {
@@ -205,7 +197,6 @@
       ],
       "award": null,
       "teaserImage": "/images/cupid.png",
-      "cardImage": "/images/cupid.png",
       "description": "<p>CUPID presents a benchmark of 756 human-curated session histories to evaluate an LLM's capability to infer a user's contextual preferences from multi-turn interactions. The work highlights the gap between static alignment and dynamic personalization, revealing that state-of-the-art models struggle to infer shifting preferences and discern relevant context from prior interactions.</p>",
       "links": {
         "pdf": "https://arxiv.org/pdf/2508.01674",
@@ -213,7 +204,6 @@
         "code": "https://github.com/kixlab/cupid",
         "arxiv": "https://arxiv.org/abs/2508.01674"
       },
-      "line": "A benchmark of 756 sessions that tests whether an LLM can infer your preferences from context.",
       "thumb": "/images/thumbs/cupid.png"
     },
     {
@@ -252,14 +242,12 @@
       ],
       "award": null,
       "teaserImage": "/images/onevsmany.png",
-      "cardImage": "/images/onevsmany.png",
       "description": "<p>This work investigates how users comprehend information when presented with multiple, potentially inconsistent, AI-generated outputs. Our experiment finds that while exposure to inconsistencies lowers the perceived capacity of the AI, it simultaneously increases users' comprehension of the generated information, offering design implications for promoting critical and transparent LLM usage.</p>",
       "links": {
         "pdf": "https://arxiv.org/pdf/2405.05581",
         "arxiv": "https://arxiv.org/abs/2405.05581",
         "acmdl": "https://dl.acm.org/doi/10.1145/3630106.3662681"
       },
-      "line": "How people make sense of several AI answers that disagree with each other.",
       "thumb": "/images/thumbs/one-vs-many.png"
     },
     {
@@ -291,7 +279,6 @@
       ],
       "award": null,
       "teaserImage": "/images/evallm.gif",
-      "cardImage": "/images/evallm.gif",
       "description": "<p>EvalLM is an interactive system designed to help developers iteratively refine LLM prompts by evaluating multiple outputs against user-defined criteria. Users describe their criteria in natural language, and the system's LLM-based evaluator provides an overview of where prompts excel or fail, enabling structured prompt engineering and reducing the need for manual inspection.</p>",
       "links": {
         "pdf": "https://arxiv.org/pdf/2309.13633.pdf",
@@ -301,7 +288,6 @@
         "arxiv": "https://arxiv.org/abs/2309.13633",
         "code": "https://github.com/kixlab/EvalLM"
       },
-      "line": "Compare prompt outputs on criteria you define, and refine both as you go.",
       "stillImage": "/images/evallm-still.png",
       "thumb": "/images/thumbs/evallm.png"
     },
@@ -334,7 +320,6 @@
       ],
       "award": null,
       "teaserImage": "/images/genquery.png",
-      "cardImage": "/images/genquery.png",
       "description": "<p>GenQuery supports expressive visual search by integrating generative models to help designers articulate and refine abstract search intents. The system enables users to concretize text queries, generatively modify images to use as visual queries, and explore diverse search directions, successfully supporting both convergent and divergent exploration during the creative process.</p>",
       "links": {
         "pdf": "https://arxiv.org/pdf/2310.01287.pdf",
@@ -342,7 +327,6 @@
         "acmdl": "https://dl.acm.org/doi/10.1145/3613904.3642847",
         "arxiv": "https://arxiv.org/abs/2310.01287"
       },
-      "line": "Visual search where generative models help you say what you are looking for.",
       "thumb": "/images/thumbs/genquery.png"
     },
     {
@@ -370,14 +354,12 @@
       ],
       "award": "Honorable Mention Award",
       "teaserImage": "/images/demystifying.png",
-      "cardImage": "/images/demystifying.png",
       "description": "<p>This comprehensive study demystifies tacit knowledge in graphic design by collecting and analyzing instances from professional designers. The work identifies the core elements, actions, and purposes of tacit design knowledge, proposing approaches and guidelines to make implicit design expertise more explicit and teachable.</p>",
       "links": {
         "pdf": "https://arxiv.org/pdf/2403.06252",
         "arxiv": "https://arxiv.org/abs/2403.06252",
         "acmdl": "https://dl.acm.org/doi/10.1145/3613904.3642886"
       },
-      "line": "What tacit knowledge in graphic design looks like, with instances and guidelines.",
       "thumb": "/images/thumbs/demystifying.png"
     },
     {
@@ -423,10 +405,8 @@
       "links": {
         "arxiv": "https://arxiv.org/abs/2303.14334"
       },
-      "line": "AI-powered reading interfaces that make scholarly papers easier to read.",
       "thumb": "/images/thumbs/semantic-reader.png",
-      "teaserImage": "/images/semantic-reader.png",
-      "cardImage": "/images/semantic-reader.png"
+      "teaserImage": "/images/semantic-reader.png"
     },
     {
       "id": "cells-generators-lenses",
@@ -453,7 +433,6 @@
       ],
       "award": null,
       "teaserImage": "/images/llm-objects.png",
-      "cardImage": "/images/llm-objects.png",
       "description": "<p>This paper introduces a design framework with three primitives for object-oriented interaction with LLMs: Cells (discrete input units), Generators (model instances), and Lenses (output spaces). By reifying these components into interactable objects, the framework enables users to compose, iterate, and experiment with generative configurations rather than treating LLMs as opaque black boxes.</p>",
       "links": {
         "pdf": "https://kixlab.github.io/website-files/2023/uist2023-llmobjects-paper.pdf",
@@ -461,7 +440,6 @@
         "code": "https://github.com/kixlab/llm-ui-objects",
         "acmdl": "https://dl.acm.org/doi/10.1145/3586183.3606833"
       },
-      "line": "Three primitives for working with LLMs as objects instead of one long chat.",
       "thumb": "/images/thumbs/cells-generators-lenses.png"
     },
     {
@@ -493,7 +471,6 @@
       ],
       "award": null,
       "teaserImage": "/images/papeos.png",
-      "cardImage": "/images/papeos.png",
       "description": "<p>Papeos augments research papers with synchronized talk videos to create a richer reading experience. The novel interface automatically aligns paper passages with video segments, allowing readers to fluidly switch between consuming dense academic text and concise, visual explanations to reduce mental load and improve comprehension.</p>",
       "links": {
         "pdf": "https://arxiv.org/pdf/2308.15224.pdf",
@@ -501,7 +478,6 @@
         "acmdl": "https://dl.acm.org/doi/10.1145/3586183.3606770",
         "demo": "https://papeo.app"
       },
-      "line": "Research papers that carry their own talk video, aligned passage by passage.",
       "thumb": "/images/thumbs/papeos.png"
     },
     {
@@ -532,7 +508,6 @@
       ],
       "award": null,
       "teaserImage": "/images/dapie.png",
-      "cardImage": "/images/dapie.png",
       "description": "<p>DAPIE is a conversational agent designed to answer children's \"why\" and \"how\" questions by transforming existing human expert-authored explanations into interactive, step-by-step dialogues. By converting static text into digestible conversational steps, the system scaffolds learning and encourages children to actively interact and self-assess their understanding.</p>",
       "links": {
         "pdf": "https://kixlab.github.io/website-files/2022/chi2023-childQA-paper.pdf",
@@ -540,7 +515,6 @@
         "video": "https://youtu.be/nBdIhI66_vY",
         "acmdl": "https://dl.acm.org/doi/10.1145/3544548.3581369"
       },
-      "line": "Step-by-step dialogues that answer children's why and how questions.",
       "thumb": "/images/thumbs/dapie.png"
     },
     {
@@ -568,7 +542,6 @@
       ],
       "award": "Honorable Mention Award",
       "teaserImage": "/images/stylette.png",
-      "cardImage": "/images/stylette.png",
       "description": "<p>Stylette is a browser extension that empowers novices to style web pages using natural language. By interpreting vague user requests with an LLM and surfacing suggestions from a dataset of 1.7 million web components, Stylette generates a palette of CSS properties and values that users can apply and experiment with to achieve their design goals.</p>",
       "links": {
         "pdf": "https://kixlab.github.io/website-files/2022/chi2022-stylette-paper.pdf",
@@ -576,7 +549,6 @@
         "video": "https://youtu.be/7ZJZpIW9FHc",
         "acmdl": "https://dl.acm.org/doi/10.1145/3491102.3501931"
       },
-      "line": "Style a web page by describing the change in plain language.",
       "thumb": "/images/thumbs/stylette.png"
     },
     {
@@ -608,7 +580,6 @@
       ],
       "award": null,
       "teaserImage": "/images/promptiverse.png",
-      "cardImage": "/images/promptiverse.png",
       "description": "<p>Promptiverse introduces a scalable approach for generating diverse, multi-turn scaffolding prompts for instructional videos. Using a human-AI hybrid annotation tool called Grannotate, the system constructs knowledge graphs from video transcripts to efficiently create tailored educational prompts that support varying learner needs.</p>",
       "links": {
         "pdf": "https://kixlab.github.io/website-files/2022/chi2022-promptiverse-paper.pdf",
@@ -616,7 +587,6 @@
         "video": "https://youtu.be/jvtsD73-Hqw",
         "acmdl": "https://dl.acm.org/doi/10.1145/3491102.3502087"
       },
-      "line": "Generating scaffolding prompts for lecture videos with human and AI annotation.",
       "thumb": "/images/thumbs/promptiverse.png"
     },
     {
@@ -643,7 +613,6 @@
       ],
       "award": null,
       "teaserImage": "/images/winder.png",
-      "cardImage": "/images/winder.png",
       "description": "<p>Winder is a design tool plugin that supports asynchronous collaboration by linking speech and visual objects. By allowing users to record multimodal comments, such as voice paired with document clicks, the system generates bidirectional links between the transcript and the UI objects, reducing communication effort and facilitating easier navigation for receivers.</p>",
       "links": {
         "pdf": "https://kixlab.github.io/website-files/2021/chi2021-Winder-paper.pdf",
@@ -651,7 +620,6 @@
         "video": "https://www.youtube.com/watch?v=_Y0d_uyA6XA",
         "acmdl": "https://dl.acm.org/doi/10.1145/3411764.3445686"
       },
-      "line": "Voice comments linked to design objects for asynchronous collaboration.",
       "thumb": "/images/thumbs/winder.png"
     },
     {
@@ -683,7 +651,6 @@
       ],
       "award": null,
       "teaserImage": "/images/coseq.png",
-      "cardImage": "/images/coseq.png",
       "description": "<p>This work explores collaborative sequencing (CoSeq) in small groups, such as planning travel itineraries, and introduces visual awareness techniques to support consensus building. Instantiated in a system called Twine, these techniques help group members easily identify agreements and disagreements, reducing the effort needed to communicate preferences and encouraging cooperative behavior.</p>",
       "links": {
         "pdf": "https://kixlab.github.io/website-files/2021/cscw2021-CoSeq-paper.pdf",
@@ -691,7 +658,6 @@
         "video": "https://www.youtube.com/watch?v=Lh805dyTnA0&t=357s",
         "acmdl": "https://dl.acm.org/doi/10.1145/3449250"
       },
-      "line": "Visual awareness that helps small groups agree on a sequence.",
       "thumb": "/images/thumbs/coseq.png"
     },
     {
@@ -731,13 +697,11 @@
       ],
       "award": null,
       "teaserImage": "/images/cometogether.png",
-      "cardImage": "/images/cometogether.png",
       "description": "<p>This work investigates challenges in collaborative information-seeking (CIS) and social coordination, such as capturing mutual preferences and high communication costs. The work introduces ComeTogether, a system utilizing collaborative dynamic queries to help groups build a shared understanding and streamline the collaborative decision-making process.</p>",
       "links": {
         "pdf": "https://kixlab.github.io/website-files/2019/cscw2019-ComeTogether-paper.pdf",
         "acmdl": "https://dl.acm.org/doi/10.1145/3359208"
       },
-      "line": "Collaborative dynamic queries for groups searching together.",
       "thumb": "/images/thumbs/cometogether.png"
     }
   ],
@@ -752,7 +716,7 @@
         }
       ],
       "links": {
-        "pdf": "https://taesookim.com/assets/pdf/TaeSooKim_CHI2025_DC.pdf"
+        "pdf": "/pdf/TaeSooKim_CHI2025_DC.pdf"
       }
     },
     {

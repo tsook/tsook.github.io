@@ -1,0 +1,359 @@
+% Curriculum vitae of Tae Soo Kim.
+% LaTeX conversion of "CV 2026 (8).pdf" (Google Docs export), 16 September 2026.
+% Local build: bash scripts/build-cv.sh   (tectonic/XeTeX; also compiles with pdfLaTeX on Overleaf)
+%
+% Layout values below were measured from the original PDF: A4, Times New Roman,
+% 10pt body on a 13.8pt pitch, 11pt interest paragraph on 14.5pt, 1.69cm side
+% margins, name as 22/18pt capitals, headings as 14/12pt bold capitals.
+%
+% Edits relative to the PDF source:
+%   - Research Interest rewritten from draft/versions/2026-09-16-v06.tex
+%   - [C18] KnowSim (EMNLP 2026, to appear) added
+%   - Workshop Organizer line under Academic Services and [D10] workshop proposal added (Revibing HCI, UIST 2026)
+%   - Paper titles hyperlinked (DOI, arXiv, or PDF)
+%   - Alternative-service note added under the SkillBench & KAIST appointment
+%   - [C13] proceedings year corrected to 2024; COLM expanded as "Conference on Language Modeling"
+
+\documentclass[10pt,a4paper]{article}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{newtxtext}
+\else
+  \usepackage{fontspec}
+  \IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{\usepackage{newtxtext}}
+\fi
+\usepackage[a4paper,left=1.69cm,right=1.69cm,top=1.28cm,bottom=1.3cm,footskip=19pt]{geometry}
+\usepackage{fancyhdr}
+\usepackage{needspace}
+\usepackage[hidelinks]{hyperref}
+
+% ---------------------------------------------------------------------------
+% Metadata
+% ---------------------------------------------------------------------------
+\newcommand{\lastupdated}{September 16, 2026}
+\newcommand{\me}{\textbf{Tae Soo Kim}}
+\newcommand{\mestar}{\textbf{Tae Soo Kim*}}
+
+\hypersetup{pdftitle={Tae Soo Kim -- Curriculum Vitae},pdfauthor={Tae Soo Kim}}
+
+% ---------------------------------------------------------------------------
+% Page style
+% ---------------------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[R]{\fontsize{10}{12}\selectfont Last Updated: \lastupdated}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\raggedbottom
+
+% ---------------------------------------------------------------------------
+% Layout macros
+% ---------------------------------------------------------------------------
+\newif\ifcvfirst   % true right after a heading: the first entry gets no gap
+
+% Capital-size trick used by the original for the name and headings.
+\newcommand{\I}[1]{{\fontsize{14}{14}\selectfont #1}}          % heading initial
+\newcommand{\NameCap}[2]{{\fontsize{22}{22}\selectfont #1}{\fontsize{18}{18}\selectfont #2}}
+
+% Section heading: 14/12pt bold capitals with a rule 4pt under the baseline.
+\newcommand{\cvsection}[1]{%
+  \par\Needspace*{5\baselineskip}\addvspace{15pt}%
+  {\noindent\rlap{\bfseries\fontsize{12}{13.8}\selectfont #1}\rule[-4pt]{\textwidth}{0.6pt}\par}%
+  \nobreak\vspace{9.8pt}\nobreak\global\cvfirsttrue}
+
+% Subheading inside Publications: 11pt bold, aligned with the entry labels.
+\newcommand{\cvsubsection}[1]{%
+  \par\Needspace*{5\baselineskip}%
+  \ifcvfirst\global\cvfirstfalse\vspace{3.7pt}\else\vspace{9.2pt}\fi
+  \noindent\hspace{3.8pt}{\bfseries\fontsize{11}{13.8}\selectfont #1}\par\nobreak}
+
+% Two-column rows. The right column (dates or places) takes its natural width.
+% When the right text contains a line break, pass the widest line as the
+% optional argument: \entry[Apr. 2024]{...}{Apr. 2024\\Dec. 2023}
+\newlength{\rightw}
+\newlength{\colgap}
+\setlength{\colgap}{0.4cm}
+\NewDocumentCommand{\tworow}{m m m m}{% style, measure, left, right
+  \settowidth{\rightw}{{#1 #2}}%
+  \noindent
+  \parbox[t]{\dimexpr\textwidth-\rightw-\colgap\relax}{\raggedright #1 #3\strut}\hfill
+  \parbox[t]{\rightw}{\raggedleft #1 #4\strut}\par}
+% \nobreak after an entry or sub-entry line keeps it with the line that
+% follows; \penalty0 before the gap lets a page break fall between entries.
+\NewDocumentCommand{\entry}{O{#3} m m}{%
+  \par\ifcvfirst\global\cvfirstfalse\else\penalty0\vspace{11pt}\fi
+  \tworow{\bfseries}{#1}{#2}{#3}\nobreak}
+\NewDocumentCommand{\subentry}{O{#3} m m}{\tworow{\itshape}{#1}{#2}{#3}\nobreak}
+\NewDocumentCommand{\plainline}{O{#3} m m}{\tworow{\relax}{#1}{#2}{#3}}
+\newcommand{\indented}[1]{\noindent\hspace{10pt}\parbox[t]{\dimexpr\textwidth-10pt\relax}{\raggedright #1\strut}\par}
+
+% Publication list: [C18]-style labels, 13.2pt line pitch, 2pt between the
+% title, author, and venue lines, 19pt between entries. \\* keeps an entry
+% together across pages; wrapped lines are held by \interlinepenalty.
+\newenvironment{publist}{%
+  \begin{list}{}{%
+    \setlength{\leftmargin}{30.7pt}%
+    \setlength{\labelwidth}{25.7pt}%
+    \setlength{\labelsep}{5pt}%
+    \setlength{\itemsep}{5.8pt}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\topsep}{4.7pt}%
+    \setlength{\partopsep}{0pt}}%
+  \fontsize{10}{13.2}\selectfont\raggedright\interlinepenalty=10000\relax}{\end{list}}
+% \pub{ID}{URL}{Title}{Authors}{Venue}[Award]; the title links to the URL.
+\NewDocumentCommand{\pub}{m m m m m o}{%
+  \item[\textbf{[#1]}]\hypertarget{pub#1}{}\textbf{\href{#2}{#3}}\\*[2pt]
+  #4\\*[2pt]
+  {\itshape #5}%
+  \IfValueT{#6}{\newline\textbf{#6}}}
+
+% Academic services: plain lines on a 16.8pt pitch.
+\newenvironment{servicelist}{\par\vspace{-3pt}\fontsize{10}{16.8}\selectfont}{\par}
+
+\begin{document}
+\fontsize{10}{13.8}\selectfont
+
+% ---------------------------------------------------------------------------
+% Header
+% ---------------------------------------------------------------------------
+% The strut sets the first baseline 18.3pt below the top margin, as in the original.
+{\centering
+  {\fontsize{18}{18}\selectfont\rule{0pt}{18.3pt}\NameCap{T}{AE} \NameCap{S}{OO} \NameCap{K}{IM}}\par
+  \vspace{7.2pt}
+  {\fontsize{11}{13.8}\selectfont
+   \href{mailto:taesoo.kim@kaist.ac.kr}{taesoo.kim@kaist.ac.kr}\quad
+   \href{https://taesookim.com}{https://taesookim.com}\par}}
+\vspace{5pt}
+
+% ---------------------------------------------------------------------------
+\cvsection{\I{R}ESEARCH \I{I}NTEREST}
+% Rewritten from the one-page research statement, v06 (16 September 2026),
+% keeping the sentence structure of the previous CV paragraph.
+{\fontsize{11}{14.5}\selectfont\hyphenpenalty=10000\exhyphenpenalty=10000
+My work falls in the intersection of \textbf{human-computer interaction (HCI)} and
+\textbf{natural language processing (NLP)}, focusing on \textbf{AI that helps people discover
+goals worth pursuing}, not just execute them. Specifically, I (1) design \textbf{interactive
+systems} that let users explore and compare possibilities to reshape their goals, and
+(2) \textbf{model} how goals take shape through interaction to train and evaluate AI that
+supports this process.\par}
+
+% ---------------------------------------------------------------------------
+\cvsection{\I{E}DUCATION}
+\entry{KAIST}{\mdseries\itshape Daejeon, South Korea}
+\plainline{Ph.D. in Computer Science ({\itshape CoE Ph.D. Dissertation Award})}{\textbf{Mar. 2022 - Feb. 2026}}
+\indented{Thesis: {\itshape ``Disentangling Language for Interactive AI Alignment''}}
+\indented{Advisor: Juho Kim}
+\plainline{M.S. in Computer Science ({\itshape SoC Outstanding Thesis Award})}{\textbf{Mar. 2020 - Feb. 2022}}
+\plainline{B.S. in Computer Science ({\itshape Magna Cum Laude})}{\textbf{Sep. 2015 - Feb. 2020}}
+
+% ---------------------------------------------------------------------------
+\cvsection{\I{E}MPLOYMENT}
+\entry{SkillBench \& KAIST (Joint Appointment)}{Feb. 2026 - Present}
+\subentry{Research Scientist \& Postdoctoral Researcher\textsuperscript{*}}{Daejeon, South Korea}
+% Alternative-service note (added 16 September 2026; wording to confirm with the user).
+\plainline{{\fontsize{9}{11}\selectfont\itshape \textsuperscript{*}Alternative military service (Technical Research Personnel program).}}{}
+
+\entry{Allen Institute for AI}{Jul. 2022 - Oct. 2022}
+\subentry{Research Scientist Intern, \upshape Semantic Scholar}{Seattle, WA}
+\plainline{Mentors: Joseph Chee Chang, Amy X. Zhang, Jonathan Bragg}{\hyperlink{pubC7}{[C7]}}
+
+% ---------------------------------------------------------------------------
+\cvsection{\I{P}UBLICATIONS}
+
+\cvsubsection{Conference and Journal Papers}
+\begin{publist}
+
+\pub{C18}{https://arxiv.org/abs/2608.17150}{KnowSim: Evaluating Information Calibration in LLM Assistants with User Simulators that Learn}
+{Yoonjoo Lee, Hyoungwook Jin, \me, Shaoyang Zhang, Philippe Laban, Q. Vera Liao}
+{EMNLP 2026: The 2026 Conference on Empirical Methods in Natural Language Processing (to appear)}
+
+\pub{C17}{https://arxiv.org/abs/2602.03429}{DiscoverLLM: From Executing Intents to Discovering Them}
+{\me, Yoonjoo Lee, Jaesang Yu, John Joon Young Chung, Juho Kim}
+{ICML 2026: Forty-Third International Conference on Machine Learning}
+
+\pub{C16}{https://doi.org/10.1145/3772318.3790285}{Evalet: Evaluating Large Language Models by Fragmenting Outputs into Functions}
+{\mestar, Heechan Lee*, Yoonjoo Lee, Joseph Seering, Juho Kim}
+{CHI 2026: Proceedings of the 2026 CHI Conference on Human Factors in Computing Systems.}
+[Honorable Mention Award]
+
+\pub{C15}{https://arxiv.org/abs/2509.14537}{ClearFairy: Capturing Workflows through Decision Structuring, In-Situ Questioning, and Rationale Inference}
+{Kihoon Son, DaEun Choi, \me, Young-Ho Kim, Sangdoo Yun, Juho Kim}
+{CHI 2026: Proceedings of the 2026 CHI Conference on Human Factors in Computing Systems.}
+
+\pub{C14}{https://arxiv.org/abs/2508.01674}{CUPID: Evaluating Personalized and Contextualized Alignment of LLMs from Interactions}
+{\me, Yoonjoo Lee, Yoonah Park, Jiho Kim, Young-Ho Kim, Juho Kim}
+{COLM 2025: Conference on Language Modeling}
+
+\pub{C13}{https://doi.org/10.1145/3630106.3662681}{One vs. Many: Comprehending Accurate Information from Multiple Erroneous and Inconsistent AI Generations}
+{Yoonjoo Lee, Kihoon Son, \me, Jisu Kim, John Joon Young Chung, Eytan Adar, Juho Kim}
+{FAccT 2024: Proceedings of the 2024 ACM Conference on Fairness, Accountability, and Transparency.}
+
+\pub{C12}{https://doi.org/10.1145/3613904.3642216}{EvalLM: Interactive Evaluation of Large Language Model Prompts on User-Defined Criteria}
+{\me, Yoonjoo Lee, Jamin Shin, Young-Ho Kim, Juho Kim}
+{CHI 2024: Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems.}
+
+\pub{C11}{https://doi.org/10.1145/3613904.3642847}{GenQuery: Supporting Expressive Visual Search with Generative Models}
+{Kihoon Son, DaEun Choi, \me, Young-Ho Kim, Juho Kim}
+{CHI 2024: Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems.}
+
+\pub{C10}{https://doi.org/10.1145/3613904.3642886}{Demystifying Tacit Knowledge in Graphic Design: Characteristics, Instances, Approaches, and Guidelines}
+{Kihoon Son, DaEun Choi, \me, Juho Kim}
+{CHI 2024: Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems.}
+[Honorable Mention Award]
+
+\pub{C9}{https://doi.org/10.1145/3659096}{The Semantic Reader Project: Augmenting Scholarly Documents through AI-Powered Interactive Reading Interfaces}
+{Kyle Lo, Joseph Chee Chang, Andrew Head, Jonathan Bragg, Amy X. Zhang, Cassidy Trier, (+ 47 authors including \me), Marti A. Hearst, Daniel S. Weld}
+{Communications of the ACM 2024.}
+
+\pub{C8}{https://doi.org/10.1145/3586183.3606833}{Cells, Generators, and Lenses: Design Framework for Object-Oriented Interaction with Large Language Models}
+{\me, Yoonjoo Lee, Minsuk Chang, Juho Kim}
+{UIST 2023: Proceedings of the 2023 ACM Symposium on User Interface Software and Technology.}
+
+\pub{C7}{https://doi.org/10.1145/3586183.3606770}{Papeos: Augmenting Research Papers with Talk Videos}
+{\me, Matt Latzke, Jonathan Bragg, Amy X. Zhang, Joseph Chee Chang}
+{UIST 2023: Proceedings of the 2023 ACM Symposium on User Interface Software and Technology.}
+
+\pub{C6}{https://doi.org/10.1145/3544548.3581369}{DAPIE: Interactive Step-by-Step Explanatory Dialogues to Answer Children's Why and How Questions}
+{Yoonjoo Lee, \me, Sungdong Kim, Yohan Yun, Juho Kim}
+{CHI 2023: Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems.}
+
+\pub{C5}{https://doi.org/10.1145/3491102.3501931}{Stylette: Styling the Web with Natural Language}
+{\me, DaEun Choi, Yoonseo Choi, Juho Kim}
+{CHI 2022: Proceedings of the 2022 CHI Conference on Human Factors in Computing Systems.}
+[Honorable Mention Award]
+
+\pub{C4}{https://doi.org/10.1145/3491102.3502087}{Promptiverse: Scalable Generation of Scaffolding Prompts Through Human-AI Hybrid Knowledge Graph Annotation}
+{Yoonjoo Lee, John Joon Young Chung, \me, Jean Y Song, Juho Kim}
+{CHI 2022: Proceedings of the 2022 CHI Conference on Human Factors in Computing Systems.}
+
+\pub{C3}{https://doi.org/10.1145/3411764.3445686}{Winder: Linking Speech and Visual Objects to Support Communication in Asynchronous Collaboration}
+{\me, Seungsu Kim, Yoonseo Choi, Juho Kim}
+{CHI 2021: Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems.}
+
+\pub{C2}{https://doi.org/10.1145/3449250}{Supporting Collaborative Sequencing for Small Groups through Visual Awareness}
+{\me, Nitesh Goyal, Jeongyeon Kim, Juho Kim, Sungsoo (Ray) Hong}
+{CSCW 2021: Proceedings of the ACM on Human-Computer Interaction, Volume 5, Issue CSCW. April 2021.}
+
+\pub{C1}{https://doi.org/10.1145/3359208}{Design for Collaborative Information-Seeking: Understanding User Challenges and Deploying Collaborative Dynamic Queries}
+{Sungsoo (Ray) Hong, Minhyang (Mia) Suh, \me, Irina Smoke, Sangwha Sien, Janet Ng, Mark Zachry, Juho Kim}
+{CSCW 2019: Proceedings of the ACM on Human-Computer Interaction, Volume 3, Issue CSCW. November 2019.}
+
+\end{publist}
+
+\cvsubsection{Posters, Demos, and Workshop Papers}
+\begin{publist}
+
+\pub{D10}{https://revibe-hci.github.io/assets/UIST_2026_Workshop_Revibe.pdf}{Revibing HCI: Agentic Reimplementation as Community Practice}
+{Yoonjoo Lee, \me, Kevin Pu, Mira Dontcheva, Bjoern Hartmann, Toby Jia-Jun Li, Brad A. Myers, Jeffrey Nichols, April Yi Wang, Xuhai Xu, Eytan Adar}
+{UIST 2026 Workshop Proposal: Adjunct Proceedings of the 39th Annual ACM Symposium on User Interface Software and Technology (to appear)}
+
+\pub{D9}{https://arxiv.org/abs/2512.00742}{On the Regulatory Potential of User Interfaces for AI Agent Governance}
+{K. J. Kevin Feng*, \mestar, Rock Yuren Pang*, Faria Huq, Tal August, Amy X. Zhang}
+{NeurIPS 2025 Workshop on Regulatable ML}
+
+\pub{D8}{https://doi.org/10.1145/3706599.3707611}{Interacting with AI by Manipulating Intents}
+{\me}
+{CHI 2025 In-Person Doctoral Consortium}
+
+\pub{D7}{https://heechanlee.com/assets/HEAL_CHI_Evaligner.pdf}{Evaligner: Automatic Prompt and Criteria Refinement from User Feedback}
+{Heechan Lee, \me, Juho Kim}
+{CHI 2025 Workshop on Human-Centered Evaluation and Auditing of Language Models (HEAL)}
+
+\pub{D6}{https://heal-workshop.github.io/chi2024_papers/34_how_to_reflect_diverse_people_.pdf}{How to Reflect Diverse People's Perspectives in Large-Scale LLM-based Evaluations?}
+{Yoonjoo Lee, \me, Juho Kim}
+{CHI 2024 Workshop on Human-Centered Evaluation and Auditing of Language Models (HEAL)}
+
+\pub{D5}{https://arxiv.org/abs/2405.04497}{Unveiling Disparities in Web Task Handling Between Human and Web Agent}
+{Kihoon Son, Jinhyeon Kwon, DaEun Choi, \me, Young-Ho Kim, Sangdoo Yun, Juho Kim}
+{CHI 2024 Workshop on Computational Methodologies for Understanding, Automating, and Evaluating User Interfaces}
+
+\pub{D4}{https://arxiv.org/abs/2303.15125}{LMCanvas: Object-Oriented Interaction to Personalize Large Language Model-Powered Writing Environments}
+{\me, Arghya Sarkar, Yoonjoo Lee, Minsuk Chang, Juho Kim}
+{CHI 2023 Workshop on Generative AI and HCI}
+
+\pub{D3}{https://aclanthology.org/2022.in2writing-1.9/}{Interactive Children's Story Rewriting Through Parent-Children Interaction}
+{Yoonjoo Lee, \me, Minsuk Chang, Juho Kim}
+{ACL 2022 Workshop on Intelligent and Interactive Writing Assistant (In2Writing)}
+
+\pub{D2}{https://kixlab.github.io/website-files/2022/chi2022-workshop-StarLab-paper.pdf}{Improving Video Interfaces by Presenting Informational Units of Videos}
+{Saelyne Yang, Sangkyung Kwak, \me, Juho Kim}
+{CHI 2022 Workshop on Computational Approaches for Understanding, Generating, and Adapting User Interfaces}
+
+\pub{D1}{https://doi.org/10.1145/3334480.3382906}{Consensus Building in Collaborative Sequencing with Visual Awareness}
+{\me, Sungsoo (Ray) Hong, Nitesh Goyal, Jeongyeon Kim, Juho Kim}
+{CHI 2020 Extended Abstract}
+
+\end{publist}
+
+% ---------------------------------------------------------------------------
+\cvsection{\I{H}ONORS \I{A}ND \I{A}WARDS}
+\entry{CoE Ph.D. Dissertation Award}{2026}
+\subentry{College of Engineering, KAIST}{}
+\entry{Outstanding Ph.D. Thesis Award}{2026}
+\subentry{School of Computing, KAIST}{}
+\entry{Honorable Mention Award}{2022, 2024, 2026}
+\subentry{ACM CHI 2026; ACM CHI 2024; ACM CHI 2022}{}
+\entry{Outstanding TA Award}{2023}
+\subentry{School of Computing, KAIST}{}
+\entry{AI2 Outstanding Intern of the Year Award}{2022}
+\subentry{Allen Institute for AI}{}
+\entry{Outstanding M.S. Thesis Award}{2022}
+\subentry{School of Computing, KAIST}{}
+\entry{Dean's List}{Spring 2018}
+\subentry{School of Computing, KAIST}{}
+
+% ---------------------------------------------------------------------------
+\cvsection{\I{T}EACHING}
+\entry{Human-AI Interaction}{Fall 2023}
+\subentry{KAIST CS496G Teaching Assistant, Instructor: Juho Kim}{}
+\entry{Data Structure}{Spring 2023, Fall 2024}
+\subentry{KAIST CS206 Teaching Assistant, Instructor: Eun Young Moon}{}
+\entry{Design and Analysis of Algorithm}{Spring 2022}
+\subentry{KAIST CS500 Teaching Assistant, Instructor: Sunghee Choi}{}
+\entry{Introduction to Human-Computer Interaction}{Spring 2021}
+\subentry{KAIST CS374 Teaching Assistant, Instructor: Juho Kim}{}
+\entry{Introduction to Social Computing}{Fall 2020}
+\subentry{KAIST CS473 Teaching Assistant, Instructor: Juho Kim}{}
+
+% ---------------------------------------------------------------------------
+\cvsection{\I{A}CADEMIC \I{S}ERVICES}
+\begin{servicelist}
+% Workshop added 16 September 2026; the title links to https://revibe-hci.github.io/
+\textbf{Workshop Organizer}\par
+\plainline{ACM UIST 2026: \href{https://revibe-hci.github.io/}{``Revibing HCI: Agentic Reimplementation as Community Practice''}}{\hyperlink{pubD10}{[D10]}}
+\textbf{Program Committee}\par
+ACM UIST 2026\par
+ACM CHI LBW 2023-2024\par
+\textbf{Reviewer}\par
+ACM CHI 2022-2026 (Outstanding Review x 8)\par
+ACM UIST 2022-2025 (Outstanding Review x 1)\par
+ACM CSCW 2020, 2023-2025 (Outstanding Review x 2)\par
+ACM DIS 2023, 2025, 2026\par
+ACM C\&C 2026 (Outstanding Review x 1)\par
+ACM CHI LBW 2021, 2025, 2026\par
+\textbf{Student Volunteer}\par
+ACM UIST 2021, 2023\par
+ACM CHI 2022\par
+\end{servicelist}
+
+% ---------------------------------------------------------------------------
+\cvsection{\I{I}NVITED \I{T}ALKS}
+\entry{Guest Lecture at NYU Abu Dhabi CDAD-UH 1044Q Human-Centered Data Science}{Apr. 2026}
+\plainline{Title: {\itshape ``Disentangling Text for Interactive AI Alignment''}}{}
+\entry{Invited Talk at the Human-Centered AI Reading Group, MILA}{Oct. 2025}
+\plainline{Title: {\itshape ``Disentangling Text for Interactive AI Alignment''}}{}
+\entry{Guest Lecture at KAIST CS475 ML for NLP}{Dec. 2024}
+\plainline{Title: {\itshape ``Data Use in LLMs and Human-centered Evaluation''}}{}
+\entry{Guest Lecture at NYU Abu Dhabi CDAD-UH 1044Q Human-Centered Data Science}{Apr. 2024, Dec. 2023}
+\plainline{Title: {\itshape ``Interactively Evaluating LLMs on Specific, Subjective Criteria''}}{}
+\entry{NAVER Tech Talk}{Nov. 2023}
+\plainline{Talk on the {\itshape ``Cells, Generators, and Lenses''} and {\itshape ``EvalLM''} papers.}{}
+\entry{Guest Lecture at PSU IST 597-001 Intelligent and Interactive Writing Assistants}{Sep. 2023}
+\plainline{Title: {\itshape ``Designing for Object-Oriented Interaction in Large Language Model-Powered Writing Interfaces''}}{}
+\entry{Invited Talk at Manila ACM SIGCHI Chapter}{Jun. 2022}
+\plainline{Title: {\itshape ``Mapping Multiple Modalities to Empower Novice Designers''}}{}
+
+\end{document}

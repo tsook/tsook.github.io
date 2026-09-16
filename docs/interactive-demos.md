@@ -132,7 +132,9 @@ One page, built by Astro from `src/data/*.json`. A fixed left column
 Publications" in three themes (`themes.json`), each paper one row: venue,
 award, title (linked), authors, links on the left, the figure on the right.
 Then "All Publications" with fitted thumbnails from `public/images/thumbs/`
-and linked authors. Fonts are Geist and Geist Mono from `public/fonts/`.
-The page map (`PageMap.astro`, `map.js`) is present but not rendered.
-Pushing `master` deploys through GitHub Pages; `dist/`, `.astro/` and
-`node_modules/` are tracked, so add files by path when committing.
+(regenerate with `python3 scripts/make-thumbs.py` after changing a
+teaser) and linked authors. Fonts are Geist and Geist Mono from
+`public/fonts/`. The CV source lives in `cv/`; `npm run cv` compiles it
+and updates `public/pdf/TaeSooKim_CV.pdf`. Pushing `master` deploys
+through GitHub Pages. An earlier page map (a rail of ticks at the right
+edge) was removed on 2026-09-16; it is in git history if ever wanted.
