@@ -19,7 +19,7 @@ const primary = links.find(([k]) => k === 'pdf') || links[0] || null;
     <div class="entry-k"><span>{paper.venue} {paper.year}</span>{paper.award && <span class="award">{paper.award.replace(' Award','')}</span>}</div>
     <h3>{primary ? <a href={primary[1]} target="_blank" rel="noopener">{paper.title}</a> : paper.title}</h3>
     <p class="authors">{authors.map((a, i) => <>{a.name === profile.name ? <b>{a.name}</b> : (a.url ? <a href={a.url} target="_blank" rel="noopener">{a.name}</a> : a.name)}{a.equalContrib ? '*' : ''}{i < authors.length - 1 ? ', ' : ''}</>)}</p>
-    <nav class="entry-links" aria-label={`Links for ${paper.shortName}`}>{links.map(([k, url]) => <a href={url} target="_blank" rel="noopener">{LABEL[k] || k}</a>)}</nav>
+    <nav class="entry-links" aria-label={`Links for ${paper.shortName}`}>{links.filter(([k]) => !primary || k !== primary[0]).map(([k, url]) => <a href={url} target="_blank" rel="noopener">{LABEL[k] || k}</a>)}</nav>
   </div>
   {Demo && <Demo />}
 </article>

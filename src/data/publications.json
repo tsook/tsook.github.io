@@ -9,6 +9,43 @@
   ],
   "publications": [
     {
+      "id": "knowsim",
+      "title": "KnowSim: Evaluating Information Calibration in LLM Assistants with User Simulators that Learn",
+      "shortName": "KnowSim",
+      "venue": "EMNLP",
+      "year": 2026,
+      "authors": [
+        {
+          "name": "Yoonjoo Lee",
+          "url": "https://yoonjoolee.com/"
+        },
+        {
+          "name": "Hyoungwook Jin"
+        },
+        {
+          "name": "Tae Soo Kim"
+        },
+        {
+          "name": "Shaoyang Zhang"
+        },
+        {
+          "name": "Philippe Laban"
+        },
+        {
+          "name": "Q. Vera Liao"
+        }
+      ],
+      "award": null,
+      "teaserImage": "/images/knowsim.png",
+      "cardImage": "/images/knowsim.png",
+      "description": "<p>KnowSim evaluates whether LLM assistants calibrate the information they give to what a user already knows, using user simulators whose knowledge state updates as the conversation unfolds.</p>",
+      "links": {
+        "arxiv": "https://arxiv.org/abs/2608.17150"
+      },
+      "line": "Evaluates whether assistants calibrate information to a user who learns as they talk.",
+      "thumb": "/images/thumbs/knowsim.png"
+    },
+    {
       "id": "discoverllm",
       "title": "DiscoverLLM: From Executing Intents to Discovering Them",
       "shortName": "DiscoverLLM",
