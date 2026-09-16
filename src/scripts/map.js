@@ -1,109 +1,82 @@
-/* Page map: a miniature of the page. One block per paper (and one for the publication list),
-   heights proportional to the page, a translucent window for what is on screen.
-   Click a block to jump; drag anywhere on the map to scrub. */
+/* Page map: a rail of ticks at the right edge, one per section or paper, grouped by section.
+   Ticks near the pointer magnify and the nearest one shows its label. Click jumps, drag scrubs. */
 export function initMap(){
   const nav = document.getElementById('map'); if(!nav) return;
-  const view = document.getElementById('map-view');
-  const rows = [...nav.querySelectorAll('[data-map]')];
+  const rail = document.getElementById('map-items');
+  const label = document.getElementById('map-label');
   const phrases = [...document.querySelectorAll('.tl')];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let items = [], docH = 1, raf = 0;
+  let ticks = [], raf = 0;
 
   function measure(){
-    docH = document.documentElement.scrollHeight;
-    const spans = rows.map(a => {
+    const r = rail.getBoundingClientRect();
+    ticks = [...rail.querySelectorAll('[data-map]')].map(a => {
       const el = document.getElementById(a.dataset.map); if(!el) return null;
-      const topEl = a.dataset.top ? document.getElementById(a.dataset.top) || el : el;
-      return { a, el, top: topEl.getBoundingClientRect().top + window.scrollY };
+      const b = a.getBoundingClientRect();
+      return { el, a, y: b.top - r.top + b.height/2, top: el.getBoundingClientRect().top + window.scrollY };
     }).filter(Boolean);
-    /* proportional heights: the whole page maps onto at most 60vh or 440px */
-    const mapH = Math.min(440, window.innerHeight * 0.6) - (spans.length - 1) * 2 - 10;
-    const first = spans[0]?.top || 0;
-    spans.forEach((s, i) => { const t1 = spans[i+1] ? spans[i+1].top : docH; s.a.style.height = Math.max(8, (t1 - s.top) / Math.max(1, docH - first) * mapH).toFixed(1) + 'px'; });
-    const nr = nav.getBoundingClientRect();
-    items = spans.map(s => { const r = s.a.getBoundingClientRect(); return { ...s, y: r.top - nr.top, h: r.height }; });
   }
-  /* page y to map y and back, piecewise linear between blocks */
-  function toMap(py){
-    if(!items.length) return 0;
-    if(py <= items[0].top) return items[0].y;
-    for(let i = 0; i < items.length; i++){
-      const a = items[i], b = items[i+1];
-      const t1 = b ? b.top : docH, y1 = b ? b.y : a.y + a.h;
-      if(py < t1){ const f = (py - a.top) / Math.max(1, t1 - a.top); return a.y + f * (y1 - a.y); }
-    }
-    const l = items[items.length-1]; return l.y + l.h;
-  }
-  function toPage(my){
-    if(!items.length) return 0;
-    if(my <= items[0].y) return 0;
-    for(let i = 0; i < items.length; i++){
-      const a = items[i], b = items[i+1];
-      const t1 = b ? b.top : docH, y1 = b ? b.y : a.y + a.h;
-      if(my < y1){ const f = (my - a.y) / Math.max(1, y1 - a.y); return a.top + f * (t1 - a.top); }
-    }
-    return docH;
-  }
-  function update(){
-    if(!items.length) return;
-    const y0 = toMap(window.scrollY), y1 = toMap(window.scrollY + window.innerHeight);
-    view.style.setProperty('--vt', y0.toFixed(1) + 'px');
-    view.style.setProperty('--vh', Math.max(10, y1 - y0).toFixed(1) + 'px');
+  function spy(){
+    if(!ticks.length) return;
     const pos = window.scrollY + window.innerHeight * 0.3;
-    let cur = items[0];
-    items.forEach(t => { if(t.top - 8 <= pos) cur = t; });
-    if(window.scrollY + window.innerHeight >= docH - 4) cur = items[items.length-1];
-    items.forEach(t => t.a.classList.toggle('is-current', t === cur));
-    const theme = cur.el.closest('.theme');
+    let cur = ticks[0];
+    ticks.forEach(t => { if(t.top - 8 <= pos) cur = t; });
+    if(window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) cur = ticks[ticks.length-1];
+    ticks.forEach(t => t.a.classList.toggle('is-current', t === cur));
+    const theme = cur.el.closest('.theme') || (cur.el.classList.contains('theme') ? cur.el : null);
     const tid = theme ? theme.id.replace(/^t-/, '') : null;
     phrases.forEach(a => a.classList.toggle('is-current', a.dataset.theme === tid));
   }
+  function nearestTo(clientY){
+    const r = rail.getBoundingClientRect(); const y = clientY - r.top;
+    let nearest = null, best = 1e9;
+    ticks.forEach(t => {
+      const dy = Math.abs(t.y - y);
+      const m = 1 + 1.6 * Math.max(0, 1 - dy / 44);
+      t.a.style.setProperty('--m', m.toFixed(3));
+      if(dy < best){ best = dy; nearest = t; }
+    });
+    return { nearest, best };
+  }
+  function showLabel(t){
+    if(!t){ label.hidden = true; return; }
+    const r = rail.getBoundingClientRect(), n = nav.getBoundingClientRect();
+    label.hidden = false; label.textContent = t.a.dataset.label; label.style.top = (r.top - n.top + t.y) + 'px';
+    label.style.color = getComputedStyle(t.a).getPropertyValue('--th') ? '' : '';
+  }
+  function clear(){ ticks.forEach(t => t.a.style.removeProperty('--m')); label.hidden = true; }
+  function jump(t, behavior){ window.scrollTo({ top: Math.max(0, t.top - 28), behavior: reduced ? 'auto' : behavior }); }
   const schedule = fn => { if(!raf) raf = requestAnimationFrame(() => { raf = 0; fn(); }); };
 
-  /* drag to scrub */
-  let down = null, dragging = false;
-  const scrubTo = clientY => {
-    const my = clientY - nav.getBoundingClientRect().top;
-    window.scrollTo({ top: Math.max(0, toPage(my) - window.innerHeight * 0.3), behavior: 'auto' });
-  };
-  const endDrag = () => {
-    if(down){ try{ nav.releasePointerCapture(down.id); }catch(_){} }
-    nav.classList.remove('is-dragging'); down = null;
-    setTimeout(() => { dragging = false; }, 0);
-  };
+  let dragging = false, last = null, downId = null;
+  nav.addEventListener('pointermove', e => {
+    const { nearest, best } = nearestTo(e.clientY);
+    showLabel(best < 70 ? nearest : null);
+    if(dragging && nearest && nearest !== last){ last = nearest; jump(nearest, 'auto'); }
+  });
+  nav.addEventListener('pointerleave', () => { if(!dragging) clear(); });
   nav.addEventListener('pointerdown', e => {
     if(e.button !== 0) return;
-    down = { y: e.clientY, id: e.pointerId }; dragging = false;
-    try{ nav.setPointerCapture(e.pointerId); }catch(_){}
+    dragging = true; downId = e.pointerId; try{ nav.setPointerCapture(e.pointerId); }catch(_){}
+    const { nearest } = nearestTo(e.clientY); if(nearest){ last = nearest; jump(nearest, 'smooth'); showLabel(nearest); }
     e.preventDefault();
   });
-  nav.addEventListener('pointermove', e => {
-    if(!down) return;
-    if(!(e.buttons & 1)){ endDrag(); return; }
-    if(!dragging && Math.abs(e.clientY - down.y) > 4){ dragging = true; nav.classList.add('is-dragging'); }
-    if(dragging) scrubTo(e.clientY);
+  const end = () => { dragging = false; last = null; if(downId != null){ try{ nav.releasePointerCapture(downId); }catch(_){} downId = null; } clear(); };
+  nav.addEventListener('pointerup', end); nav.addEventListener('pointercancel', end);
+  nav.addEventListener('click', e => e.preventDefault());
+  nav.addEventListener('keydown', e => {
+    const a = e.target.closest('[data-map]'); if(!a || (e.key !== 'Enter' && e.key !== ' ')) return;
+    e.preventDefault(); const t = ticks.find(t => t.a === a); if(t) jump(t, 'smooth');
   });
-  nav.addEventListener('pointerup', endDrag); nav.addEventListener('pointercancel', endDrag);
-  nav.addEventListener('click', e => {
-    if(dragging){ e.preventDefault(); return; }
-    const a = e.target.closest('[data-map]'); if(!a) return;
-    e.preventDefault();
-    const it = items.find(t => t.a === a); if(!it) return;
-    const target = it.el.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: Math.max(0, target - 28), behavior: reduced ? 'auto' : 'smooth' });
-    history.replaceState(null, '', '#' + a.dataset.map);
-  });
+  nav.addEventListener('focusin', e => { const a = e.target.closest('[data-map]'); const t = ticks.find(t => t.a === a); if(t) showLabel(t); });
+  nav.addEventListener('focusout', () => { if(!nav.matches(':hover')) label.hidden = true; });
 
-  window.addEventListener('scroll', () => schedule(update), { passive:true });
-  const remeasure = () => schedule(() => { measure(); update(); });
+  window.addEventListener('scroll', () => schedule(spy), { passive:true });
+  const remeasure = () => schedule(() => { measure(); spy(); });
   window.addEventListener('resize', remeasure);
-  if('ResizeObserver' in window){
-    const ro = new ResizeObserver(remeasure);
-    const main = document.getElementById('main'); if(main) ro.observe(main);
-    ro.observe(document.body);
-  }
+  if('ResizeObserver' in window){ const ro = new ResizeObserver(remeasure); const main = document.getElementById('main'); if(main) ro.observe(main); ro.observe(document.body); }
   if(document.fonts) document.fonts.ready.then(remeasure);
-  measure(); update();
+  measure(); spy();
   setTimeout(remeasure, 800);
 
   /* bio phrases hint their theme section */

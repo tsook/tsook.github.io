@@ -1,13 +1,13 @@
 ---
 import publications from '../data/publications.json';
-const LABEL = { pdf:'Paper', website:'Website', code:'Code', data:'Data', arxiv:'arXiv', acmdl:'ACM DL', video:'Video', demo:'Demo', poster:'Poster', slides:'Slides' };
+const LABEL = { pdf:'Paper', website:'Website', code:'Code', data:'Data', arxiv:'arXiv', acmdl:'ACM DL', video:'Video', demo:'Demo' };
 const pubs = publications.publications;
-const posters = publications.posters;
 const years = [...new Set(pubs.map(p => Number(p.year)))].sort((a, b) => b - a);
 const links = p => Object.entries(p.links || {});
 const primary = p => { const l = links(p); return (l.find(([k]) => k === 'pdf') || l[0] || null); };
 const rest = p => { const pr = primary(p); return links(p).filter(([k]) => !pr || k !== pr[0]); };
 const ME = 'Tae Soo Kim';
+const isNote = a => /^(and|\+)\s/.test(a.name);
 ---
 <section class="section" id="publications" data-spy data-section data-label="All publications">
   <div class="section-h"><h2>All publications</h2><span class="k">{pubs.length} papers</span></div>
@@ -15,23 +15,18 @@ const ME = 'Tae Soo Kim';
     <div class="year">{y}</div>
     {pubs.filter(p => Number(p.year) === y).map(p => (
       <div class="pub" id={`p-${p.id}`}>
-        {p.thumb ? <img class="thumb" src={p.thumb} alt="" loading="lazy" width="112" height="70" /> : <span class="thumb-gap" aria-hidden="true"></span>}
+        {p.thumb ? <span class="thumb"><img src={p.thumb} alt="" loading="lazy" width="360" height="225" /></span> : <span class="thumb-gap" aria-hidden="true"></span>}
         <div>
           <div class="t">{primary(p) ? <a href={primary(p)[1]} target="_blank" rel="noopener">{p.title}</a> : p.title}</div>
-          {p.authors && <div class="au">{p.authors.map((a, i) => <>{a.name === ME ? <b>{a.name}</b> : a.name}{a.equalContrib ? '*' : ''}{i < p.authors.length - 1 ? ', ' : ''}</>)}</div>}
+          {p.authors && <div class="au">{p.authors.map((a, i) => <>
+            {isNote(a)
+              ? <span class="au-note">{a.name.split(ME).map((part, k, arr) => <>{part}{k < arr.length - 1 && <b>{ME}</b>}</>)}</span>
+              : a.name === ME ? <b>{a.name}</b> : (a.url ? <a href={a.url} target="_blank" rel="noopener">{a.name}</a> : a.name)}
+            {a.equalContrib ? '*' : ''}{i < p.authors.length - 1 ? ', ' : ''}
+          </>)}</div>}
           <div class="m"><span>{p.venue} {p.year}</span>{p.award && <span class="award">{p.award.replace(' Award','')}</span>}{rest(p).map(([k, url]) => <a href={url} target="_blank" rel="noopener">{LABEL[k] || k}</a>)}</div>
         </div>
       </div>
     ))}
   </>))}
-  <details class="posters" id="posters">
-    <summary>Posters and workshop papers <span class="k">{posters.length}</span></summary>
-    {posters.map(p => (
-      <div class="pub no-thumb"><div>
-        <div class="t">{p.title}</div>
-        {p.authors && <div class="au">{p.authors.map((a, i) => <>{a.name === ME ? <b>{a.name}</b> : a.name}{i < p.authors.length - 1 ? ', ' : ''}</>)}</div>}
-        <div class="m"><span>{p.venue}</span>{links(p).map(([k, url]) => <a href={url} target="_blank" rel="noopener">{LABEL[k] || k}</a>)}</div>
-      </div></div>
-    ))}
-  </details>
 </section>
