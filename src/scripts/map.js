@@ -31,13 +31,14 @@ export function initMap(){
     let nearest = null, best = 1e9;
     ticks.forEach(t => {
       const dy = Math.abs(t.y - y);
-      const m = 1 + 1.6 * Math.max(0, 1 - dy / 44);
-      t.a.style.setProperty('--m', m.toFixed(3));
+      const k = Math.max(0, 1 - dy / 44);
+      t.a.style.setProperty('--m', (1 + 1.6 * k).toFixed(3));
+      t.a.style.setProperty('--k', k.toFixed(3));
       if(dy < best){ best = dy; nearest = t; }
     });
     return { nearest, best };
   }
-  function clear(){ ticks.forEach(t => t.a.style.removeProperty('--m')); }
+  function clear(){ ticks.forEach(t => { t.a.style.removeProperty('--m'); t.a.style.removeProperty('--k'); }); }
   function jump(t, behavior){ window.scrollTo({ top: Math.max(0, t.top - 28), behavior: reduced ? 'auto' : behavior }); }
   const schedule = fn => { if(!raf) raf = requestAnimationFrame(() => { raf = 0; fn(); }); };
 
