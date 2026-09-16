@@ -12,7 +12,7 @@ const isNote = a => /^(and|\+)\s/.test(a.name);
 <section class="section" id="publications" data-spy data-section data-label="All Publications">
   <div class="section-h"><h2>All Publications</h2><span class="k">{pubs.length} papers</span></div>
   {years.map(y => (<>
-    <div class="year">{y}</div>
+    <div class="year" id={`y-${y}`}>{y}</div>
     {pubs.filter(p => Number(p.year) === y).map(p => (
       <div class="pub" id={`p-${p.id}`}>
         {p.thumb ? <span class="thumb"><img src={p.thumb} alt="" loading="lazy" width="360" height="225" /></span> : <span class="thumb-gap" aria-hidden="true"></span>}

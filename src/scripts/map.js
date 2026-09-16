@@ -3,7 +3,6 @@
 export function initMap(){
   const nav = document.getElementById('map'); if(!nav) return;
   const rail = document.getElementById('map-items');
-  const label = document.getElementById('map-label');
   const phrases = [...document.querySelectorAll('.tl')];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let ticks = [], raf = 0;
@@ -38,27 +37,20 @@ export function initMap(){
     });
     return { nearest, best };
   }
-  function showLabel(t){
-    if(!t){ label.hidden = true; return; }
-    const r = rail.getBoundingClientRect(), n = nav.getBoundingClientRect();
-    label.hidden = false; label.textContent = t.a.dataset.label; label.style.top = (r.top - n.top + t.y) + 'px';
-    label.style.color = getComputedStyle(t.a).getPropertyValue('--th') ? '' : '';
-  }
-  function clear(){ ticks.forEach(t => t.a.style.removeProperty('--m')); label.hidden = true; }
+  function clear(){ ticks.forEach(t => t.a.style.removeProperty('--m')); }
   function jump(t, behavior){ window.scrollTo({ top: Math.max(0, t.top - 28), behavior: reduced ? 'auto' : behavior }); }
   const schedule = fn => { if(!raf) raf = requestAnimationFrame(() => { raf = 0; fn(); }); };
 
   let dragging = false, last = null, downId = null;
   nav.addEventListener('pointermove', e => {
-    const { nearest, best } = nearestTo(e.clientY);
-    showLabel(best < 70 ? nearest : null);
+    const { nearest } = nearestTo(e.clientY);
     if(dragging && nearest && nearest !== last){ last = nearest; jump(nearest, 'auto'); }
   });
   nav.addEventListener('pointerleave', () => { if(!dragging) clear(); });
   nav.addEventListener('pointerdown', e => {
     if(e.button !== 0) return;
     dragging = true; downId = e.pointerId; try{ nav.setPointerCapture(e.pointerId); }catch(_){}
-    const { nearest } = nearestTo(e.clientY); if(nearest){ last = nearest; jump(nearest, 'smooth'); showLabel(nearest); }
+    const { nearest } = nearestTo(e.clientY); if(nearest){ last = nearest; jump(nearest, 'smooth'); }
     e.preventDefault();
   });
   const end = () => { dragging = false; last = null; if(downId != null){ try{ nav.releasePointerCapture(downId); }catch(_){} downId = null; } clear(); };
@@ -68,8 +60,6 @@ export function initMap(){
     const a = e.target.closest('[data-map]'); if(!a || (e.key !== 'Enter' && e.key !== ' ')) return;
     e.preventDefault(); const t = ticks.find(t => t.a === a); if(t) jump(t, 'smooth');
   });
-  nav.addEventListener('focusin', e => { const a = e.target.closest('[data-map]'); const t = ticks.find(t => t.a === a); if(t) showLabel(t); });
-  nav.addEventListener('focusout', () => { if(!nav.matches(':hover')) label.hidden = true; });
 
   window.addEventListener('scroll', () => schedule(spy), { passive:true });
   const remeasure = () => schedule(() => { measure(); spy(); });

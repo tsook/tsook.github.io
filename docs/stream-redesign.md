@@ -26,9 +26,10 @@ appears in its corner. Any click on a control cancels the walkthrough. With
 `prefers-reduced-motion` the figure jumps to its finished state.
 
 The page map at the right edge is a rail of ticks, one per theme (longer,
-in the theme color) and one per paper, plus one for the publication list.
-Ticks near the pointer magnify and the nearest one shows its label; the
-current tick is solid. Press to jump, drag to scrub. Below 1060px the page
+in the theme color), one per paper, one for the publication list and one
+per year in it. Ticks near the pointer magnify; hovering the rail shows
+every label to its left (theme labels in the theme color, years in mono);
+the current tick is solid. Press to jump, drag to scrub. Below 1060px the page
 is one column and the map is hidden. The three linked phrases in the bio
 carry the theme icon and a theme-colored underline, hint their theme
 section on hover, and are marked while that section is on screen.
