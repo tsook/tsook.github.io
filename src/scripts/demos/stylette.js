@@ -52,7 +52,6 @@ async function speak(d, i, tok, animate = true){
   const req = REQ[i]; d._st.req = i; const run = ++d._st.run; const live = () => d._st.run === run;
   const status = d.querySelector('[data-status]'); const mic = d.querySelector('[data-act="mic"]'); const mt = d.querySelector('[data-mic-text]');
   const cols = d.querySelector('[data-cols]');
-  d.querySelectorAll('[data-reqs] button').forEach(b => b.classList.toggle('is-on', +b.dataset.req === i));
   resetStyles(d); select(d, req.el);
   cols.classList.remove('is-in'); cols.innerHTML = '';
   mic.classList.add('is-listening'); mic.classList.remove('is-heard'); status.textContent = 'Listening…';
@@ -71,7 +70,6 @@ async function speak(d, i, tok, animate = true){
 export default {
   init(d){
     d._st = { req: 0, run: 0 };
-    d.querySelector('[data-reqs]').innerHTML = REQ.map((r, i) => `<button class="chip" data-act="req" data-req="${i}" title="${esc(r.text)}">${esc(r.chip)}</button>`).join('');
   },
   async flow(d, tok){
     const c = cursor(d);
@@ -88,17 +86,16 @@ export default {
     await pick('[data-col="2"] .st-sug:nth-of-type(1)');
     await sleep(500, tok);
     c.hide();
-    d.querySelector('[data-try]').classList.add('is-shown');
+    d.classList.add('is-more');
   },
-  final(d){ speak(d, 0, null, false); d.querySelector('[data-try]').classList.add('is-shown'); },
+  final(d){ speak(d, 0, null, false); d.classList.add('is-more'); },
   clean(d){
-    d.querySelector('[data-try]').classList.add('is-shown');
+    d.classList.add('is-more');
     const st = d.querySelector('[data-status]'); if(st.classList.contains('is-busy') || /…$/.test(st.textContent)) st.textContent = 'Select an element and speak.';
     if(!d.querySelector('.st-col')) speak(d, d._st.req, null, false);
   },
   async act(d, el, tok){
     if(el.dataset.act === 'sug') apply(d, el);
-    if(el.dataset.act === 'req') await speak(d, +el.dataset.req, tok, !reduced());
     if(el.dataset.act === 'mic') await speak(d, (d._st.req + 1) % REQ.length, tok, !reduced());
   },
 };

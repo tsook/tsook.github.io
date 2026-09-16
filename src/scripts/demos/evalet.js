@@ -85,7 +85,10 @@ function renderMap(d){
 function renderText(d){
   const s = S(d);
   d.querySelector('[data-text]').innerHTML = FRAGS.map((f, i) => `<button class="et-frag ${f.pol} ${s.lit > i ? 'is-lit' : ''} ${s.cur === i ? 'is-on' : ''}" data-act="frag" data-i="${i}">${esc(f.t)}</button>`).join(' ');
-  d.querySelector('[data-fns]').innerHTML = FRAGS.slice(0, s.lit).map((f, i) => `<button class="et-fn ${f.pol} ${s.cur === i ? 'is-on' : ''}" data-act="frag" data-i="${i}" style="--c:${CL[f.k].c}" title="${esc(CL[f.k].n)}"><i></i><span>${esc(f.fn)}</span></button>`).join('');
+  const f = s.cur != null ? FRAGS[s.cur] : null;
+  d.querySelector('[data-fns]').innerHTML = f
+    ? `<span class="et-fn ${f.pol}" style="--c:${CL[f.k].c}"><i></i><span>${esc(f.fn)}</span><em>${esc(CL[f.k].n)}</em></span>`
+    : (s.lit ? `<span class="et-fn is-hint">Click a fragment to see its function.</span>` : '');
   const pos = FRAGS.slice(0, s.lit).filter(f => f.pol === 'pos').length;
   d.querySelector('[data-score]').textContent = s.lit ? `${pos} for · ${s.lit - pos} against` : '';
 }

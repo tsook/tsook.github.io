@@ -16,7 +16,7 @@
   --sans:"Geist",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --ease:cubic-bezier(.2,.7,.2,1); --t:200ms; --r:10px;
-  --fig-h:248px;
+  --fig-h:212px;
 }
 :root[data-theme="dark"]{
   --ground:#0F0F0F; --surface:#151515; --sunk:#1E1E1E;

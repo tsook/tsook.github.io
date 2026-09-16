@@ -4,12 +4,12 @@ import { sleep, cursor, esc, reduced } from '../flow.js';
    Criteria are added one at a time; each one lights up its evidence and scores both outputs. */
 const OUT = [
   [ {t:'Plants make their own food.', c:[0,1,3]}, {t:'They mix sunlight, water, and air into sugar.', c:[2]} ],
-  [ {t:'A leaf named Pip woke up hungry. "Time to cook!"', c:[0,1,3]}, {t:'She gulped water from her roots and stirred in sunshine', c:[2]}, {t:'until sugar bubbled up.', c:[1,0]} ],
+  [ {t:'A leaf named Pip woke up hungry. "Time to cook!"', c:[0,1,3]}, {t:'She gulped water from her roots and stirred in sunshine.', c:[2,1]} ],
 ];
 const CRIT = [
   { n:'Concept familiarity', s:[9,9], why:'Both build on eating and cooking, which a five-year-old already knows.' },
   { n:'Engagingness', s:[6,10], why:'Prompt 2 gives the leaf a name and a voice. Prompt 1 reads like a definition.' },
-  { n:'Scientific accuracy', s:[9,7], why:'Prompt 1 keeps all three inputs straight. Prompt 2 drops the air, and leaves do not gulp.' },
+  { n:'Scientific accuracy', s:[9,7], why:'Prompt 1 keeps all three inputs. Prompt 2 drops the air, and leaves do not gulp.' },
   { n:'Child vocabulary', s:[9,9], why:'Neither uses a word longer than "sunshine".' },
 ];
 const S = d => d._ev;
@@ -20,11 +20,10 @@ function renderOut(d){
 }
 function render(d){
   const s = S(d);
-  d.querySelector('[data-rows]').innerHTML = (s.added.length ? `<div class="ev-row ev-row-h"><span></span><span class="ev-p1">P1</span><span class="ev-p2">P2</span></div>` : '') +
-    s.added.map(i => { const c = CRIT[i]; const done = s.scored.has(i); return `<button class="ev-row ${s.cur === i ? 'is-on' : ''}" data-act="crit" data-c="${i}">
+  d.querySelector('[data-rows]').innerHTML = s.added.map(i => { const c = CRIT[i]; const done = s.scored.has(i); return `<button class="ev-row ${s.cur === i ? 'is-on' : ''}" data-act="crit" data-c="${i}">
       <span class="ev-cn">${esc(c.n)}</span>
-      <span class="ev-sc ${done ? cls(c, 0) : 'is-wait'}">${done ? c.s[0] : ''}</span>
-      <span class="ev-sc ${done ? cls(c, 1) : 'is-wait'}">${done ? c.s[1] : ''}</span>
+      <span class="ev-sc ${done ? cls(c, 0) : 'is-wait'}" title="Prompt 1">${done ? c.s[0] : ''}</span>
+      <span class="ev-sc ${done ? cls(c, 1) : 'is-wait'}" title="Prompt 2">${done ? c.s[1] : ''}</span>
     </button>`; }).join('');
   d.querySelector('[data-sugg]').innerHTML = CRIT.map((c, i) => s.added.includes(i) ? '' : `<button class="chip" data-act="sugg" data-c="${i}">${esc(c.n)}</button>`).join('');
 }

@@ -38,7 +38,6 @@ function emerging(d){ const s = S(d); const set = new Set(); BRANCH[s.mode].slic
 function renderTree(d){
   const s = S(d); const f = found(d); const em = emerging(d); const last = new Set(BRANCH[s.mode][s.turn]?.found || []);
   d.querySelector('[data-tree]').innerHTML = NODES.map(n => `<span class="dl-node d${n.depth} ${f.has(n.id) ? (last.has(n.id) ? 'new' : 'found') : (em.has(n.id) ? 'emerging' : '')}" style="--d:${n.depth}">${esc(n.t)}</span>`).join('');
-  d.querySelector('[data-bar]').innerHTML = NODES.map(n => `<i class="${f.has(n.id) ? (last.has(n.id) ? 'new' : 'on') : ''}"></i>`).join('');
   d.querySelector('[data-progk]').textContent = `${f.size} of ${NODES.length}`;
 }
 function turnHTML(t, i){
