@@ -5,7 +5,7 @@ import { ICON } from '../data/icons.js';
 import Entry from './Entry.astro';
 const byId = Object.fromEntries(publications.publications.map(p => [p.id, p]));
 ---
-<div class="sel-h" id="selected"><h2>Selected work</h2><span class="note">Each figure is a hand-built walkthrough of the system, not live model output.</span></div>
+<div class="sel-h" id="selected"><h2>Selected work</h2></div>
 {themes.map(th => (
   <section class="theme" id={`t-${th.id}`} data-th={th.id} data-spy data-section data-label={th.name}>
     <div class="theme-h"><i class="theme-ic" set:html={ICON[th.id]} /><h2>{th.name}</h2><p class="intro">{th.intro}</p></div>

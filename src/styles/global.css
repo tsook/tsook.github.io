@@ -90,10 +90,9 @@ img{max-width:100%;display:block}
 .map-label[hidden]{display:none}
 
 /* selected work */
-.sel-h{display:flex;align-items:baseline;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+.sel-h{display:flex;align-items:baseline;gap:16px;margin-bottom:22px}
 .sel-h h2{font-size:20px;font-weight:500}
-.sel-h .note{font-size:12.5px;color:var(--ink-3);margin-left:auto}
-.theme{margin-top:56px}
+.theme{margin-top:36px}
 .theme:first-of-type{margin-top:0}
 .theme-h{display:flex;gap:10px;align-items:baseline;padding-bottom:10px;flex-wrap:wrap;border-bottom:1px solid color-mix(in srgb,var(--th,var(--line-3)) 35%,transparent);transition:border-color var(--t) var(--ease)}
 .theme-ic{width:17px;height:17px;color:var(--th,var(--ink-3));align-self:center;flex:none;display:block}
@@ -116,9 +115,9 @@ img{max-width:100%;display:block}
 .entry-links a:hover{color:var(--ink);text-decoration:underline;text-decoration-color:var(--line-3)}
 
 /* publications */
-.section{margin-top:56px;padding-top:28px;border-top:1px solid var(--line-3)}
+.section{margin-top:72px;padding-top:32px;border-top:1px solid var(--line-3)}
 .section-h{display:flex;align-items:baseline;gap:12px;margin-bottom:12px}
-.section-h h2{font-size:18px;font-weight:500;letter-spacing:-.01em}
+.section-h h2{font-size:20px;font-weight:500;letter-spacing:-.01em}
 .year{font-family:var(--mono);font-size:11px;color:var(--ink-3);padding:22px 0 4px}
 .year:first-of-type{padding-top:8px}
 .pub{display:grid;grid-template-columns:136px minmax(0,1fr);gap:18px;padding:12px 0;border-top:1px solid var(--line);align-items:center}
@@ -146,7 +145,6 @@ img{max-width:100%;display:block}
   .portrait{width:72px;height:72px}
   .main{padding-top:0}
   .foot{display:block;padding:28px 20px 40px}
-  .sel-h .note{margin-left:0;flex-basis:100%}
   .entry{grid-template-columns:1fr;gap:14px}
   .fig{height:auto}
   .pub{grid-template-columns:96px minmax(0,1fr);gap:12px}
