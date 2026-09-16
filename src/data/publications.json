@@ -380,8 +380,13 @@
       ],
       "award": null,
       "description": "<p>The Semantic Reader Project is a collaborative effort to build reading interfaces that make scholarly papers easier to read and understand. The interfaces add AI-powered features directly onto the paper, such as inline definitions of terms, links between citations and their references, and ways to skim and navigate dense text. The paper reviews these features and what the project learned about designing for researchers.</p>",
-      "links": {},
-      "line": "AI-powered reading interfaces that make scholarly papers easier to read."
+      "links": {
+        "arxiv": "https://arxiv.org/abs/2303.14334"
+      },
+      "line": "AI-powered reading interfaces that make scholarly papers easier to read.",
+      "thumb": "/images/thumbs/semantic-reader.png",
+      "teaserImage": "/images/semantic-reader.png",
+      "cardImage": "/images/semantic-reader.png"
     },
     {
       "id": "cells-generators-lenses",
