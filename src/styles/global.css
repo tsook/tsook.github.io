@@ -78,30 +78,6 @@ img{max-width:100%;display:block}
 .links a{text-decoration-color:var(--line-2)}
 @media (max-height:700px){ .side{padding:40px 0 22px} .bio{font-size:13px;gap:6px} }
 
-/* page map on the right edge: a rail of ticks, one per section, paper and year; hover shows every label */
-.map{position:fixed;right:0;top:0;height:100vh;width:240px;z-index:20;display:none;touch-action:none;user-select:none;-webkit-user-select:none;pointer-events:none}
-@media (min-width:1060px){ .map{display:block} }
-.map-items{position:absolute;right:22px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:flex-end;gap:7px;pointer-events:auto;transition:gap .2s var(--ease)}
-.map-items:hover,.map-items:focus-within{gap:13px}
-.map-item{position:relative;display:flex;align-items:center;justify-content:flex-end;height:2px;width:22px;text-decoration:none;--tw:10px;--m:1;--k:0}
-.map-item.is-section{--tw:18px}
-.map-item.is-current{--tw:14px}
-.map-item.is-section.is-current{--tw:22px}
-.map-item::after{content:"";position:absolute;left:-8px;right:-8px;top:-4px;bottom:-4px}
-.map-item.gap{margin-top:7px;transition:margin-top .2s var(--ease)}
-.map-items:hover .map-item.gap,.map-items:focus-within .map-item.gap{margin-top:12px}
-.map-tick{display:block;height:2px;width:var(--tw);border-radius:2px;background:var(--line-3);transform-origin:right center;transform:scaleX(var(--m));transition:transform 120ms var(--ease),background var(--t) var(--ease),width var(--t) var(--ease)}
-.map-item.is-section .map-tick{background:var(--th,var(--ink-3))}
-.map-item.is-current .map-tick{background:var(--th,var(--ink))}
-.map-l{position:absolute;right:calc(var(--tw) * var(--m) + 12px);top:50%;transform:translateY(-50%) scale(calc(1 + .4 * var(--k)));transform-origin:right center;font-size:11px;line-height:1;color:color-mix(in srgb,var(--ink) calc(var(--k) * 100%),var(--ink-3));white-space:nowrap;opacity:0;transition:opacity .15s var(--ease),transform 120ms var(--ease),right 120ms var(--ease)}
-.map-item.is-section .map-l{color:var(--th,var(--ink-2));font-weight:500}
-.map-item.is-year .map-l{font-family:var(--mono);font-size:10px;letter-spacing:.02em}
-.map-item.is-current .map-l{color:var(--ink)}
-.map-item.is-section.is-current .map-l{color:var(--th,var(--ink))}
-.map-items:hover .map-l,.map-items:focus-within .map-l{opacity:1}
-.map-item:focus-visible{outline:none}
-.map-item:focus-visible .map-tick{box-shadow:0 0 0 2px var(--ground),0 0 0 4px var(--accent)}
-
 /* selected work */
 .sel-h{display:flex;align-items:baseline;gap:16px;margin-bottom:22px}
 .sel-h h2{font-size:19px;font-weight:500}
@@ -119,6 +95,8 @@ img{max-width:100%;display:block}
 .entry-k{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;font-size:11.5px;color:var(--ink-2)}
 .award{font-size:10.5px;color:var(--award-ink);background:var(--award);padding:1px 7px;border-radius:999px;line-height:1.5;white-space:nowrap}
 .entry h3{font-size:14px;font-weight:500;line-height:1.32;letter-spacing:-.005em}
+.entry h3 a{text-decoration:none}
+.entry h3 a:hover{text-decoration:underline;text-decoration-color:var(--line-3)}
 .authors{font-size:11.5px;color:var(--ink-2);line-height:1.4}
 .authors b{font-weight:500;color:var(--ink)}
 .authors a{text-decoration:none}
@@ -131,9 +109,9 @@ img{max-width:100%;display:block}
 .section{margin-top:72px;padding-top:32px;border-top:1px solid var(--line-3)}
 .section-h{display:flex;align-items:baseline;gap:12px;margin-bottom:12px}
 .section-h h2{font-size:19px;font-weight:500;letter-spacing:-.01em}
-.year{font-family:var(--mono);font-size:11px;color:var(--ink-3);padding:22px 0 4px}
-.year:first-of-type{padding-top:8px}
-.pub{display:grid;grid-template-columns:124px minmax(0,1fr);gap:16px;padding:11px 0;border-top:1px solid var(--line);align-items:center}
+.year{font-family:var(--mono);font-size:11px;color:var(--ink-3);padding:18px 0 6px;border-top:1px solid var(--line);margin-top:10px}
+.year:first-of-type{padding-top:8px;border-top:0;margin-top:0}
+.pub{display:grid;grid-template-columns:124px minmax(0,1fr);gap:16px;padding:9px 0;align-items:center}
 .pub .thumb-gap{width:124px;height:78px}
 .thumb{display:block;width:124px;height:78px;border-radius:6px;border:1px solid var(--line);background:#fff;overflow:hidden}
 .thumb img{width:100%;height:100%;object-fit:contain;display:block}

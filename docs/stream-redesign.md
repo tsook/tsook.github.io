@@ -25,18 +25,15 @@ next one start. After that the figure is interactive and a replay button
 appears in its corner. Any click on a control cancels the walkthrough. With
 `prefers-reduced-motion` the figure jumps to its finished state.
 
-The page map at the right edge is a rail of ticks, one per theme (longer,
-in the theme color), one per paper, one for the publication list and one
-per year in it. Ticks near the pointer magnify; hovering the rail shows
-every label to its left (theme labels in the theme color, years in mono);
-the current tick is solid. Press to jump, drag to scrub. Below 1060px the page
-is one column and the map is hidden. The three linked phrases in the bio
-carry the theme icon and a theme-colored underline, hint their theme
-section on hover, and are marked while that section is on screen.
+The page map is disabled (September 16, 2026): `src/components/PageMap.astro`
+and `src/scripts/map.js` remain in the tree but are not imported.
+`src/scripts/bio.js` keeps the bio behavior: the three linked phrases carry
+the theme icon and a theme-colored underline, hint their theme section on
+hover, and are marked while that section is on screen.
 
 ## Where things live
 
-- `src/pages/index.astro` composes the page and loads the two scripts.
+- `src/pages/index.astro` composes the page and loads `demos.js` and `bio.js`.
 - `src/layouts/Base.astro` is the document head: fonts, favicons, analytics,
   and the two stylesheets.
 - `src/styles/global.css` is the page: tokens (including the three theme
@@ -46,7 +43,6 @@ section on hover, and are marked while that section is on screen.
   one-column breakpoint (1060px) lives in both stylesheets; the figure
   height override must stay in demos.css because it loads last.
 - `src/components/Side.astro` is the left column. The bio text lives here.
-- `src/components/PageMap.astro` renders the map rows from `themes.json`.
 - `src/components/Work.astro` renders the themes (each `section` carries
   `data-th`, which sets the theme color token); `Entry.astro` renders one
   row. `src/data/icons.js` holds the three theme icons used by the header
@@ -59,7 +55,7 @@ section on hover, and are marked while that section is on screen.
   `[data-act]` elements to the module's `act()`.
 - `src/scripts/demos/*.js` hold each figure's behavior and curated text.
   Each exports `init(d)`, `flow(d, tok)`, `final(d)`, `act(d, el, tok)`.
-- `src/scripts/map.js` is the sidebar map.
+- `src/scripts/map.js` and `PageMap.astro` are the disabled page map.
 - `src/components/Publications.astro` is the full list and the posters.
 - `src/data/themes.json` names the themes, their one-line intro, and which
   papers belong to each. `src/data/publications.json` is the paper record;

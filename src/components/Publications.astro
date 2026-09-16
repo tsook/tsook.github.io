@@ -10,7 +10,7 @@ const ME = 'Tae Soo Kim';
 const isNote = a => /^(and|\+)\s/.test(a.name);
 ---
 <section class="section" id="publications" data-spy data-section data-label="All Publications">
-  <div class="section-h"><h2>All Publications</h2><span class="k">{pubs.length} papers</span></div>
+  <div class="section-h"><h2>All Publications</h2></div>
   {years.map(y => (<>
     <div class="year" id={`y-${y}`}>{y}</div>
     {pubs.filter(p => Number(p.year) === y).map(p => (
