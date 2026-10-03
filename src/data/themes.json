@@ -2,25 +2,25 @@
   {
     "id": "expanding",
     "name": "Expanding",
-    "intro": "Turning a vague request into concrete options to try.",
+    "intro": "Helping people expand what they can draft and explore.",
     "papers": [
-      "stylette",
-      "cells-generators-lenses"
+      "cells-generators-lenses",
+      "stylette"
     ]
   },
   {
     "id": "navigating",
     "name": "Navigating",
-    "intro": "Judging many model outputs at once, on criteria of your own.",
+    "intro": "Helping people compare alternatives and learn from them.",
     "papers": [
-      "evallm",
-      "evalet"
+      "evalet",
+      "evallm"
     ]
   },
   {
     "id": "modeling",
     "name": "Modeling",
-    "intro": "Benchmarks and training signals built from how goals change across a conversation.",
+    "intro": "Modeling how goals develop to train and evaluate AI.",
     "papers": [
       "discoverllm",
       "cupid"

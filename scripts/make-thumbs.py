@@ -10,7 +10,10 @@ from PIL import Image, ImageOps, ImageChops
 
 W, H, PAD = 360, 225, 8
 OVERRIDE = {  # paper id -> source image, when the teaser is not the right picture
-    'evallm': 'public/images/evallm-still.png',
+    'evallm': 'public/images/evallm-system.png',  # *-system: the interface, cropped from the paper
+    'evalet': 'public/images/evalet-system.png',
+    'genquery': 'public/images/genquery-system.png',
+    'clearfairy': 'public/images/clearfairy-system.png',
     'cells-generators-lenses': 'public/images/llm-objects.png',
     'one-vs-many': 'public/images/onevsmany.png',
 }
