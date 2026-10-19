@@ -1,12 +1,14 @@
 # CV
 
-`cv.tex` is the source of the CV linked from the site. Edit it here, then run
+The CV source now lives in the application-documents repo
+(`github.com/tsook/research_statement`, file `cv/content.tex`, style
+`styles/cv.sty`). Edit it there, then run
 
     npm run cv
 
-which compiles it with tectonic (or latexmk) and copies the result to
-`public/pdf/TaeSooKim_CV.pdf`. Commit both the `.tex` and the PDF; the
-site serves the committed PDF, nothing compiles at deploy time.
+from this repo. It builds that project and copies the CV to
+`public/pdf/TaeSooKim_CV.pdf`. Commit the PDF; the site serves the
+committed PDF, nothing compiles at deploy time.
 
-The document compiles under XeLaTeX (uses Times New Roman when the system
-has it, otherwise the newtx fonts) and under pdfLaTeX.
+`cv.tex` and `cv.pdf` in this folder are the older Google Docs based CV,
+kept for reference only.

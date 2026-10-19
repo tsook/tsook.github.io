@@ -1,16 +1,14 @@
 #!/bin/sh
-# Compile cv/cv.tex and place the PDF where the site links it.
-# Uses tectonic (https://tectonic-typesetting.github.io) if present, else latexmk.
+# Build the CV from the application-documents repo and place the PDF where the site links it.
+# Source of truth: ../research_statement (github.com/tsook/research_statement), cv/content.tex.
 set -e
 cd "$(dirname "$0")"
-export PATH="$HOME/.local/bin:/Library/TeX/texbin:$PATH"
-if command -v tectonic >/dev/null 2>&1; then
-  tectonic --keep-logs -o . cv.tex
-elif command -v latexmk >/dev/null 2>&1; then
-  latexmk -xelatex -interaction=nonstopmode -quiet cv.tex && latexmk -c cv.tex
-else
-  echo "No LaTeX engine found. Install tectonic (a single binary) from https://github.com/tectonic-typesetting/tectonic/releases into ~/.local/bin, or a TeX distribution with latexmk." >&2
+src="${CV_REPO:-../../research_statement}"
+if [ ! -d "$src" ]; then
+  echo "CV repo not found at $src. Clone github.com/tsook/research_statement next to this repo or set CV_REPO." >&2
   exit 1
 fi
-cp cv.pdf ../public/pdf/TaeSooKim_CV.pdf
+export PATH="$HOME/.local/bin:$PATH"
+bash "$src/support/build.sh"
+cp "$src/.build/output/pdf/cv.pdf" ../public/pdf/TaeSooKim_CV.pdf
 echo "Wrote public/pdf/TaeSooKim_CV.pdf"
