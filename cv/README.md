@@ -7,7 +7,7 @@ The CV source now lives in the application-documents repo
     npm run cv
 
 from this repo. It builds that project and copies the CV to
-`public/pdf/TaeSooKim_CV.pdf`. Commit the PDF; the site serves the
+`public/pdf/TaeSooKim_CV.pdf` (the website version, without role descriptions). Commit the PDF; the site serves the
 committed PDF, nothing compiles at deploy time.
 
 `cv.tex` and `cv.pdf` in this folder are the older Google Docs based CV,

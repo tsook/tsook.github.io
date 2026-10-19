@@ -10,5 +10,5 @@ if [ ! -d "$src" ]; then
 fi
 export PATH="$HOME/.local/bin:$PATH"
 bash "$src/support/build.sh"
-cp "$src/.build/output/pdf/cv.pdf" ../public/pdf/TaeSooKim_CV.pdf
+cp "$src/.build/output/pdf/cv-web.pdf" ../public/pdf/TaeSooKim_CV.pdf
 echo "Wrote public/pdf/TaeSooKim_CV.pdf"
